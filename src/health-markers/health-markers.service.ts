@@ -1,26 +1,44 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateHealthMarkerDto } from './dto/create-health-marker.dto';
 import { UpdateHealthMarkerDto } from './dto/update-health-marker.dto';
+import { UpdateSingleFieldDto } from '../dto/update-single-field.dto';
+import { HealthMarker } from './entities/health-marker.entity';
 
 @Injectable()
 export class HealthMarkersService {
-  create(createHealthMarkerDto: CreateHealthMarkerDto) {
-    return 'This action adds a new healthMarker';
+  constructor(
+    @InjectModel(HealthMarker.name) private healthMarkerModel: Model<HealthMarker>,
+  ) {}
+
+  async create(createHealthMarkerDto: CreateHealthMarkerDto) {
+    const createdHealthMarker = new this.healthMarkerModel(createHealthMarkerDto);
+    return createdHealthMarker.save();
   }
 
-  findAll() {
-    return `This action returns all healthMarkers`;
+  async findAll() {
+    return this.healthMarkerModel.find().populate('parentCategory').exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} healthMarker`;
+  async findOne(id: string) {
+    return this.healthMarkerModel.findOne({ id }).populate('parentCategory').exec();
   }
 
-  update(id: number, updateHealthMarkerDto: UpdateHealthMarkerDto) {
-    return `This action updates a #${id} healthMarker`;
+  async update(id: string, updateHealthMarkerDto: UpdateHealthMarkerDto) {
+    return this.healthMarkerModel.findOneAndUpdate({ id }, updateHealthMarkerDto, { new: true }).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} healthMarker`;
+  async updateField(updateSingleFieldDto: UpdateSingleFieldDto) {
+    const { id, fieldName, value } = updateSingleFieldDto;
+    return this.healthMarkerModel.findOneAndUpdate(
+      { id },
+      { [fieldName]: value },
+      { new: true }
+    ).exec();
+  }
+
+  async remove(id: string) {
+    return this.healthMarkerModel.findOneAndDelete({ id }).exec();
   }
 }

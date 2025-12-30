@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { HealthCategoriesService } from './health-categories.service';
 import { CreateHealthCategoryDto } from './dto/create-health-category.dto';
 import { UpdateHealthCategoryDto } from './dto/update-health-category.dto';
+import { UpdateSingleFieldDto } from '../dto/update-single-field.dto';
 
 @Controller('health-categories')
 export class HealthCategoriesController {
@@ -19,16 +20,21 @@ export class HealthCategoriesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.healthCategoriesService.findOne(+id);
+    return this.healthCategoriesService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateHealthCategoryDto: UpdateHealthCategoryDto) {
-    return this.healthCategoriesService.update(+id, updateHealthCategoryDto);
+    return this.healthCategoriesService.update(id, updateHealthCategoryDto);
+  }
+
+  @Patch('field/update')
+  updateField(@Body() updateSingleFieldDto: UpdateSingleFieldDto) {
+    return this.healthCategoriesService.updateField(updateSingleFieldDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.healthCategoriesService.remove(+id);
+    return this.healthCategoriesService.remove(id);
   }
 }

@@ -1,26 +1,44 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateHealthCategoryDto } from './dto/create-health-category.dto';
 import { UpdateHealthCategoryDto } from './dto/update-health-category.dto';
+import { UpdateSingleFieldDto } from '../dto/update-single-field.dto';
+import { HealthCategory } from './entities/health-category.entity';
 
 @Injectable()
 export class HealthCategoriesService {
-  create(createHealthCategoryDto: CreateHealthCategoryDto) {
-    return 'This action adds a new healthCategory';
+  constructor(
+    @InjectModel(HealthCategory.name) private healthCategoryModel: Model<HealthCategory>,
+  ) {}
+
+  async create(createHealthCategoryDto: CreateHealthCategoryDto) {
+    const createdHealthCategory = new this.healthCategoryModel(createHealthCategoryDto);
+    return createdHealthCategory.save();
   }
 
-  findAll() {
-    return `This action returns all healthCategories`;
+  async findAll() {
+    return this.healthCategoryModel.find().populate('healthMarkers').exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} healthCategory`;
+  async findOne(id: string) {
+    return this.healthCategoryModel.findOne({ id }).populate('healthMarkers').exec();
   }
 
-  update(id: number, updateHealthCategoryDto: UpdateHealthCategoryDto) {
-    return `This action updates a #${id} healthCategory`;
+  async update(id: string, updateHealthCategoryDto: UpdateHealthCategoryDto) {
+    return this.healthCategoryModel.findOneAndUpdate({ id }, updateHealthCategoryDto, { new: true }).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} healthCategory`;
+  async updateField(updateSingleFieldDto: UpdateSingleFieldDto) {
+    const { id, fieldName, value } = updateSingleFieldDto;
+    return this.healthCategoryModel.findOneAndUpdate(
+      { id },
+      { [fieldName]: value },
+      { new: true }
+    ).exec();
+  }
+
+  async remove(id: string) {
+    return this.healthCategoryModel.findOneAndDelete({ id }).exec();
   }
 }
