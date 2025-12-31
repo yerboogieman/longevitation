@@ -25,6 +25,10 @@ export class UsersService {
     return this.userModel.findOne({ id }).exec();
   }
 
+  async remove(id: string) {
+    return this.userModel.findOneAndDelete({ id }).exec();
+  }
+
   async update(id: string, updateUserDto: UpdateUserDto) {
     return this.userModel.findOneAndUpdate({ id }, updateUserDto, { new: true }).exec();
   }
@@ -36,9 +40,5 @@ export class UsersService {
       { [fieldName]: value },
       { new: true }
     ).exec();
-  }
-
-  async remove(id: string) {
-    return this.userModel.findOneAndDelete({ id }).exec();
   }
 }

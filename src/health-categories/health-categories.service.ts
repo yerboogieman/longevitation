@@ -25,6 +25,10 @@ export class HealthCategoriesService {
     return this.healthCategoryModel.findOne({ id }).populate('healthMarkers').exec();
   }
 
+  async remove(id: string) {
+    return this.healthCategoryModel.findOneAndDelete({ id }).exec();
+  }
+
   async update(id: string, updateHealthCategoryDto: UpdateHealthCategoryDto) {
     return this.healthCategoryModel.findOneAndUpdate({ id }, updateHealthCategoryDto, { new: true }).exec();
   }
@@ -36,9 +40,5 @@ export class HealthCategoriesService {
       { [fieldName]: value },
       { new: true }
     ).exec();
-  }
-
-  async remove(id: string) {
-    return this.healthCategoryModel.findOneAndDelete({ id }).exec();
   }
 }

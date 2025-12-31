@@ -5,6 +5,7 @@ import { CreateHealthMarkerDto } from './dto/create-health-marker.dto';
 import { UpdateHealthMarkerDto } from './dto/update-health-marker.dto';
 import { UpdateSingleFieldDto } from '../dto/update-single-field.dto';
 import { HealthMarker } from './entities/health-marker.entity';
+import {HealthMarkerUtil} from "./health-marker-utils";
 
 @Injectable()
 export class HealthMarkersService {
@@ -12,17 +13,25 @@ export class HealthMarkersService {
     @InjectModel(HealthMarker.name) private healthMarkerModel: Model<HealthMarker>,
   ) {}
 
+  async calculateScore(healthMarkerId: string): Promise<number> {
+    return HealthMarkerUtil.calculateScore(healthMarkerId)
+  }
+
   async create(createHealthMarkerDto: CreateHealthMarkerDto) {
     const createdHealthMarker = new this.healthMarkerModel(createHealthMarkerDto);
     return createdHealthMarker.save();
   }
 
   async findAll() {
-    return this.healthMarkerModel.find().populate('parentCategory').exec();
+    return this.healthMarkerModel.find().exec();
   }
 
   async findOne(id: string) {
-    return this.healthMarkerModel.findOne({ id }).populate('parentCategory').exec();
+    return this.healthMarkerModel.findOne({ id }).exec();
+  }
+
+  async remove(id: string) {
+    return this.healthMarkerModel.findOneAndDelete({ id }).exec();
   }
 
   async update(id: string, updateHealthMarkerDto: UpdateHealthMarkerDto) {
@@ -36,9 +45,5 @@ export class HealthMarkersService {
       { [fieldName]: value },
       { new: true }
     ).exec();
-  }
-
-  async remove(id: string) {
-    return this.healthMarkerModel.findOneAndDelete({ id }).exec();
   }
 }
