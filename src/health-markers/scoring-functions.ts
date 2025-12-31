@@ -1,4 +1,3 @@
-
 export type ScoringFunctions = {
     bmi: (weight: number, height: number) => number;
     bloodPressure: (systolic: number, diastolic: number) => number;
