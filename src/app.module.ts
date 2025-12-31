@@ -1,14 +1,12 @@
-import {Module, OnModuleInit} from '@nestjs/common';
+import {Module} from '@nestjs/common';
 import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {HealthCategoriesModule} from './health-categories/health-categories.module';
 import {HealthMarkersModule} from './health-markers/health-markers.module';
 import {MongooseModule} from "@nestjs/mongoose";
 import {ConfigModule, ConfigService} from '@nestjs/config';
-import { HealthStatsModule } from './health-stats/health-stats.module';
-import { UsersModule } from './users/users.module';
-import {HealthMarkerUtil} from "./health-markers/health-marker-utils";
-import {scoringFunctions} from "./health-markers/scoring-functions";
+import {HealthStatsModule} from './health-stats/health-stats.module';
+import {UsersModule} from './users/users.module';
 import {HealthMarkersController} from "./health-markers/health-markers.controller";
 import {HealthCategoriesController} from "./health-categories/health-categories.controller";
 
@@ -36,10 +34,5 @@ import {HealthCategoriesController} from "./health-categories/health-categories.
     ],
     providers: [AppService],
 })
-export class AppModule implements OnModuleInit {
-    onModuleInit() {
-        // Register health marker scoring functions
-        HealthMarkerUtil.register(scoringFunctions);
-        console.log('HealthMarkerUtil initialized');
-    }
+export class AppModule {
 }
