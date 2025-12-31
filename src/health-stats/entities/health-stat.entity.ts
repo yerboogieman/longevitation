@@ -1,5 +1,6 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {Document} from 'mongoose';
+import {HealthMarkerUtil} from "../../health-markers/health-marker-utils";
 
 @Schema()
 export class HealthStat extends Document {
@@ -11,10 +12,11 @@ export class HealthStat extends Document {
     healthMarkerId: string;
 
     @Prop({type: Object, required: true})
-    score: any;
+    data: any;
 
-    getScore(): number {
-        return this.score.score;
+    calculateScore(): number {
+        // TODO: unpack args and pass to HealthMarkerUtil
+        return HealthMarkerUtil.calculateScore(this.healthMarkerId, this.data);
     }
 }
 

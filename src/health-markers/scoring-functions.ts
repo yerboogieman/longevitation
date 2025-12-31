@@ -5,7 +5,8 @@ export type ScoringFunctions = {
 };
 
 export const scoringFunctions: ScoringFunctions = {
-    bmi: (weight, height): number => {
+    bmi: (data: any): number => {
+        const {weight, height} = data;
         const bmi = weight / (height * height);
         if (bmi < 18.5) return 1;
         if (bmi < 25) return 5;
@@ -13,13 +14,15 @@ export const scoringFunctions: ScoringFunctions = {
         return 1;
     },
 
-    bloodPressure: (systolic, diastolic): number => {
+    bloodPressure: (data: any): number => {
+        const {systolic, diastolic} = data;
         if (systolic < 120 && diastolic < 80) return 5;
         if (systolic < 140 && diastolic < 90) return 3;
         return 1;
     },
 
-    cholesterol: (total, hdl): number => {
+    cholesterol: (data: any): number => {
+        const {total, hdl} = data;
         const ratio = total / hdl;
         if (ratio < 3.5) return 5;
         if (ratio < 5) return 3;
