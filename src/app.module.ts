@@ -7,14 +7,9 @@ import {MongooseModule} from "@nestjs/mongoose";
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import {HealthStatsModule} from './health-stats/health-stats.module';
 import {UsersModule} from './users/users.module';
-import {HealthMarkersController} from "./health-markers/health-markers.controller";
-import {HealthCategoriesController} from "./health-categories/health-categories.controller";
-
 @Module({
     controllers: [
         AppController,
-        HealthCategoriesController,
-        HealthMarkersController,
     ],
     imports: [
         ConfigModule.forRoot({

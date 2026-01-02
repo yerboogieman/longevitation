@@ -15,7 +15,6 @@ export class HealthStat extends Document {
     data: any;
 
     calculateScore(): number {
-        // TODO: unpack args and pass to HealthMarkerUtil
         return HealthMarkerUtil.calculateScore(this.healthMarkerId, this.data);
     }
 }
