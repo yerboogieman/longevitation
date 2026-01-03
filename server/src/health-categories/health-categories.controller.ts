@@ -38,4 +38,14 @@ export class HealthCategoriesController {
     remove(@Param('id') id: string) {
         return this.healthCategoriesService.remove(id);
     }
+
+    @Post(':categoryId/markers/:markerId')
+    addMarker(@Param('categoryId') categoryId: string, @Param('markerId') markerId: string) {
+        return this.healthCategoriesService.addMarker(categoryId, markerId);
+    }
+
+    @Delete(':categoryId/markers/:markerId')
+    removeMarker(@Param('categoryId') categoryId: string, @Param('markerId') markerId: string) {
+        return this.healthCategoriesService.removeMarker(categoryId, markerId);
+    }
 }

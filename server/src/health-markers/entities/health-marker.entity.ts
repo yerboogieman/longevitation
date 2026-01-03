@@ -1,24 +1,30 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import {Document} from 'mongoose';
+import {Document, Types} from 'mongoose';
+import {HealthCategory} from '../../health-categories/entities/health-category.entity';
 
-@Schema()
+@Schema({collection: 'healthMarkers'})
 export class HealthMarker extends Document {
 
     @Prop({required: true, unique: true})
     id: string;
 
-    @Prop({required: true})
-    weightingFactor: number;
+    @Prop({type: [{type: Types.ObjectId, ref: 'HealthCategory'}], default: []})
+    healthCategories: HealthCategory[];
 
-    getScore(userScores: { category: string; score: number }[]): number {
+    @Prop({required: true})
+    importance: number;
+
+    calculateScore(userScores: { category: string; score: number }[]): number {
+
         const MAX_CATEGORY_SCORE = 100;
         let possibleScoresTotal = 0;
         let actualScoresTotal = 0;
 
         for (const userScore of userScores) {
-            const weightingFactor = this.weightingFactor;
-            const maxPossibleScores = weightingFactor * MAX_CATEGORY_SCORE;
-            const actualScore = weightingFactor * userScore.score;
+
+            const importance = this.importance;
+            const maxPossibleScores = importance * MAX_CATEGORY_SCORE;
+            const actualScore = importance * userScore.score;
 
             possibleScoresTotal += maxPossibleScores;
             actualScoresTotal += actualScore;

@@ -2,7 +2,7 @@ import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {Document, Types} from 'mongoose';
 import {HealthMarker} from '../../health-markers/entities/health-marker.entity';
 
-@Schema()
+@Schema({collection: 'healthCategories'})
 export class HealthCategory extends Document {
 
     @Prop({required: true, unique: true})
@@ -12,21 +12,21 @@ export class HealthCategory extends Document {
     healthMarkers: HealthMarker[];
 
     @Prop({required: true})
-    weightingFactor: number;
+    importance: number;
 
-    async getScore(): Promise<number> {
+    async calculateScore(): Promise<number> {
 
         if (!this.healthMarkers || this.healthMarkers.length === 0) {
             return 0;
         }
 
         const totalScore = this.healthMarkers.reduce((sum, marker) => {
-            return sum + marker.weightingFactor;
+            return sum + marker.importance;
         }, 0);
 
         const averageScore = totalScore / this.healthMarkers.length;
 
-        return averageScore * this.weightingFactor;
+        return averageScore * this.importance;
     }
 }
 

@@ -2,7 +2,7 @@ import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {Document} from 'mongoose';
 import {HealthMarkerUtil} from "../../health-markers/health-marker-utils";
 
-@Schema()
+@Schema({collection: 'healthStats'})
 export class HealthStat extends Document {
 
     @Prop({required: true})
