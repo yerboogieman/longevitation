@@ -1,11 +1,11 @@
-import { Container } from '@customation/ui-components';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles.css';
+import {Body, Container} from '@customation/ui-components';
 
 function App() {
     return (
         <div className="App">
-            <Container />
+            <Container>
+                <Body/>
+            </Container>
         </div>
     );
 }
