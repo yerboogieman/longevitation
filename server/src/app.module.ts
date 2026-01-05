@@ -6,7 +6,6 @@ import {HealthMarkersModule} from './health-markers/health-markers.module';
 import {MongooseModule} from "@nestjs/mongoose";
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import {HealthStatsModule} from './health-stats/health-stats.module';
-import {UsersModule} from './users/users.module';
 
 @Module({
     controllers: [
@@ -26,7 +25,6 @@ import {UsersModule} from './users/users.module';
             }),
             inject: [ConfigService],
         }),
-        UsersModule,
     ],
     providers: [AppService],
 })

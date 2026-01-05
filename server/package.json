@@ -20,8 +20,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@customation/model": "^1.0.7",
-    "@customation/workflow": "^1.0.7",
+    "@customation/model": "^1.0.9",
+    "@customation/workflow": "^1.0.9",
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",

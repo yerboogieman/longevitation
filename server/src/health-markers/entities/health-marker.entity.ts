@@ -1,9 +1,10 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import {Document, Types} from 'mongoose';
+import {Types} from 'mongoose';
+import {BaseDocument} from '@customation/model';
 import {HealthCategory} from '../../health-categories/entities/health-category.entity';
 
 @Schema({collection: 'healthMarkers'})
-export class HealthMarker extends Document {
+export class HealthMarker extends BaseDocument {
 
     @Prop({required: true, unique: true})
     id: string;
@@ -31,6 +32,22 @@ export class HealthMarker extends Document {
         }
 
         return possibleScoresTotal > 0 ? (actualScoresTotal / possibleScoresTotal) * 100 : 0;
+    }
+
+    static fromJson(json: any): HealthMarker {
+        const healthMarker = new HealthMarker();
+        healthMarker.id = json.id;
+        healthMarker.importance = json.importance;
+        healthMarker.healthCategories = json.healthCategories || [];
+        return healthMarker;
+    }
+
+    toJson(): any {
+        return {
+            id: this.id,
+            importance: this.importance,
+            healthCategories: this.healthCategories,
+        };
     }
 }
 
