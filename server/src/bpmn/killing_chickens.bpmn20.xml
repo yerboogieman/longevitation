@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef" exporter="Flowable Open Source Modeler" exporterVersion="6.8.0">
+  <process id="killingChickens" name="Killing chickens" isExecutable="true">
+    <startEvent id="startProcess" name="Start" flowable:formFieldValidation="true"/>
+    <sequenceFlow id="afterStartProcess" sourceRef="startProcess" targetRef="doMyWork"/>
+    <userTask id="doMyWork" name="Do my work" flowable:formFieldValidation="true"/>
+    <sequenceFlow id="afterDoMyWork" sourceRef="doMyWork" targetRef="killChickens"/>
+    <userTask id="killChickens" name="Kill chickens" flowable:formFieldValidation="true"/>
+    <sequenceFlow id="afterKillChickens" sourceRef="killChickens" targetRef="endProcess"/>
+    <endEvent id="endProcess" name="End"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_killingChickens">
+    <bpmndi:BPMNPlane bpmnElement="killingChickens" id="BPMNPlane_killingChickens">
+      <bpmndi:BPMNShape bpmnElement="startProcess" id="BPMNShape_startProcess">
+        <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="163.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="doMyWork" id="BPMNShape_doMyWork">
+        <omgdc:Bounds height="80.0" width="100.0" x="225.0000031698836" y="138.00000194419528"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="killChickens" id="BPMNShape_killChickens">
+        <omgdc:Bounds height="80.0" width="100.0" x="405.0000057057905" y="138.00000388839058"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endProcess" id="BPMNShape_endProcess">
+        <omgdc:Bounds height="28.0" width="28.0" x="585.0000082416974" y="164.00000425468824"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="afterKillChickens" id="BPMNEdge_afterKillChickens" flowable:sourceDockerX="50.0" flowable:sourceDockerY="40.0" flowable:targetDockerX="14.0" flowable:targetDockerY="14.0">
+        <omgdi:waypoint x="504.95000570577804" y="178.0000040154501"/>
+        <omgdi:waypoint x="585.0000082416974" y="178.00000421907598"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="afterDoMyWork" id="BPMNEdge_afterDoMyWork" flowable:sourceDockerX="50.0" flowable:sourceDockerY="40.0" flowable:targetDockerX="50.0" flowable:targetDockerY="40.0">
+        <omgdi:waypoint x="324.95000057780004" y="178.00000248370944"/>
+        <omgdi:waypoint x="405.00000427043426" y="178.00000334833632"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="afterStartProcess" id="BPMNEdge_afterStartProcess" flowable:sourceDockerX="15.0" flowable:sourceDockerY="15.0" flowable:targetDockerX="50.0" flowable:targetDockerY="40.0">
+        <omgdi:waypoint x="129.9499992860067" y="178.00000018166074"/>
+        <omgdi:waypoint x="225.00000247167003" y="178.00000133663426"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
