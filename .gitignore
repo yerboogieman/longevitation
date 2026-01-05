@@ -1,4 +1,9 @@
+# Claude AI config
+/.claude/
+
+# IntelliJ config
 /.idea/
+
 **/node_modules/
 **/dist/
 **/.env
