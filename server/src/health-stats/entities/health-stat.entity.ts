@@ -1,5 +1,5 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import {BaseDocument} from '@customation/model';
+import {BaseDocument} from '@customation/model/document';
 import {HealthMarkerUtil} from "../../health-markers/health-marker-utils";
 
 @Schema({collection: 'healthStats'})
@@ -16,22 +16,6 @@ export class HealthStat extends BaseDocument {
 
     calculateScore(): number {
         return HealthMarkerUtil.calculateScore(this.healthMarkerId, this.data);
-    }
-
-    static fromJson(json: any): HealthStat {
-        const healthStat = new HealthStat();
-        healthStat.userId = json.userId;
-        healthStat.healthMarkerId = json.healthMarkerId;
-        healthStat.data = json.data;
-        return healthStat;
-    }
-
-    toJson(): any {
-        return {
-            userId: this.userId,
-            healthMarkerId: this.healthMarkerId,
-            data: this.data,
-        };
     }
 }
 
