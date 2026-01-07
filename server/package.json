@@ -20,20 +20,28 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@customation/model": "^1.0.9",
-    "@customation/workflow": "^1.0.9",
+    "@customation/core": "^1.0.17",
+    "@customation/data": "^1.0.17",
+    "@customation/model": "^1.0.17",
+    "@customation/security": "^1.0.17",
+    "@customation/service": "^1.0.17",
+    "@customation/web": "^1.0.17",
+    "@customation/workflow": "^1.0.17",
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/event-emitter": "^3.0.1",
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^11.0.4",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/swagger": "^11.2.3",
+    "@nestjs/typeorm": "^11.0.0",
     "axios": "^1.13.2",
-    "mongoose": "^9.1.0",
+    "mongoose": "^9.1.2",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.28"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

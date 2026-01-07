@@ -6,6 +6,8 @@ import {HealthMarkersModule} from './health-markers/health-markers.module';
 import {MongooseModule} from "@nestjs/mongoose";
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import {HealthStatsModule} from './health-stats/health-stats.module';
+import {UsersModule} from './users/users.module';
+import {AuthModule} from './auth/auth.module';
 
 @Module({
     controllers: [
@@ -18,6 +20,8 @@ import {HealthStatsModule} from './health-stats/health-stats.module';
         HealthCategoriesModule,
         HealthMarkersModule,
         HealthStatsModule,
+        UsersModule,
+        AuthModule,
         MongooseModule.forRootAsync({
             imports: [ConfigModule],
             useFactory: async (configService: ConfigService) => ({

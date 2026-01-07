@@ -1,0 +1,45 @@
+import { Module } from '@nestjs/common';
+import { MongooseModule, getModelToken } from '@nestjs/mongoose';
+import { EventEmitter2, EventEmitterModule } from '@nestjs/event-emitter';
+import { User, UserSchema } from '@customation/model/document';
+import { AuthController } from '@customation/web';
+import { UserService } from '@customation/service';
+import { UserMongooseRepository, RoleMongooseRepository } from '@customation/data';
+import { SecurityModule, AuthService } from '@customation/security';
+import { Model } from 'mongoose';
+
+@Module({
+  imports: [
+    MongooseModule.forFeature([
+      { name: User.name, schema: UserSchema },
+    ]),
+    EventEmitterModule.forRoot(),
+    SecurityModule,
+  ],
+  controllers: [AuthController],
+  providers: [
+    {
+      provide: 'IUserRepository',
+      useFactory: (userModel: Model<User>) => {
+        return new UserMongooseRepository(userModel);
+      },
+      inject: [getModelToken(User.name)],
+    },
+    {
+      provide: 'IRoleRepository',
+      useFactory: (userModel: Model<User>) => {
+        return new RoleMongooseRepository(userModel);
+      },
+      inject: [getModelToken(User.name)],
+    },
+    {
+      provide: UserService,
+      useFactory: (userRepository: UserMongooseRepository, authService: AuthService, eventEmitter: EventEmitter2) => {
+        return new UserService(userRepository, authService, eventEmitter);
+      },
+      inject: ['IUserRepository', AuthService, EventEmitter2],
+    },
+  ],
+  exports: [UserService],
+})
+export class AuthModule {}
