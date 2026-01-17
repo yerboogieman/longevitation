@@ -1,6 +1,8 @@
-version: '3.8'
+
+name: longevitation
 
 services:
+
   mongodb:
     image: mongo:7
     container_name: longevitation-mongodb
@@ -14,7 +16,7 @@ services:
     ports:
       - "${MONGO_PORT}:27017"
     volumes:
-      - mongodb_data:/data/db
+      - longevitation_mongodb_data:/data/db
 
 volumes:
-  mongodb_data:
+  longevitation_mongodb_data:
