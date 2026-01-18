@@ -4,6 +4,7 @@ import Users from "./components/Users.tsx";
 import ScoreInfo from "./components/ScoreInfo.tsx";
 import Summary from "./components/Summary.tsx";
 import HealthCategories from "./components/HealthCategories.tsx";
+import GettingStarted from "./components/GettingStarted.tsx";
 import {AppContainer} from '@customation/ui';
 import '@customation/ui/dist/ui.css';
 import {accountMenuItems} from "./menu-data/account-menu-items.ts";
@@ -17,6 +18,7 @@ function App() {
         topNav: {
             backgroundColor: "#000080",
             color: "#ffffff",
+            height: "50px",
             hoverBackgroundColor: "#0000c0",
             logoImage: "longevitation-logo.png",
             menu: {
@@ -29,21 +31,29 @@ function App() {
         }
     };
 
+    const score = 88;
+    const setupComplete = true;
+
     return (
         <BrowserRouter>
             <div className="App">
                 <AppContainer accountMenuItems={accountMenuItems}
                               styles={styles}>
                     <Routes>
-                        <Route path="/" element={<Navigate to="/score-info" replace/>}/>
-                        <Route path="/score-info" element={<ScoreInfo
-                            styles={{
-                                inactiveColor: "#6c757d",
-                                inactiveBackgroundColor: "#f8f9fa"
-                            }}/>}>
+                        <Route path="/" element={<Navigate to={setupComplete ? "/score-info" : "/getting-started"} replace/>}/>
+                        <Route path="/score-info/*" element={setupComplete ? (
+                            <ScoreInfo score={score}
+                                styles={{
+                                    inactiveColor: "#6c757d",
+                                    inactiveBackgroundColor: "#f8f9fa"
+                                }}/>
+                        ) : (
+                            <Navigate to="/getting-started" replace/>
+                        )}>
                             <Route index element={<Summary/>}/>
                             <Route path="categories" element={<HealthCategories/>}/>
                         </Route>
+                        <Route path="/getting-started" element={<GettingStarted/>}/>
                         <Route path="/case-list" element={<CaseList/>}/>
                         <Route path="/clients" element={<Clients/>}/>
                         <Route path="/users" element={<Users/>}/>

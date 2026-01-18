@@ -1,11 +1,23 @@
-import {useState} from "react";
+import {useState, useMemo} from "react";
 import {Outlet, NavLink} from "react-router-dom";
+import Highcharts from "highcharts/highstock";
+import HighchartsReact from "highcharts-react-official";
+import MoreModule from "highcharts/highcharts-more";
+import SolidGaugeModule from "highcharts/modules/solid-gauge";
+
+if (typeof MoreModule === "function") {
+    (MoreModule as any)(Highcharts);
+}
+if (typeof SolidGaugeModule === "function") {
+    (SolidGaugeModule as any)(Highcharts);
+}
 
 interface ScoreInfoProps {
     styles: {
         inactiveColor: string;
         inactiveBackgroundColor: string;
     };
+    score: number;
 }
 
 interface HeaderMenuItem {
@@ -16,16 +28,74 @@ interface HeaderMenuItem {
 }
 
 const headerMenuItems: HeaderMenuItem[] = [
-    {id: "summary", label: "Summary", icon: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z", path: ""},
+    {id: "overview", label: "Overview", icon: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z", path: ""},
     {id: "health-categories", label: "Categories", icon: "M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z", path: "categories"},
     {id: "trends", label: "Trends", icon: "M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z", path: "trends"},
     {id: "recommendations", label: "Recommendations", icon: "M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z", path: "recommendations"},
 ];
 
-function ScoreInfo({styles}: ScoreInfoProps) {
+function ScoreInfo({styles, score}: ScoreInfoProps) {
 
     const [hoveredHeaderTab, setHoveredHeaderTab] = useState<string | null>(null);
     const {inactiveColor, inactiveBackgroundColor} = styles;
+
+    const gaugeOptions: Highcharts.Options = useMemo(() => ({
+        chart: {
+            type: "solidgauge",
+            height: 120,
+            width: 120,
+            backgroundColor: "transparent",
+            margin: [0, 0, 0, 0],
+            spacing: [0, 0, 0, 0]
+        },
+        title: undefined,
+        pane: {
+            center: ["50%", "50%"],
+            size: "100%",
+            startAngle: -90,
+            endAngle: 90,
+            background: [{
+                backgroundColor: Highcharts.color(inactiveColor).setOpacity(0.2).get(),
+                innerRadius: "60%",
+                outerRadius: "100%",
+                shape: "arc",
+                borderWidth: 0
+            }]
+        },
+        exporting: {enabled: false},
+        tooltip: {enabled: false},
+        credits: {enabled: false},
+        yAxis: {
+            min: 0,
+            max: 100,
+            stops: [
+                [0.3, "#DF5353"],
+                [0.6, "#DDDF0D"],
+                [0.9, "#55BF3B"]
+            ],
+            lineWidth: 0,
+            tickWidth: 0,
+            minorTickInterval: undefined,
+            tickAmount: 0,
+            labels: {enabled: false}
+        },
+        plotOptions: {
+            solidgauge: {
+                dataLabels: {
+                    enabled: true,
+                    y: -15,
+                    borderWidth: 0,
+                    format: `<span style="font-size:18px;font-weight:bold;color:${inactiveColor}">{y}</span>`
+                }
+            }
+        },
+        series: [{
+            type: "solidgauge",
+            name: "Score",
+            data: [score],
+            innerRadius: "60%"
+        }]
+    }), [score, inactiveColor]);
 
     return (
         <div className="h-100 w-100" style={{
@@ -42,7 +112,7 @@ function ScoreInfo({styles}: ScoreInfoProps) {
                 justifyContent: "space-between",
                 position: "relative"
             }}>
-                <h4 className="fw-bold m-0" style={{paddingBottom: "16px"}}>Your Score</h4>
+                <h4 className="fw-bold m-0" style={{paddingBottom: "16px"}}>My Health</h4>
                 <ul style={{
                     display: "flex",
                     listStyle: "none",
@@ -93,9 +163,14 @@ function ScoreInfo({styles}: ScoreInfoProps) {
                         );
                     })}
                 </ul>
-                <div style={{width: "100px"}}></div>
+                <div style={{textAlign: "center", alignSelf: "flex-end", marginBottom: "-50px", marginTop: "-21px"}}>
+                    <div style={{fontSize: "11px", color: inactiveColor, marginBottom: "2px", opacity: 0.8}}>
+                        Overall
+                    </div>
+                    <HighchartsReact highcharts={Highcharts} options={gaugeOptions} />
+                </div>
             </div>
-            <Outlet context={styles}/>
+            <Outlet context={{...styles, headerMenuItems}}/>
         </div>
     );
 }
