@@ -15,7 +15,7 @@ interface OutletContext {
 
 function Summary() {
     const {headerMenuItems} = useOutletContext<OutletContext>();
-    const menuItem = headerMenuItems.find(item => item.path === "");
+    const menuItem = headerMenuItems.find(item => item.path === "/score-info");
 
     return (
         <div style={{flex: 1, backgroundColor: "#ffffff", borderLeft: "1px solid #dee2e6", borderRight: "1px solid #dee2e6", borderTop: "1px solid #dee2e6", borderTopLeftRadius: "8px", borderTopRightRadius: "8px", display: "flex", flexDirection: "column"}}>
