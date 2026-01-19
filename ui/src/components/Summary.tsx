@@ -1,4 +1,5 @@
 import {useOutletContext} from "react-router-dom";
+import overviewIcon from "../assets/overview.svg";
 
 interface HeaderMenuItem {
     id: string;
@@ -15,14 +16,17 @@ interface OutletContext {
 
 function Summary() {
     const {headerMenuItems} = useOutletContext<OutletContext>();
-    const menuItem = headerMenuItems.find(item => item.path === "/score-info");
+    const menuItem = headerMenuItems.find(item => item.path === "/overview");
 
     return (
         <div style={{flex: 1, backgroundColor: "#ffffff", borderLeft: "1px solid #dee2e6", borderRight: "1px solid #dee2e6", borderTop: "1px solid #dee2e6", borderTopLeftRadius: "8px", borderTopRightRadius: "8px", display: "flex", flexDirection: "column"}}>
             <div style={{padding: "16px 16px 12px 24px"}}>
-                <h5 style={{margin: 0, fontWeight: "bold"}}>
-                    {menuItem?.label}
-                </h5>
+                <div style={{display: "flex", alignItems: "center", gap: "8px"}}>
+                    <h5 style={{margin: 0, fontWeight: "bold"}}>
+                        {menuItem?.label}
+                    </h5>
+                    <img src={overviewIcon} alt="" width="24" height="24"/>
+                </div>
             </div>
             <div style={{margin: "0 8px", borderBottom: "1px solid #dee2e6"}}/>
             <div style={{flex: 1, padding: "16px"}}>

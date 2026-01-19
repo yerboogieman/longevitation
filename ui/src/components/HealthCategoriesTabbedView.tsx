@@ -16,17 +16,19 @@ if (typeof SolidGaugeModule === "function") {
 interface SubMenuItem {
     id: string;
     label: string;
+    tooltip: string;
     icon: string;
 }
 
 const subMenuItems: SubMenuItem[] = [
-    {id: "overview", label: "Overview", icon: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"},
-    {id: "factors", label: "Factors", icon: "M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 9h-2v2H9v-2H7v-2h2V7h2v2h2v2zm0-4V3.5L17.5 8H13z"},
-    {id: "recommendations", label: "Strategy", icon: "M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z"},
-    {id: "trends", label: "Trends", icon: "M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"},
+    {id: "overview", label: "Overview", tooltip: "Summary and recommendations for this health category", icon: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"},
+    {id: "markers", label: "Markers", tooltip: "Key metrics used to calculate the score for this area", icon: "M12 4c4.41 0 8 3.59 8 8h-2c0-3.31-2.69-6-6-6s-6 2.69-6 6H4c0-4.41 3.59-8 8-8zm0 3l3 5H9l3-5zm-5 9h10v2H7v-2z"},
+    {id: "factors", label: "Factors", tooltip: "Factors that can influence this health category", icon: "M4 6c0-.83.67-1.5 1.5-1.5S7 5.17 7 6s-.67 1.5-1.5 1.5S4 6.83 4 6zm0 6c0-.83.67-1.5 1.5-1.5S7 11.17 7 12s-.67 1.5-1.5 1.5S4 12.83 4 12zm0 6c0-.83.67-1.5 1.5-1.5S7 17.17 7 18s-.67 1.5-1.5 1.5S4 18.83 4 18zM10 5h11v2H10V5zm0 6h11v2H10v-2zm0 6h11v2H10v-2z"},
+    {id: "stats", label: "Stats", tooltip: "Statistics for key health markers for this category", icon: "M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"},
 ];
 
 function HealthCategoriesTabbedView() {
+
     const {inactiveColor, inactiveBackgroundColor, healthCategories} = useOutletContext<HealthCategoryViewsContext>();
     const location = useLocation();
     const navigate = useNavigate();
@@ -180,56 +182,70 @@ function HealthCategoriesTabbedView() {
                             height="40"
                         />
                     </div>
-                    <ul style={{
-                        display: "flex",
-                        listStyle: "none",
-                        margin: 0,
-                        padding: 0,
-                        gap: 0,
+                    <div style={{
                         position: "absolute",
                         left: "50%",
                         transform: "translateX(-50%)",
-                        bottom: "-1px"
+                        bottom: "-1px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center"
                     }}>
-                        {subMenuItems.map((item) => {
-                            const isSelected = selectedSubMenu === item.id;
-                            const isHovered = hoveredSubMenu === item.id;
-                            return (
-                                <li key={item.id}>
-                                    <button
-                                        type="button"
-                                        onClick={() => setSelectedSubMenu(item.id)}
-                                        onMouseEnter={() => setHoveredSubMenu(item.id)}
-                                        onMouseLeave={() => setHoveredSubMenu(null)}
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: "4px",
-                                            padding: "6px 10px",
-                                            border: "none",
-                                            background: "none",
-                                            cursor: "pointer",
-                                            color: inactiveColor,
-                                            borderBottom: isSelected ? "2px solid #0d6efd" : "2px solid transparent",
-                                            opacity: isSelected ? 1 : (isHovered ? 0.8 : 0.7),
-                                            transition: "all 0.15s ease"
-                                        }}
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24"
-                                            fill="currentColor"
-                                            width="14"
-                                            height="14"
+                        <div style={{
+                            fontSize: "11px",
+                            color: "#5a9a6e",
+                            height: "16px",
+                            marginBottom: "2px"
+                        }}>
+                            {hoveredSubMenu && subMenuItems.find(item => item.id === hoveredSubMenu)?.tooltip}
+                        </div>
+                        <ul style={{
+                            display: "flex",
+                            listStyle: "none",
+                            margin: 0,
+                            padding: 0,
+                            gap: 0
+                        }}>
+                            {subMenuItems.map((item) => {
+                                const isSelected = selectedSubMenu === item.id;
+                                const isHovered = hoveredSubMenu === item.id;
+                                return (
+                                    <li key={item.id}>
+                                        <button
+                                            type="button"
+                                            onClick={() => setSelectedSubMenu(item.id)}
+                                            onMouseEnter={() => setHoveredSubMenu(item.id)}
+                                            onMouseLeave={() => setHoveredSubMenu(null)}
+                                            style={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                gap: "4px",
+                                                padding: "6px 10px",
+                                                border: "none",
+                                                background: "none",
+                                                cursor: "pointer",
+                                                color: inactiveColor,
+                                                borderBottom: isSelected ? "2px solid #0d6efd" : "2px solid transparent",
+                                                opacity: isSelected ? 1 : (isHovered ? 0.8 : 0.7),
+                                                transition: "all 0.15s ease"
+                                            }}
                                         >
-                                            <path d={item.icon}/>
-                                        </svg>
-                                        <span style={{fontSize: "13px"}}>{item.label}</span>
-                                    </button>
-                                </li>
-                            );
-                        })}
-                    </ul>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                width="14"
+                                                height="14"
+                                            >
+                                                <path d={item.icon}/>
+                                            </svg>
+                                            <span style={{fontSize: "13px"}}>{item.label}</span>
+                                        </button>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
                     <div style={{textAlign: "center", marginTop: "0px", marginBottom: "-30px", marginRight: "28px"}}>
                         <HighchartsReact highcharts={Highcharts} options={gaugeOptions} />
                     </div>

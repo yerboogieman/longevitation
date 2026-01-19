@@ -3,6 +3,12 @@ import Clients from "./components/Clients.tsx";
 import Users from "./components/Users.tsx";
 import ScoreInfo from "./components/ScoreInfo.tsx";
 import Summary from "./components/Summary.tsx";
+import Stats from "./components/Stats.tsx";
+import Shop from "./components/Shop.tsx";
+import HealthyFood from "./components/shop/HealthyFood.tsx";
+import Devices from "./components/shop/Devices.tsx";
+import Services from "./components/shop/Services.tsx";
+import Tests from "./components/shop/Tests.tsx";
 import HealthCategoryViews from "./components/HealthCategoryViews.tsx";
 import HealthCategoriesListView from "./components/HealthCategoriesListView.tsx";
 import HealthCategoriesTabbedView from "./components/HealthCategoriesTabbedView.tsx";
@@ -45,8 +51,8 @@ function App() {
                 <AppContainer accountMenuItems={accountMenuItems}
                               styles={styles}>
                     <Routes>
-                        <Route path="/" element={<Navigate to={data.setupComplete ? "/score-info" : "/getting-started"} replace/>}/>
-                        <Route path="/score-info/*" element={data.setupComplete ? (
+                        <Route path="/" element={<Navigate to={data.setupComplete ? "/overview" : "/getting-started"} replace/>}/>
+                        <Route path="/overview" element={data.setupComplete ? (
                             <ScoreInfo score={data.score}
                                 gender={data.gender}
                                 styles={{
@@ -57,6 +63,48 @@ function App() {
                             <Navigate to="/getting-started" replace/>
                         )}>
                             <Route index element={<Summary/>}/>
+                        </Route>
+                        <Route path="/stats" element={data.setupComplete ? (
+                            <ScoreInfo score={data.score}
+                                gender={data.gender}
+                                styles={{
+                                    inactiveColor: "#6c757d",
+                                    inactiveBackgroundColor: "#f8f9fa"
+                                }}/>
+                        ) : (
+                            <Navigate to="/getting-started" replace/>
+                        )}>
+                            <Route index element={<Stats/>}/>
+                        </Route>
+                        <Route path="/shop" element={data.setupComplete ? (
+                            <ScoreInfo score={data.score}
+                                gender={data.gender}
+                                styles={{
+                                    inactiveColor: "#6c757d",
+                                    inactiveBackgroundColor: "#f8f9fa"
+                                }}/>
+                        ) : (
+                            <Navigate to="/getting-started" replace/>
+                        )}>
+                            <Route element={<Shop/>}>
+                                <Route index element={<Navigate to="devices" replace/>}/>
+                                <Route path="healthy-food" element={<HealthyFood/>}/>
+                                <Route path="devices" element={<Devices/>}/>
+                                <Route path="services" element={<Services/>}/>
+                                <Route path="tests" element={<Tests/>}/>
+                            </Route>
+                        </Route>
+                        <Route path="/score-info/*" element={data.setupComplete ? (
+                            <ScoreInfo score={data.score}
+                                gender={data.gender}
+                                styles={{
+                                    inactiveColor: "#6c757d",
+                                    inactiveBackgroundColor: "#f8f9fa"
+                                }}/>
+                        ) : (
+                            <Navigate to="/getting-started" replace/>
+                        )}>
+                            <Route index element={<Navigate to="/overview" replace/>}/>
                             <Route path="categories" element={<HealthCategoryViews/>}>
                                 <Route index element={<Navigate to="tabbed-view" replace/>}/>
                                 <Route path="list-view" element={<HealthCategoriesListView/>}/>
