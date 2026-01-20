@@ -1,4 +1,4 @@
-import {useState, useMemo} from "react";
+import {useState, useMemo, useEffect, useRef} from "react";
 import {useOutletContext, useLocation, useNavigate} from "react-router-dom";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
@@ -22,9 +22,10 @@ interface SubMenuItem {
 
 const subMenuItems: SubMenuItem[] = [
     {id: "overview", label: "Overview", tooltip: "Summary and recommendations for this health category", icon: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"},
-    {id: "markers", label: "Markers", tooltip: "Key metrics used to calculate the score for this area", icon: "M12 4c4.41 0 8 3.59 8 8h-2c0-3.31-2.69-6-6-6s-6 2.69-6 6H4c0-4.41 3.59-8 8-8zm0 3l3 5H9l3-5zm-5 9h10v2H7v-2z"},
+    {id: "markers", label: "Markers", tooltip: "Key metrics used to calculate the score for this area", icon: "M7 2v20h10V2H7zM8 4h3v1H8V4zM8 8h5v1H8V8zM8 12h3v1H8v-1zM8 16h5v1H8v-1zM8 20h3v1H8v-1z"},
     {id: "factors", label: "Factors", tooltip: "Factors that can influence this health category", icon: "M4 6c0-.83.67-1.5 1.5-1.5S7 5.17 7 6s-.67 1.5-1.5 1.5S4 6.83 4 6zm0 6c0-.83.67-1.5 1.5-1.5S7 11.17 7 12s-.67 1.5-1.5 1.5S4 12.83 4 12zm0 6c0-.83.67-1.5 1.5-1.5S7 17.17 7 18s-.67 1.5-1.5 1.5S4 18.83 4 18zM10 5h11v2H10V5zm0 6h11v2H10v-2zm0 6h11v2H10v-2z"},
     {id: "stats", label: "Stats", tooltip: "Statistics for key health markers for this category", icon: "M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"},
+    {id: "troubleshoot", label: "Troubleshoot", tooltip: "Troubleshoot issues with this health category", icon: "M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"},
 ];
 
 function HealthCategoriesTabbedView() {
@@ -41,6 +42,23 @@ function HealthCategoriesTabbedView() {
     const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
     const [selectedSubMenu, setSelectedSubMenu] = useState<string>("overview");
     const [hoveredSubMenu, setHoveredSubMenu] = useState<string | null>(null);
+    const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => {
+        if (hoveredSubMenu) {
+            if (tooltipTimeoutRef.current) {
+                clearTimeout(tooltipTimeoutRef.current);
+            }
+            tooltipTimeoutRef.current = setTimeout(() => {
+                setHoveredSubMenu(null);
+            }, 2000);
+        }
+        return () => {
+            if (tooltipTimeoutRef.current) {
+                clearTimeout(tooltipTimeoutRef.current);
+            }
+        };
+    }, [hoveredSubMenu]);
 
     const handleSelectCategory = (categoryId: string) => {
         navigate(`#${categoryId}`, {replace: true});
@@ -191,14 +209,6 @@ function HealthCategoriesTabbedView() {
                         flexDirection: "column",
                         alignItems: "center"
                     }}>
-                        <div style={{
-                            fontSize: "11px",
-                            color: "#5a9a6e",
-                            height: "16px",
-                            marginBottom: "2px"
-                        }}>
-                            {hoveredSubMenu && subMenuItems.find(item => item.id === hoveredSubMenu)?.tooltip}
-                        </div>
                         <ul style={{
                             display: "flex",
                             listStyle: "none",
@@ -234,8 +244,8 @@ function HealthCategoriesTabbedView() {
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24"
                                                 fill="currentColor"
-                                                width="14"
-                                                height="14"
+                                                width={item.id === "troubleshoot" ? "12" : "14"}
+                                                height={item.id === "troubleshoot" ? "12" : "14"}
                                             >
                                                 <path d={item.icon}/>
                                             </svg>

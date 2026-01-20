@@ -3,11 +3,14 @@ import Clients from "./components/Clients.tsx";
 import Users from "./components/Users.tsx";
 import ScoreInfo from "./components/ScoreInfo.tsx";
 import Summary from "./components/Summary.tsx";
+import Routine from "./components/Routine.tsx";
+import Lifestyle from "./components/Lifestyle.tsx";
 import Stats from "./components/Stats.tsx";
 import Shop from "./components/Shop.tsx";
 import HealthyFood from "./components/shop/HealthyFood.tsx";
 import Devices from "./components/shop/Devices.tsx";
 import Services from "./components/shop/Services.tsx";
+import Supplements from "./components/shop/Supplements.tsx";
 import Tests from "./components/shop/Tests.tsx";
 import HealthCategoryViews from "./components/HealthCategoryViews.tsx";
 import HealthCategoriesListView from "./components/HealthCategoriesListView.tsx";
@@ -64,6 +67,18 @@ function App() {
                         )}>
                             <Route index element={<Summary/>}/>
                         </Route>
+                        <Route path="/routine" element={data.setupComplete ? (
+                            <ScoreInfo score={data.score}
+                                gender={data.gender}
+                                styles={{
+                                    inactiveColor: "#6c757d",
+                                    inactiveBackgroundColor: "#f8f9fa"
+                                }}/>
+                        ) : (
+                            <Navigate to="/getting-started" replace/>
+                        )}>
+                            <Route index element={<Routine/>}/>
+                        </Route>
                         <Route path="/stats" element={data.setupComplete ? (
                             <ScoreInfo score={data.score}
                                 gender={data.gender}
@@ -91,6 +106,7 @@ function App() {
                                 <Route path="healthy-food" element={<HealthyFood/>}/>
                                 <Route path="devices" element={<Devices/>}/>
                                 <Route path="services" element={<Services/>}/>
+                                <Route path="supplements" element={<Supplements/>}/>
                                 <Route path="tests" element={<Tests/>}/>
                             </Route>
                         </Route>
@@ -105,6 +121,7 @@ function App() {
                             <Navigate to="/getting-started" replace/>
                         )}>
                             <Route index element={<Navigate to="/overview" replace/>}/>
+                            <Route path="lifestyle" element={<Lifestyle/>}/>
                             <Route path="categories" element={<HealthCategoryViews/>}>
                                 <Route index element={<Navigate to="tabbed-view" replace/>}/>
                                 <Route path="list-view" element={<HealthCategoriesListView/>}/>

@@ -1,28 +1,25 @@
 import {Outlet, useOutletContext, useNavigate, useLocation} from "react-router-dom";
 
+import bloodSugarTabIcon from "../assets/blood-sugar-tab.svg";
 import heartIcon from "../assets/heart.svg";
 import humanBodyIcon from "../assets/human-body.svg";
+import flexibilityTabIcon from "../assets/flexibility-tab.svg";
 import gutsIcon from "../assets/guts.svg";
-import healthyFoodIcon from "../assets/healthy-food.svg";
-import exerciseIcon from "../assets/exercise.svg";
-import sleepIcon from "../assets/sleep.svg";
-import cigaretteIcon from "../assets/cigarette.svg";
-import toothIcon from "../assets/tooth.svg";
 import medicalHistoryIcon from "../assets/medical-history.svg";
+import skinTabIcon from "../assets/skin-tab.svg";
+import toothIcon from "../assets/tooth.svg";
 
+import bloodSugarHeaderIcon from "../assets/blood-sugar-header.svg";
 import cardiovascularHeaderIcon from "../assets/category-header/cardiovascular.svg";
 import bodyCompositionHeaderIcon from "../assets/category-header/body-composition.svg";
+import dentalHeaderIcon from "../assets/dentistry.svg";
+import flexibilityHeaderIcon from "../assets/flexibility-header.svg";
 import gutHealthHeaderIcon from "../assets/category-header/gut-health.svg";
-import dietHeaderIcon from "../assets/category-header/diet.svg";
-import exerciseHeaderIcon from "../assets/category-header/exercise.svg";
-import sleepHeaderIcon from "../assets/category-header/sleep.svg";
-import vicesHeaderIcon from "../assets/category-header/vices.svg";
-import dentalHeaderIcon from "../assets/category-header/dental-health.svg";
 import existingConditionsHeaderIcon from "../assets/category-header/existing-conditions.svg";
+import skinHeaderIcon from "../assets/skin-header.svg";
 
 import listIcon from "../assets/list.svg";
 import tabbedPageIcon from "../assets/tabbed-page.svg";
-
 export interface HealthCategory {
     id: string;
     label: string;
@@ -42,11 +39,11 @@ export interface HealthCategoryViewsContext extends StylesContext {
 
 export const healthCategories: HealthCategory[] = [
     {
-        id: "cardiovascular",
-        label: "Cardiovascular",
-        icon: heartIcon,
-        headerIcon: cardiovascularHeaderIcon,
-        score: 83
+        id: "blood-sugar",
+        label: "Blood Sugar",
+        icon: bloodSugarTabIcon,
+        headerIcon: bloodSugarHeaderIcon,
+        score: 78
     },
     {
         id: "body-composition",
@@ -56,39 +53,11 @@ export const healthCategories: HealthCategory[] = [
         score: 75
     },
     {
-        id: "gut-health",
-        label: "Gut Health",
-        icon: gutsIcon,
-        headerIcon: gutHealthHeaderIcon,
-        score: 65
-    },
-    {
-        id: "diet",
-        label: "Diet",
-        icon: healthyFoodIcon,
-        headerIcon: dietHeaderIcon,
-        score: 45
-    },
-    {
-        id: "exercise",
-        label: "Exercise",
-        icon: exerciseIcon,
-        headerIcon: exerciseHeaderIcon,
-        score: 78
-    },
-    {
-        id: "sleep",
-        label: "Sleep",
-        icon: sleepIcon,
-        headerIcon: sleepHeaderIcon,
-        score: 72
-    },
-    {
-        id: "vices",
-        label: "Vices",
-        icon: cigaretteIcon,
-        headerIcon: vicesHeaderIcon,
-        score: 70
+        id: "cardiovascular",
+        label: "Cardiovascular",
+        icon: heartIcon,
+        headerIcon: cardiovascularHeaderIcon,
+        score: 83
     },
     {
         id: "dental",
@@ -103,6 +72,27 @@ export const healthCategories: HealthCategory[] = [
         icon: medicalHistoryIcon,
         headerIcon: existingConditionsHeaderIcon,
         score: 98
+    },
+    {
+        id: "flexibility",
+        label: "Flexibility",
+        icon: flexibilityTabIcon,
+        headerIcon: flexibilityHeaderIcon,
+        score: 89
+    },
+    {
+        id: "gut-health",
+        label: "Gut Health",
+        icon: gutsIcon,
+        headerIcon: gutHealthHeaderIcon,
+        score: 65
+    },
+    {
+        id: "skin",
+        label: "Skin",
+        icon: skinTabIcon,
+        headerIcon: skinHeaderIcon,
+        score: 65
     }
 ];
 
