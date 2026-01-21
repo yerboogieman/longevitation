@@ -1,100 +1,17 @@
 import {useState} from "react";
 import {useOutletContext, useLocation, useNavigate} from "react-router-dom";
+import type {Habit} from "./ScoreInfo";
 
 import lifestyleHeaderIcon from "../assets/running-man.svg";
-import dentalCareTabIcon from "../assets/dental-care-tab.svg";
-import healthyFoodIcon from "../assets/healthy-food.svg";
-import exerciseIcon from "../assets/exercise.svg";
-import postureTabIcon from "../assets/posture-tab.svg";
-import sleepIcon from "../assets/sleep.svg";
-import skincareTabIcon from "../assets/skincare-tab.svg";
-import vitaminBottleIcon from "../assets/vitamin-bottle.svg";
-import cigaretteIcon from "../assets/cigarette.svg";
-
-import dentalCareHeaderIcon from "../assets/dental-care-header.svg";
-import dietHeaderIcon from "../assets/category-header/diet.svg";
-import exerciseHeaderIcon from "../assets/category-header/exercise.svg";
-import postureHeaderIcon from "../assets/posture-header.svg";
-import sleepHeaderIcon from "../assets/category-header/sleep.svg";
-import skincareHeaderIcon from "../assets/skincare-header.svg";
-import supplementsHeaderIcon from "../assets/supplements.svg";
-import vicesHeaderIcon from "../assets/category-header/vices.svg";
-
-
-interface Habit {
-    id: string;
-    label: string;
-    icon: string;
-    headerIcon: string;
-    status: string;
-}
 
 interface OutletContext {
     inactiveColor: string;
     inactiveBackgroundColor: string;
+    habits: Habit[];
 }
 
-const habits: Habit[] = [
-    {
-        id: "dental-care",
-        label: "Dental Care",
-        icon: dentalCareHeaderIcon,
-        headerIcon: dentalCareTabIcon,
-        status: "Good"
-    },
-    {
-        id: "diet",
-        label: "Diet",
-        icon: healthyFoodIcon,
-        headerIcon: dietHeaderIcon,
-        status: "Needs Improvement"
-    },
-    {
-        id: "exercise",
-        label: "Exercise",
-        icon: exerciseIcon,
-        headerIcon: exerciseHeaderIcon,
-        status: "Excellent"
-    },
-    {
-        id: "posture",
-        label: "Posture",
-        icon: postureTabIcon,
-        headerIcon: postureHeaderIcon,
-        status: "Good"
-    },
-    {
-        id: "sleep",
-        label: "Sleep",
-        icon: sleepIcon,
-        headerIcon: sleepHeaderIcon,
-        status: "Needs Improvement"
-    },
-    {
-        id: "skin-care",
-        label: "Skin Care",
-        icon: skincareTabIcon,
-        headerIcon: skincareHeaderIcon,
-        status: "Good"
-    },
-    {
-        id: "supplementation",
-        label: "Supplementation",
-        icon: vitaminBottleIcon,
-        headerIcon: supplementsHeaderIcon,
-        status: "Fair"
-    },
-    {
-        id: "vices",
-        label: "Vices",
-        icon: cigaretteIcon,
-        headerIcon: vicesHeaderIcon,
-        status: "Good"
-    }
-];
-
 function Lifestyle() {
-    const {inactiveColor, inactiveBackgroundColor} = useOutletContext<OutletContext>();
+    const {inactiveColor, inactiveBackgroundColor, habits} = useOutletContext<OutletContext>();
     const location = useLocation();
     const navigate = useNavigate();
 

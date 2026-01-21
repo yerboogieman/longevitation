@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@customation/ui": "^1.0.40",
+    "@customation/ui": "^1.0.47",
     "highcharts": "^12.5.0",
     "highcharts-react-official": "^3.2.3",
     "react": "^19.2.0",

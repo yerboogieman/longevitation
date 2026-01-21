@@ -4,7 +4,8 @@ import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import MoreModule from "highcharts/highcharts-more";
 import SolidGaugeModule from "highcharts/modules/solid-gauge";
-import type {HealthCategory, HealthCategoryViewsContext} from "./HealthCategoryViews";
+import type {HealthCategory} from "./ScoreInfo";
+import type {HealthCategoryViewsContext} from "./HealthCategoryViews";
 
 if (typeof MoreModule === "function") {
     (MoreModule as any)(Highcharts);

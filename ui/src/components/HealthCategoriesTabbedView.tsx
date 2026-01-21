@@ -4,7 +4,8 @@ import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import MoreModule from "highcharts/highcharts-more";
 import SolidGaugeModule from "highcharts/modules/solid-gauge";
-import type {HealthCategory, HealthCategoryViewsContext} from "./HealthCategoryViews";
+import type {HealthCategory} from "./ScoreInfo";
+import type {HealthCategoryViewsContext} from "./HealthCategoryViews";
 
 if (typeof MoreModule === "function") {
     (MoreModule as any)(Highcharts);
@@ -21,7 +22,7 @@ interface SubMenuItem {
 }
 
 const subMenuItems: SubMenuItem[] = [
-    {id: "overview", label: "Overview", tooltip: "Summary and recommendations for this health category", icon: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"},
+    {id: "overview", label: "Overview", tooltip: "Overview and recommendations for this health category", icon: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"},
     {id: "markers", label: "Markers", tooltip: "Key metrics used to calculate the score for this area", icon: "M7 2v20h10V2H7zM8 4h3v1H8V4zM8 8h5v1H8V8zM8 12h3v1H8v-1zM8 16h5v1H8v-1zM8 20h3v1H8v-1z"},
     {id: "factors", label: "Factors", tooltip: "Factors that can influence this health category", icon: "M4 6c0-.83.67-1.5 1.5-1.5S7 5.17 7 6s-.67 1.5-1.5 1.5S4 6.83 4 6zm0 6c0-.83.67-1.5 1.5-1.5S7 11.17 7 12s-.67 1.5-1.5 1.5S4 12.83 4 12zm0 6c0-.83.67-1.5 1.5-1.5S7 17.17 7 18s-.67 1.5-1.5 1.5S4 18.83 4 18zM10 5h11v2H10V5zm0 6h11v2H10v-2zm0 6h11v2H10v-2z"},
     {id: "stats", label: "Stats", tooltip: "Statistics for key health markers for this category", icon: "M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"},

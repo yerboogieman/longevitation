@@ -16,6 +16,176 @@ import happyManIcon from "../assets/happy-man.svg";
 import happyWomanIcon from "../assets/happy-woman.svg";
 import happyFaceIcon from "../assets/happy-face.svg";
 
+import bloodSugarTabIcon from "../assets/blood-sugar-tab.svg";
+import heartIcon from "../assets/heart.svg";
+import humanBodyIcon from "../assets/human-body.svg";
+import flexibilityTabIcon from "../assets/flexibility-tab.svg";
+import gutsIcon from "../assets/guts.svg";
+import medicalHistoryIcon from "../assets/medical-history.svg";
+import skinTabIcon from "../assets/skin-tab.svg";
+import toothIcon from "../assets/tooth.svg";
+
+import bloodSugarHeaderIcon from "../assets/blood-sugar-header.svg";
+import cardiovascularHeaderIcon from "../assets/category-header/cardiovascular.svg";
+import bodyCompositionHeaderIcon from "../assets/category-header/body-composition.svg";
+import dentalHeaderIcon from "../assets/dentistry.svg";
+import flexibilityHeaderIcon from "../assets/flexibility-header.svg";
+import gutHealthHeaderIcon from "../assets/category-header/gut-health.svg";
+import existingConditionsHeaderIcon from "../assets/category-header/existing-conditions.svg";
+import skinHeaderIcon from "../assets/skin-header.svg";
+
+import dentalCareTabIcon from "../assets/dental-care-tab.svg";
+import healthyFoodIcon from "../assets/healthy-food.svg";
+import exerciseIcon from "../assets/exercise.svg";
+import postureTabIcon from "../assets/posture-tab.svg";
+import sleepIcon from "../assets/sleep.svg";
+import skincareTabIcon from "../assets/skincare-tab.svg";
+import vitaminBottleIcon from "../assets/vitamin-bottle.svg";
+import cigaretteIcon from "../assets/cigarette.svg";
+
+import dentalCareHeaderIcon from "../assets/dental-care-header.svg";
+import dietHeaderIcon from "../assets/category-header/diet.svg";
+import exerciseHeaderIcon from "../assets/category-header/exercise.svg";
+import postureHeaderIcon from "../assets/posture-header.svg";
+import sleepHeaderIcon from "../assets/category-header/sleep.svg";
+import skincareHeaderIcon from "../assets/skincare-header.svg";
+import supplementsHeaderIcon from "../assets/supplements.svg";
+import vicesHeaderIcon from "../assets/category-header/vices.svg";
+
+export interface HealthCategory {
+    id: string;
+    label: string;
+    icon: string;
+    headerIcon: string;
+    score: number;
+}
+
+export const healthCategories: HealthCategory[] = [
+    {
+        id: "blood-sugar",
+        label: "Blood Sugar",
+        icon: bloodSugarTabIcon,
+        headerIcon: bloodSugarHeaderIcon,
+        score: 78
+    },
+    {
+        id: "body-composition",
+        label: "Body Composition",
+        icon: humanBodyIcon,
+        headerIcon: bodyCompositionHeaderIcon,
+        score: 75
+    },
+    {
+        id: "cardiovascular",
+        label: "Cardiovascular",
+        icon: heartIcon,
+        headerIcon: cardiovascularHeaderIcon,
+        score: 83
+    },
+    {
+        id: "dental",
+        label: "Dental",
+        icon: toothIcon,
+        headerIcon: dentalHeaderIcon,
+        score: 89
+    },
+    {
+        id: "existing-conditions",
+        label: "Existing Conditions",
+        icon: medicalHistoryIcon,
+        headerIcon: existingConditionsHeaderIcon,
+        score: 98
+    },
+    {
+        id: "flexibility",
+        label: "Flexibility",
+        icon: flexibilityTabIcon,
+        headerIcon: flexibilityHeaderIcon,
+        score: 89
+    },
+    {
+        id: "gut-health",
+        label: "Gut Health",
+        icon: gutsIcon,
+        headerIcon: gutHealthHeaderIcon,
+        score: 65
+    },
+    {
+        id: "skin",
+        label: "Skin",
+        icon: skinTabIcon,
+        headerIcon: skinHeaderIcon,
+        score: 65
+    }
+];
+
+export type Habit = {
+    id: string;
+    label: string;
+    icon: string;
+    headerIcon: string;
+    status: string;
+};
+
+export const habits: Habit[] = [
+    {
+        id: "dental-care",
+        label: "Dental Care",
+        icon: dentalCareHeaderIcon,
+        headerIcon: dentalCareTabIcon,
+        status: "Good"
+    },
+    {
+        id: "diet",
+        label: "Diet",
+        icon: healthyFoodIcon,
+        headerIcon: dietHeaderIcon,
+        status: "Needs Improvement"
+    },
+    {
+        id: "exercise",
+        label: "Exercise",
+        icon: exerciseIcon,
+        headerIcon: exerciseHeaderIcon,
+        status: "Excellent"
+    },
+    {
+        id: "posture",
+        label: "Posture",
+        icon: postureTabIcon,
+        headerIcon: postureHeaderIcon,
+        status: "Good"
+    },
+    {
+        id: "sleep",
+        label: "Sleep",
+        icon: sleepIcon,
+        headerIcon: sleepHeaderIcon,
+        status: "Needs Improvement"
+    },
+    {
+        id: "skin-care",
+        label: "Skin Care",
+        icon: skincareTabIcon,
+        headerIcon: skincareHeaderIcon,
+        status: "Good"
+    },
+    {
+        id: "supplementation",
+        label: "Supplementation",
+        icon: vitaminBottleIcon,
+        headerIcon: supplementsHeaderIcon,
+        status: "Fair"
+    },
+    {
+        id: "vices",
+        label: "Vices",
+        icon: cigaretteIcon,
+        headerIcon: vicesHeaderIcon,
+        status: "Good"
+    }
+];
+
 interface ScoreInfoProps {
     styles: {
         inactiveColor: string;
@@ -184,7 +354,7 @@ function ScoreInfo({styles, score, gender}: ScoreInfoProps) {
                     <HighchartsReact highcharts={Highcharts} options={gaugeOptions} />
                 </div>
             </div>
-            <Outlet context={{...styles, headerMenuItems}}/>
+            <Outlet context={{...styles, headerMenuItems, healthCategories, habits}}/>
         </div>
     );
 }
