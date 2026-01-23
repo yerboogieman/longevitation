@@ -1,3 +1,5 @@
+// Source: https://my.clevelandclinic.org/health/diagnostics/9731-a1c
+
 define A1C {
     percentage : 0,
     constructor : function(data) {
