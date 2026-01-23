@@ -1,0 +1,46 @@
+define RestingHeartRate {
+    value : 0,
+    hasLowRHRSymptoms : false,
+    constructor : function(data) {
+        this.value = data.value;
+        this.hasLowRHRSymptoms = data.hasLowRHRSymptoms;
+    }
+}
+
+define ScoreResult {
+    status : null,
+    setStatus : function(status){
+        this.status = status;
+    }
+}
+
+function evaluateScore(value, hasLowRHRSymptoms) {
+    if (value < 40 || (value < 45 && hasLowRHRSymptoms)) {
+        return "low.rhr";
+    } else if (value >= 40 && value <= 50) {
+        return "excellent.athletic";
+    } else if (value > 50 && value <= 60) {
+        return "very.good";
+    } else if (value > 60 && value <= 70) {
+        return "normal.healthy";
+    } else if (value > 70 && value <= 80) {
+        return "fair";
+    } else if (value > 80 && value <= 90) {
+        return "elevated";
+    } else if (value > 90) {
+        return "high.concerning.if.persistent";
+    } else {
+        return "unknown";
+    }
+}
+
+rule EvaluateRestingHeartRate {
+    when {
+        rhr : RestingHeartRate;
+        r : ScoreResult !r.status;
+    }
+    then {
+        var status = evaluateScore(rhr.value, rhr.hasLowRHRSymptoms);
+        r.setStatus(status);
+    }
+}

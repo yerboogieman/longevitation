@@ -1,0 +1,95 @@
+// For normal to high BP ranges, see: https://www.heart.org/en/health-topics/high-blood-pressure/understanding-blood-pressure-readings
+// For low BP, see: https://www.heart.org/en/health-topics/high-blood-pressure/the-facts-about-high-blood-pressure/low-blood-pressure-when-blood-pressure-is-too-low
+
+define BloodPressure {
+    systolic : 0,
+    diastolic : 0,
+    hasHypertensionSymptoms : false,
+    constructor : function(data) {
+        this.systolic = data.systolic;
+        this.diastolic = data.diastolic;
+        this.hasHypertensionSymptoms = data.hasHypertensionSymptoms;
+    }
+}
+
+define ScoreResult {
+    bloodPressureStatus : null,
+    diastolicStatus : null,
+    score : 0,
+    systolicStatus : null
+}
+
+function calculateBloodPressureScore(systolic, diastolic, hasHypertensionSymptoms) {
+    return 1;
+}
+
+function getBloodPressureRating(systolic, diastolic, hasHypertensionSymptoms) {
+    switch (true) {
+        case (systolic < 90 && diastolic < 60):
+            return "low";
+        case (systolic < 120 && diastolic < 80):
+            return "normal";
+        case (systolic >= 120 && systolic <= 129 && diastolic < 80):
+            return "elevated";
+        case (systolic >= 130 && systolic <= 139 && diastolic >= 80 && diastolic <= 89):
+            return "stage1.hypertension";
+        case (systolic >= 140 && systolic <= 180 && diastolic >= 90 && diastolic <= 120):
+            return "stage2.hypertension";
+        case (systolic > 180 || diastolic > 120):
+            if (hasHypertensionSymptoms) {
+                return "hypertensive.crisis";
+            }
+            return "severe.hypertension";
+        default:
+            return "unknown";
+    }
+}
+
+function getDiastolicRating(diastolic) {
+    switch (true) {
+        case (diastolic < 60):
+            return "low";
+        case (diastolic >= 60 && diastolic < 80):
+            return "normal";
+        case (diastolic >= 80 && diastolic <= 89):
+            return "stage1.hypertension";
+        case (diastolic >= 90 && diastolic <= 120):
+            return "stage2.hypertension";
+        case (diastolic > 120):
+            return "severe.hypertension";
+        default:
+            return "unknown";
+    }
+}
+
+function getSystolicRating(systolic) {
+    switch (true) {
+        case (systolic < 90):
+            return "low";
+        case (systolic >= 90 && systolic < 120):
+            return "normal";
+        case (systolic >= 120 && systolic <= 129):
+            return "elevated";
+        case (systolic > 129 && systolic <= 139):
+            return "stage1.hypertension";
+        case (systolic > 139 && systolic <= 180):
+            return "stage2.hypertension";
+        case (systolic > 180):
+            return "severe.hypertension";
+        default:
+            return "unknown";
+    }
+}
+
+rule EvaluateBloodPressure {
+    when {
+        bp : BloodPressure;
+        r : ScoreResult !r.bloodPressureStatus;
+    }
+    then {
+        r.systolicStatus = getSystolicRating(bp.systolic);
+        r.diastolicStatus = getDiastolicRating(bp.diastolic);
+        r.bloodPressureStatus = getBloodPressureRating(bp.systolic, bp.diastolic, bp.hasHypertensionSymptoms);
+        r.score = calculateBloodPressureScore(bp.systolic, bp.diastolic, bp.hasHypertensionSymptoms);
+    }
+}

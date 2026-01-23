@@ -1,0 +1,48 @@
+define A1C {
+    percentage : 0,
+    constructor : function(data) {
+        this.percentage = data.percentage;
+    }
+}
+
+define ScoreResult {
+    score : null,
+    status : null,
+    setScore : function(score) {
+        this.score = score;
+    },
+    setStatus : function(status) {
+        this.status = status;
+    }
+}
+
+function evaluateScore(percentage) {
+    return 1;
+}
+
+function evaluateStatus(percentage) {
+    if (percentage < 5.5) {
+        return "ideal";
+    } else if (percentage < 5.7) {
+        return "in-range";
+    } else if (percentage >= 5.7 && percentage <= 6.4) {
+        return "pre.diabetes";
+    } else if (percentage > 6.4) {
+        return "diabetes";
+    }
+}
+
+rule EvaluateA1C {
+    when {
+        a1c : A1C;
+        r : ScoreResult !r.status;
+    }
+    then {
+
+        var score  = evaluateScore(a1c.percentage);
+        var status = evaluateStatus(a1c.percentage);
+
+        r.setScore(score);
+        r.setStatus(status);
+    }
+}
