@@ -1,0 +1,62 @@
+// Source: https://my.clevelandclinic.org/health/diagnostics/9731-homaIR
+
+define HomaIR {
+    score : 0,
+    constructor : function(data) {
+        this.score = data.score;
+    }
+}
+
+define ScoreResult {
+    score : null,
+    status : null,
+    setScore : function(score) {
+        this.score = score;
+    },
+    setStatus : function(status) {
+        this.status = status;
+    }
+}
+
+function evaluateScore(homaIR) {
+    if (homaIR < 1.0) {
+        // Score from 1000 (at 0) to 850 (approaching 1.0)
+        return Math.round(1000 - homaIR * 150);
+    } else if (homaIR >= 1.0 && homaIR < 2.0) {
+        // Score from 849 (at 1.0) to 750 (at 1.9), continuing to ~739 at 1.99
+        return Math.round(849 - ((homaIR - 1.0) / 0.9) * 99);
+    } else if (homaIR >= 2.0 && homaIR < 3.0) {
+        // Score from 749 (at 2.0) to 650 (at 2.9), continuing to ~639 at 2.99
+        return Math.round(749 - ((homaIR - 2.0) / 0.9) * 99);
+    } else if (homaIR >= 3.0) {
+        // Score starts at 649 and decreases, minimum 0
+        return Math.max(0, Math.round(649 - (homaIR - 3.0) * 100));
+    }
+}
+
+function evaluateStatus(homaIR) {
+    if (homaIR < 1.0) {
+        return "ideal";
+    } else if (homaIR >= 1.0 && homaIR < 2.0) {
+        return "possible.early.or.mild.insulin.resistance";
+    } else if (homaIR >= 2.0 && homaIR < 3.0) {
+        return "likely.moderate.insulin.resistance";
+    } else if (homaIR >= 3.0) {
+        return "likely.significant.insulin.resistance";
+    }
+}
+
+rule EvaluateHomaIR {
+    when {
+        homaIR : HomaIR;
+        r : ScoreResult !r.status;
+    }
+    then {
+
+        var score  = evaluateScore(homaIR.score);
+        var status = evaluateStatus(homaIR.score);
+
+        r.setScore(score);
+        r.setStatus(status);
+    }
+}

@@ -27,6 +27,38 @@ HOMA-IR = (Fasting Glucose (mmol/L) × Fasting Insulin (µU/mL)) / 22.5
 
 > A HOMA-IR score above 2.5 typically indicates insulin resistance, although this threshold may vary based on population and clinical context.
 
+### Scoring Algorithm
+
+The HOMA-IR value is converted to a health score from 0 (worst) to 1000 (best) using linear interpolation within each range:
+
+| HOMA-IR Range | Score Range | Status |
+|---------------|-------------|--------|
+| < 1.0 | 1000 - 850 | Ideal |
+| 1.0 - < 2.0 | 849 - 739 | Possible early or mild insulin resistance |
+| 2.0 - < 3.0 | 749 - 639 | Likely moderate insulin resistance |
+| ≥ 3.0 | 649 - 0 | Likely significant insulin resistance |
+
+**Formulas:**
+
+- **HOMA-IR < 1.0**: `score = 1000 - (homaIR * 150)`
+  - At 0: score = 1000
+  - Approaching 1.0: score = 850
+
+- **HOMA-IR 1.0 - < 2.0**: `score = 849 - ((homaIR - 1.0) / 0.9) * 99`
+  - At 1.0: score = 849
+  - At 1.9: score = 750
+  - Approaching 2.0: score = 739
+
+- **HOMA-IR 2.0 - < 3.0**: `score = 749 - ((homaIR - 2.0) / 0.9) * 99`
+  - At 2.0: score = 749
+  - At 2.9: score = 650
+  - Approaching 3.0: score = 639
+
+- **HOMA-IR ≥ 3.0**: `score = max(0, 649 - (homaIR - 3.0) * 100)`
+  - At 3.0: score = 649
+  - Decreases by 100 points per 1.0 increase in HOMA-IR
+  - Minimum score: 0
+
 ## Fasting Insulin Levels
 
 | Range | Interpretation |
