@@ -1,0 +1,58 @@
+define BMI {
+    heightInMetersOrInches: null,
+    weightInKgOrLbs: null,
+    isMetric : false,
+    constructor : function(data) {
+        this.heightInMetersOrInches = data.heightInMetersOrInches;
+        this.weightInKgOrLbs = data.weightInKgOrLbs;
+        this.isMetric = data.isMetric;
+    }
+}
+
+define ScoreResult {
+    bmi : null,
+    status : null,
+    setBmi : function(bmi){
+        this.bmi = bmi;
+    },
+    setStatus : function(status) {
+        this.status = status;
+    }
+}
+
+function evaluateScore(heightInMetersOrInches, weightInKgOrLbs, isMetric) {
+    if (isMetric) {
+        // BMI = weight (kg) / (height (m))²
+        return weightInKgOrLbs / (heightInMetersOrInches * heightInMetersOrInches);
+    } else {
+        // BMI = (weight (lb) × 703) / (height (in))²
+        return (weightInKgOrLbs * 703) / (heightInMetersOrInches * heightInMetersOrInches);
+    }
+}
+
+function evaluateStatus(bmi) {
+    if (bmi < 18.5) {
+        return "underweight";
+    } else if (bmi <= 24.9) {
+        return "normal";
+    } else if (bmi <= 29.9) {
+        return "overweight";
+    } else {
+        return "obese";
+    }
+}
+
+rule EvaluateBMI {
+    when {
+        bmi : BMI;
+        r : ScoreResult !r.status;
+    }
+    then {
+
+        var bmi = evaluateScore(bmi.heightInMetersOrInches, bmi.weightInKgOrLbs, bmi.isMetric);
+        r.setBmi(bmi);
+
+        var status = evaluateStatus(bmi);
+        r.setStatus(status);
+    }
+}

@@ -1,0 +1,150 @@
+// Source: https://inbodyusa.com/blogs/inbodyblog/body-fat-percentage-chart/btw
+
+define BodyFatPercentage {
+    age : null,
+    sex : null,
+    value : null,
+    constructor : function(data) {
+        this.age = data.age;
+        this.sex = data.sex;
+        this.value = data.value;
+    }
+}
+
+define ScoreResult {
+    score : null,
+    status : null,
+    setScore : function(score){
+        this.score = score;
+    },
+    setStatus : function(status) {
+        this.status = status;
+    }
+}
+
+function evaluateScore(age, sex, bodyFatPercentage) {
+   return 1;
+}
+
+function evaluateStatus(age, sex, bodyFatPercentage) {
+    if (sex == 'M') {
+        if (age <= 29) {
+            if (bodyFatPercentage <= 5) {
+                return 'low';
+            } else if (bodyFatPercentage <= 13) {
+                return 'athletic.fit'
+            } else if (bodyFatPercentage <= 24) {
+                return 'acceptable';
+            } else {
+                return 'obese';
+            }
+        } else if (age <= 39) {
+            if (bodyFatPercentage <= 5) {
+                return 'low';
+            } else if (bodyFatPercentage <= 14) {
+                return 'athletic.fit'
+            } else if (bodyFatPercentage <= 25) {
+                return 'acceptable';
+            } else {
+                return 'obese';
+            }
+        } else if (age <= 49) {
+            if (bodyFatPercentage <= 6) {
+                return 'low';
+            } else if (bodyFatPercentage <= 15) {
+                return 'athletic.fit'
+            } else if (bodyFatPercentage <= 26) {
+                return 'acceptable';
+            } else {
+                return 'obese';
+            }
+        } else if (age <= 59) {
+            if (bodyFatPercentage <= 7) {
+                return 'low';
+            } else if (bodyFatPercentage <= 16) {
+                return 'athletic.fit'
+            } else if (bodyFatPercentage <= 27) {
+                return 'acceptable';
+            } else {
+                return 'obese';
+            }
+        } else {
+            if (bodyFatPercentage <= 8) {
+                return 'low';
+            } else if (bodyFatPercentage <= 17) {
+                return 'athletic.fit'
+            } else if (bodyFatPercentage <= 28) {
+                return 'acceptable';
+            } else {
+                return 'obese';
+            }
+        }
+    } else if (sex == 'F') {
+        if (age <= 29) {
+            if (bodyFatPercentage <= 13) {
+                return 'low';
+            } else if (bodyFatPercentage <= 20) {
+                return 'athletic.fit'
+            } else if (bodyFatPercentage <= 31) {
+                return 'acceptable';
+            } else {
+                return 'obese';
+            }
+        } else if (age <= 39) {
+            if (bodyFatPercentage <= 14) {
+                return 'low';
+            } else if (bodyFatPercentage <= 21) {
+                return 'athletic.fit'
+            } else if (bodyFatPercentage <= 32) {
+                return 'acceptable';
+            } else {
+                return 'obese';
+            }
+        } else if (age <= 49) {
+            if (bodyFatPercentage <= 15) {
+                return 'low';
+            } else if (bodyFatPercentage <= 22) {
+                return 'athletic.fit'
+            } else if (bodyFatPercentage <= 33) {
+                return 'acceptable';
+            } else {
+                return 'obese';
+            }
+        } else if (age <= 59) {
+            if (bodyFatPercentage <= 16) {
+                return 'low';
+            } else if (bodyFatPercentage <= 23) {
+                return 'athletic.fit'
+            } else if (bodyFatPercentage <= 34) {
+                return 'acceptable';
+            } else {
+                return 'obese';
+            }
+        } else {
+            if (bodyFatPercentage <= 17) {
+                return 'low';
+            } else if (bodyFatPercentage <= 24) {
+                return 'athletic.fit'
+            } else if (bodyFatPercentage <= 35) {
+                return 'acceptable';
+            } else {
+                return 'obese';
+            }
+        }
+    }
+}
+
+rule EvaluateBodyFatPercentage {
+    when {
+        bodyFatPercentage : BodyFatPercentage;
+        r : ScoreResult !r.status;
+    }
+    then {
+
+        var status = evaluateStatus(bodyFatPercentage.age, bodyFatPercentage.sex, bodyFatPercentage.value);
+        r.setStatus(status);
+
+        var score = evaluateScore(bodyFatPercentage.age, bodyFatPercentage.sex, bodyFatPercentage.value);
+        r.setScore(score);
+    }
+}
