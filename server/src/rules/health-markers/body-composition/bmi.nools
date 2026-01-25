@@ -1,0 +1,106 @@
+// Source: "BMI categories for adults 20 and older:" at https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html
+
+define BMI {
+
+    heightInMetersOrInches: null,
+    weightInKgOrLbs: null,
+    isMetric : false,
+
+    constructor : function(data) {
+        this.heightInMetersOrInches = data.heightInMetersOrInches;
+        this.weightInKgOrLbs = data.weightInKgOrLbs;
+        this.isMetric = data.isMetric;
+    }
+}
+
+define ScoreResult {
+
+    data : null,
+    score : null,
+    status : null,
+
+    setData : function(bmi) {
+        this.data = { bmi };
+    },
+
+    setScore : function(score) {
+        this.score = score;
+    },
+
+    setStatus : function(status) {
+        this.status = status;
+    }
+}
+
+function evaluateBMI(heightInMetersOrInches, weightInKgOrLbs, isMetric) {
+    if (isMetric) {
+        // BMI = weight (kg) / (height (m))²
+        return weightInKgOrLbs / (heightInMetersOrInches * heightInMetersOrInches);
+    } else {
+        // BMI = (weight (lb) × 703) / (height (in))²
+        return (weightInKgOrLbs * 703) / (heightInMetersOrInches * heightInMetersOrInches);
+    }
+}
+
+function evaluateScore(bmi) {
+    if (bmi < 18.5) {
+        // Underweight: Score starts at 849 at BMI 18.5 and decreases with lower BMI
+        // Using gentler slope (50 pts/unit) since underweight is less severe than overweight
+        return Math.max(0, Math.round(849 - (18.5 - bmi) * 50));
+    } else if (bmi >= 18.5 && bmi < 25) {
+        // Normal: BMI 22 is ideal (score 1000), score approaches 850 at boundaries
+        if (bmi < 22) {
+            // 18.5 to 22: score rises from 850 to 1000
+            return Math.round(850 + (bmi - 18.5) * (150 / 3.5));
+        } else {
+            // 22 to 25: score falls from 1000 to 850
+            return Math.round(1000 - (bmi - 22) * (150 / 3));
+        }
+    } else if (bmi >= 25 && bmi < 30) {
+        // Overweight: Score starts at 849 at BMI 25, approaches 700 at BMI 30
+        return Math.round(849 - (bmi - 25) * (149 / 5));
+    } else if (bmi >= 30 && bmi < 35) {
+        // Class 1 Obesity: Score starts at 699 at BMI 30, approaches 600 at BMI 35
+        return Math.round(699 - (bmi - 30) * (99 / 5));
+    } else if (bmi >= 35 && bmi < 40) {
+        // Class 2 Obesity: Score starts at 599 at BMI 35, approaches 500 at BMI 40
+        return Math.round(599 - (bmi - 35) * (99 / 5));
+    } else if (bmi >= 40) {
+        // Class 3 Obesity: Score starts at 499 at BMI 40, approaches 0 as BMI increases
+        return Math.max(0, Math.round(499 - (bmi - 40) * 24.95));
+    }
+}
+
+function evaluateStatus(bmi) {
+    if (bmi < 18.5) {
+        return "underweight";
+    } else if (bmi >= 18.5 && bmi < 25) {
+        return "normal";
+    } else if (bmi >= 25 && bmi < 30) {
+        return "overweight";
+    } else if (bmi >= 30 && bmi < 35) {
+        return "class1.obesity";
+    } else if (bmi >= 35 && bmi < 40) {
+        return "class2.obesity";
+    } else if (bmi >= 40) {
+        return "class3.obesity";
+    }
+}
+
+rule EvaluateBMI {
+    when {
+        bmi : BMI;
+        r : ScoreResult !r.status;
+    }
+    then {
+
+        var bmi = evaluateBMI(bmi.heightInMetersOrInches, bmi.weightInKgOrLbs, bmi.isMetric);
+        r.setData(bmi);
+
+        var score = evaluateScore(bmi);
+        r.setScore(score);
+
+        var status = evaluateStatus(bmi);
+        r.setStatus(status);
+    }
+}

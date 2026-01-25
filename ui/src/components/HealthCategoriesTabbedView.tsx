@@ -6,6 +6,7 @@ import MoreModule from "highcharts/highcharts-more";
 import SolidGaugeModule from "highcharts/modules/solid-gauge";
 import type {HealthCategory} from "./ScoreInfo";
 import type {HealthCategoryViewsContext} from "./HealthCategoryViews";
+import HealthMarkers from "./HealthMarkers";
 
 if (typeof MoreModule === "function") {
     (MoreModule as any)(Highcharts);
@@ -262,7 +263,14 @@ function HealthCategoriesTabbedView() {
                     </div>
                 </div>
                 <div style={{margin: "0 8px", borderBottom: "1px solid #dee2e6"}}/>
-                <div style={{flex: 1, padding: "16px"}}>
+                <div style={{flex: 1, padding: "16px", paddingRight: "0", overflowY: "auto"}}>
+                    {selectedSubMenu === "markers" && selectedCategoryData && (
+                        <HealthMarkers
+                            categoryId={selectedCategoryData.id}
+                            categoryLabel={selectedCategoryData.label}
+                            inactiveColor={inactiveColor}
+                        />
+                    )}
                 </div>
             </div>
         </div>

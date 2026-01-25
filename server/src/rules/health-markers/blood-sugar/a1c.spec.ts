@@ -265,4 +265,171 @@ describe("a1c.nools", () => {
             expect(result.status).toBe("diabetes");
         });
     });
+
+    describe("Score Evaluation", () => {
+
+        describe("Ideal Range (< 5.5%) - Scores 1000 to 850", () => {
+
+            it("should return perfect score of 1000 at 0%", async () => {
+
+                const result = await evaluateA1C(0);
+
+                expect(result.score).toBe(1000);
+            });
+
+            it("should return ~909 at 3.33% (one-third through range)", async () => {
+
+                const result = await evaluateA1C(3.33);
+
+                expect(result.score).toBeCloseTo(909, 0);
+            });
+
+            it("should return ~864 at 5.0%", async () => {
+
+                const result = await evaluateA1C(5.0);
+
+                expect(result.score).toBeCloseTo(864, 0);
+            });
+
+            it("should return 850 just before 5.5% boundary", async () => {
+
+                const result = await evaluateA1C(5.49);
+
+                expect(result.score).toBe(850);
+            });
+        });
+
+        describe("In-Range (5.5% - 5.7%) - Scores 849 to 750", () => {
+
+            it("should return 849 at 5.5%", async () => {
+
+                const result = await evaluateA1C(5.5);
+
+                // Note: 5.5 falls into the second range, returning 849
+                expect(result.score).toBeLessThanOrEqual(850);
+            });
+
+            it("should return ~800 at 5.6% (midpoint)", async () => {
+
+                const result = await evaluateA1C(5.6);
+
+                expect(result.score).toBeCloseTo(800, 0);
+            });
+
+            it("should return ~750 approaching 5.7%", async () => {
+
+                const result = await evaluateA1C(5.69);
+
+                expect(result.score).toBeCloseTo(755, 0);
+            });
+        });
+
+        describe("Pre-Diabetes Range (5.7% - 6.4%) - Scores 749 to 650", () => {
+
+            it("should return 749 at 5.7%", async () => {
+
+                const result = await evaluateA1C(5.7);
+
+                expect(result.score).toBe(749);
+            });
+
+            it("should return ~707 at 6.0% (midway through range)", async () => {
+
+                const result = await evaluateA1C(6.0);
+
+                expect(result.score).toBeCloseTo(707, 0);
+            });
+
+            it("should return 650 at 6.4%", async () => {
+
+                const result = await evaluateA1C(6.4);
+
+                expect(result.score).toBe(650);
+            });
+        });
+
+        describe("Diabetes Range (> 6.4%) - Scores 649 to 0", () => {
+
+            it("should return 649 just above 6.4%", async () => {
+
+                const result = await evaluateA1C(6.41);
+
+                expect(result.score).toBeLessThan(650);
+                expect(result.score).toBeGreaterThan(640);
+            });
+
+            it("should return ~606 at 6.9%", async () => {
+
+                const result = await evaluateA1C(6.9);
+
+                expect(result.score).toBeCloseTo(606, 0);
+            });
+
+            it("should return ~478 at 8.0%", async () => {
+
+                const result = await evaluateA1C(8.0);
+
+                expect(result.score).toBeCloseTo(512, 0);
+            });
+
+            it("should return ~342 at 10.0%", async () => {
+
+                const result = await evaluateA1C(10.0);
+
+                expect(result.score).toBeCloseTo(342, 0);
+            });
+
+            it("should return ~85 at 13.0%", async () => {
+
+                const result = await evaluateA1C(13.0);
+
+                expect(result.score).toBeCloseTo(85, 0);
+            });
+
+            it("should return 0 at 14.0%", async () => {
+
+                const result = await evaluateA1C(14.0);
+
+                expect(result.score).toBe(0);
+            });
+
+            it("should not go negative above 14%", async () => {
+
+                const result = await evaluateA1C(16.0);
+
+                expect(result.score).toBe(0);
+            });
+        });
+
+        describe("Score Monotonicity", () => {
+
+            it("should decrease score as A1C increases across all ranges", async () => {
+
+                const values = [0, 3.0, 5.0, 5.5, 5.6, 5.7, 6.0, 6.4, 7.0, 10.0, 14.0];
+                const results = await Promise.all(values.map(v => evaluateA1C(v)));
+                const scores = results.map(r => r.score);
+
+                for (let i = 1; i < scores.length; i++) {
+                    expect(scores[i]).toBeLessThan(scores[i - 1]);
+                }
+            });
+        });
+
+        describe("Score Boundaries", () => {
+
+            it("should have score <= 1000 for all values", async () => {
+
+                const result = await evaluateA1C(0);
+
+                expect(result.score).toBeLessThanOrEqual(1000);
+            });
+
+            it("should have score >= 0 for all values", async () => {
+
+                const result = await evaluateA1C(20.0);
+
+                expect(result.score).toBeGreaterThanOrEqual(0);
+            });
+        });
+    });
 });

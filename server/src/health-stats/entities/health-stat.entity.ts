@@ -1,22 +1,27 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {BaseDocument} from '@customation/model/document';
-import {HealthMarkerUtil} from "../../health-markers/health-marker-utils";
 
-@Schema({collection: 'healthStats'})
+@Schema({
+    collection: 'healthStats',
+    timeseries: {
+        timeField: 'timestamp',
+        metaField: 'metadata',
+        granularity: 'hours',
+    },
+})
 export class HealthStat extends BaseDocument {
 
     @Prop({required: true})
-    userId: string;
+    timestamp: Date;
 
-    @Prop({required: true})
-    healthMarkerId: string;
+    @Prop({type: Object, required: true})
+    metadata: {
+        userId: string;
+        healthMarkerId: string;
+    };
 
     @Prop({type: Object, required: true})
     data: any;
-
-    calculateScore(): number {
-        return HealthMarkerUtil.calculateScore(this.healthMarkerId, this.data);
-    }
 }
 
 export const HealthStatSchema = SchemaFactory.createForClass(HealthStat);

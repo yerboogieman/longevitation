@@ -117,7 +117,7 @@ function App() {
                                 <Route path="tests" element={<Tests/>}/>
                             </Route>
                         </Route>
-                        <Route path="/score-info/*" element={data.setupComplete ? (
+                        <Route path="/lifestyle" element={data.setupComplete ? (
                             <ScoreInfo score={data.score}
                                 gender={data.gender}
                                 styles={{
@@ -127,9 +127,19 @@ function App() {
                         ) : (
                             <Navigate to="/getting-started" replace/>
                         )}>
-                            <Route index element={<Navigate to="/overview" replace/>}/>
-                            <Route path="lifestyle" element={<Lifestyle/>}/>
-                            <Route path="categories" element={<HealthCategoryViews/>}>
+                            <Route index element={<Lifestyle/>}/>
+                        </Route>
+                        <Route path="/categories/*" element={data.setupComplete ? (
+                            <ScoreInfo score={data.score}
+                                gender={data.gender}
+                                styles={{
+                                    inactiveColor: "#6c757d",
+                                    inactiveBackgroundColor: "#f8f9fa"
+                                }}/>
+                        ) : (
+                            <Navigate to="/getting-started" replace/>
+                        )}>
+                            <Route element={<HealthCategoryViews/>}>
                                 <Route index element={<Navigate to="tabbed-view" replace/>}/>
                                 <Route path="list-view" element={<HealthCategoriesListView/>}/>
                                 <Route path="tabbed-view" element={<HealthCategoriesTabbedView/>}/>

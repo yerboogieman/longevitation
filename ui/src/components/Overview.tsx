@@ -118,11 +118,11 @@ function Overview() {
     const [hoveredLeftTab, setHoveredLeftTab] = useState<string | null>(null);
 
     const handleCategoryClick = (categoryId: string) => {
-        navigate(`/score-info/categories/tabbed-view#${categoryId}`);
+        navigate(`/categories/tabbed-view#${categoryId}`);
     };
 
     const handleHabitClick = (habitId: string) => {
-        navigate(`/score-info/lifestyle#${habitId}`);
+        navigate(`/lifestyle#${habitId}`);
     };
 
     return (

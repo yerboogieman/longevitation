@@ -8,10 +8,10 @@ import {HealthStat} from './entities/health-stat.entity';
 
 @Injectable()
 export class HealthStatsService {
+
     constructor(
         @InjectModel(HealthStat.name) private healthStatModel: Model<HealthStat>,
-    ) {
-    }
+    ) {}
 
     async create(createHealthStatDto: CreateHealthStatDto) {
         const createdHealthStat = new this.healthStatModel(createHealthStatDto);
@@ -24,6 +24,13 @@ export class HealthStatsService {
 
     async findOne(id: string) {
         return this.healthStatModel.findById(id).exec();
+    }
+
+    async findLatest(healthMarkerId: string) {
+        return this.healthStatModel
+            .findOne({ 'metadata.healthMarkerId': healthMarkerId })
+            .sort({ timestamp: -1 })
+            .exec();
     }
 
     async remove(id: string) {

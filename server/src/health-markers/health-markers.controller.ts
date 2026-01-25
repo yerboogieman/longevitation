@@ -6,8 +6,8 @@ import {UpdateSingleFieldDto} from '../dto/update-single-field.dto';
 
 @Controller('health-markers')
 export class HealthMarkersController {
-    constructor(private readonly healthMarkersService: HealthMarkersService) {
-    }
+
+    constructor(private readonly healthMarkersService: HealthMarkersService) {}
 
     @Post()
     create(@Body() createHealthMarkerDto: CreateHealthMarkerDto) {

@@ -36,7 +36,7 @@ export class HealthCategoriesService {
 
         // Remove this category from all associated markers
         await this.healthMarkerModel.updateMany(
-            {_id: {$in: category.healthMarkers}},
+            {_id: {$in: category.healthMarkers as any}},
             {$pull: {healthCategories: category._id}}
         ).exec();
 
@@ -65,14 +65,14 @@ export class HealthCategoriesService {
         }
 
         // Add marker to category if not already present
-        if (!category.healthMarkers.includes(marker._id)) {
-            category.healthMarkers.push(marker._id);
+        if (!(category.healthMarkers as any).includes(marker._id)) {
+            (category.healthMarkers as any).push(marker._id);
             await category.save();
         }
 
         // Add category to marker if not already present
-        if (!marker.healthCategories.includes(category._id)) {
-            marker.healthCategories.push(category._id);
+        if (!(marker.healthCategories as any).includes(category._id)) {
+            (marker.healthCategories as any).push(category._id);
             await marker.save();
         }
 

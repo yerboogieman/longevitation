@@ -1,4 +1,5 @@
 declare module "nools" {
+
   interface Flow {
     getDefined(name: string): any;
     getSession(...facts: any[]): Session;
@@ -14,9 +15,11 @@ declare module "nools" {
 
   function compile(path: string, options?: { name?: string; scope?: Record<string, any> }): Flow;
   function deleteFlow(name: string): void;
+  function deleteFlows(): void;
 
   export default {
     compile,
     deleteFlow,
+    deleteFlows,
   };
 }

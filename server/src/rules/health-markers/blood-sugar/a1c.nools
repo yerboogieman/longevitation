@@ -19,7 +19,20 @@ define ScoreResult {
 }
 
 function evaluateScore(percentage) {
-    return 1;
+    if (percentage < 5.5) {
+        // 1000 at 0%, approaches 850 at 5.5%
+        return Math.round(1000 - (percentage * 150 / 5.5));
+    } else if (percentage < 5.7) {
+        // 849 at 5.5%, approaches 750 at 5.7%
+        return Math.round(849 - ((percentage - 5.5) * 99 / 0.2));
+    } else if (percentage >= 5.7 && percentage <= 6.4) {
+        // 749 at 5.7%, approaches 650 at 6.4%
+        return Math.round(749 - ((percentage - 5.7) * 99 / 0.7));
+    } else if (percentage > 6.4) {
+        // 649 at 6.4%, approaches 0 at 14% (extremely high A1C)
+        var score = Math.round(649 - ((percentage - 6.4) * 649 / 7.6));
+        return Math.max(0, score);
+    }
 }
 
 function evaluateStatus(percentage) {
