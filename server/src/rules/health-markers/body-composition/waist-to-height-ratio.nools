@@ -1,0 +1,163 @@
+// Sources:
+//  Waist to Height Ratio Calculator
+//      @ https://calculator.academy/waist-to-height-ratio-calculator-whtr-calculator/
+//  You will know your Insulin Resistance is REVERSED when THIS HAPPENS
+//      @ https://www.youtube.com/watch?v=Snj8UMkdiY4&t=77s
+
+define WaistToHeightRatio {
+    waist : null,
+    height : null,
+    sex : null,
+    constructor : function(data) {
+        this.waist = data.waist;
+        this.height = data.height;
+        this.sex = data.sex;
+    }
+}
+
+define ScoreResult {
+    score : null,
+    status : null,
+    data : null,
+    setData : function(waistToHeightRatio) {
+        this.data = { waistToHeightRatio };
+    },
+    setScore : function(score){
+        this.score = score;
+    },
+    setStatus : function(status) {
+        this.status = status;
+    }
+}
+
+function evaluateScore(waistToHeightRatio, sex) {
+    if (sex === "M") {
+        // Abnormally Slim (< 0.35): Score starts at 749, decreases going lower
+        if (waistToHeightRatio < 0.35) {
+            return Math.max(0, 749 - (0.35 - waistToHeightRatio) * 2140);
+        }
+        // Extremely Slim (0.35 - 0.42): Score from 750 at lower bound to 899 at upper bound
+        if (waistToHeightRatio >= 0.35 && waistToHeightRatio < 0.42) {
+            return 750 + (waistToHeightRatio - 0.35) * (149 / 0.07);
+        }
+        // Slender Healthy (0.42 - 0.46): Score from 900 at lower bound to 1000 at upper bound
+        if (waistToHeightRatio >= 0.42 && waistToHeightRatio < 0.46) {
+            return 900 + (waistToHeightRatio - 0.42) * (100 / 0.04);
+        }
+        // Healthy (0.46 - 0.49): Score from 1000 at lower bound to 801 at upper bound
+        if (waistToHeightRatio >= 0.46 && waistToHeightRatio < 0.49) {
+            return 1000 - (waistToHeightRatio - 0.46) * (199 / 0.03);
+        }
+        // Overweight (0.49 - 0.54): Score from 800 at lower bound to 650 at upper bound
+        if (waistToHeightRatio >= 0.49 && waistToHeightRatio < 0.54) {
+            return 800 - (waistToHeightRatio - 0.49) * (150 / 0.05);
+        }
+        // Extremely Overweight (0.54 - 0.58): Score from 649 at lower bound to 500 at upper bound
+        if (waistToHeightRatio >= 0.54 && waistToHeightRatio < 0.58) {
+            return 649 - (waistToHeightRatio - 0.54) * (149 / 0.04);
+        }
+        // Highly Obese (>= 0.58): Score from 499, decreasing toward 0
+        if (waistToHeightRatio >= 0.58) {
+            return Math.max(0, 499 - (waistToHeightRatio - 0.58) * 2495);
+        }
+    } else if (sex === "F") {
+        // Abnormally Slim (< 0.35): Score starts at 749, decreases going lower
+        if (waistToHeightRatio < 0.35) {
+            return Math.max(0, 749 - (0.35 - waistToHeightRatio) * 2140);
+        }
+        // Extremely Slim (0.35 - 0.43): Score from 750 at lower bound to 899 at upper bound
+        if (waistToHeightRatio >= 0.35 && waistToHeightRatio < 0.43) {
+            return 750 + (waistToHeightRatio - 0.35) * (149 / 0.08);
+        }
+        // Slender Healthy (0.43 - 0.46): Score from 900 at lower bound to 1000 at upper bound
+        if (waistToHeightRatio >= 0.43 && waistToHeightRatio < 0.46) {
+            return 900 + (waistToHeightRatio - 0.43) * (100 / 0.03);
+        }
+        // Healthy (0.46 - 0.53): Score from 1000 at lower bound to 801 at upper bound
+        if (waistToHeightRatio >= 0.46 && waistToHeightRatio < 0.53) {
+            return 1000 - (waistToHeightRatio - 0.46) * (199 / 0.07);
+        }
+        // Overweight (0.53 - 0.58): Score from 800 at lower bound to 650 at upper bound
+        if (waistToHeightRatio >= 0.53 && waistToHeightRatio < 0.58) {
+            return 800 - (waistToHeightRatio - 0.53) * (150 / 0.05);
+        }
+        // Extremely Overweight (0.58 - 0.63): Score from 649 at lower bound to 500 at upper bound
+        if (waistToHeightRatio >= 0.58 && waistToHeightRatio < 0.63) {
+            return 649 - (waistToHeightRatio - 0.58) * (149 / 0.05);
+        }
+        // Highly Obese (>= 0.63): Score from 499, decreasing toward 0
+        if (waistToHeightRatio >= 0.63) {
+            return Math.max(0, 499 - (waistToHeightRatio - 0.63) * 2495);
+        }
+    }
+}
+
+function evaluateStatus(waistToHeightRatio, sex) {
+    if (sex === "M") {
+        if (waistToHeightRatio < 0.35) {
+            return "abnormally.slim";
+        }
+        if (waistToHeightRatio >= 0.35 && waistToHeightRatio < 0.42) {
+            return "extremely.slim";
+        }
+        if (waistToHeightRatio >= 0.42 && waistToHeightRatio < 0.46) {
+            return "slender.healthy";
+        }
+        if (waistToHeightRatio >= 0.46 && waistToHeightRatio < 0.49) {
+            return "healthy";
+        }
+        if (waistToHeightRatio >= 0.49 && waistToHeightRatio < 0.54) {
+            return "overweight";
+        }
+        if (waistToHeightRatio >= 0.54 && waistToHeightRatio < 0.58) {
+            return "extremely.overweight";
+        }
+        if (waistToHeightRatio >= 0.58) {
+            return "highly.obese";
+        }
+    } else if (sex === "F") {
+        if (waistToHeightRatio < 0.35) {
+            return "abnormally.slim";
+        }
+        if (waistToHeightRatio >= 0.35 && waistToHeightRatio < 0.43) {
+            return "extremely.slim";
+        }
+        if (waistToHeightRatio >= 0.43 && waistToHeightRatio < 0.46) {
+            return "slender.healthy";
+        }
+        if (waistToHeightRatio >= 0.46 && waistToHeightRatio < 0.53) {
+            return "healthy";
+        }
+        if (waistToHeightRatio >= 0.53 && waistToHeightRatio < 0.58) {
+            return "overweight";
+        }
+        if (waistToHeightRatio >= 0.58 && waistToHeightRatio < 0.63) {
+            return "extremely.overweight";
+        }
+        if (waistToHeightRatio >= 0.63) {
+            return "highly.obese";
+        }
+    }
+}
+
+rule EvaluateWaistToHeightRatio {
+    when {
+        whrInput : WaistToHeightRatio;
+        r : ScoreResult !r.status;
+    }
+    then {
+
+        var waist = whrInput.waist;
+        var height = whrInput.height;
+        var sex = whrInput.sex;
+
+        var waistToHeightRatio = waist / height;
+        r.setData(waistToHeightRatio);
+
+        var status = evaluateStatus(waistToHeightRatio, sex);
+        r.setStatus(status);
+
+        var score = evaluateScore(waistToHeightRatio, sex);
+        r.setScore(score);
+    }
+}
