@@ -40,7 +40,7 @@ function HealthCategoryViews() {
                 <h5 style={{margin: 0, fontWeight: "bold"}}>Health Categories</h5>
                 <div style={{display: "flex", borderRadius: "4px", overflow: "hidden", border: "1px solid #dee2e6", marginRight: "33px"}}>
                     <button
-                        onClick={() => navigate("tabbed-view")}
+                        onClick={() => navigate("/categories/tabbed-view")}
                         title="Tabbed View"
                         style={{
                             display: "flex",
@@ -56,7 +56,7 @@ function HealthCategoryViews() {
                         <img src={tabbedPageIcon} alt="Tabbed view" width="16" height="16" style={{filter: "invert(46%) sepia(5%) saturate(630%) hue-rotate(169deg) brightness(92%) contrast(90%)"}} />
                     </button>
                     <button
-                        onClick={() => navigate("list-view")}
+                        onClick={() => navigate("/categories/list-view")}
                         title="List View"
                         style={{
                             display: "flex",

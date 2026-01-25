@@ -1,3 +1,4 @@
+import "./App.css";
 import CaseList from "./components/CaseList.tsx";
 import Clients from "./components/Clients.tsx";
 import Users from "./components/Users.tsx";

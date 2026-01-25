@@ -1,4 +1,4 @@
-import {useState, useMemo} from "react";
+import {useState, useMemo, useRef, useEffect} from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import MoreModule from "highcharts/highcharts-more";
@@ -214,11 +214,30 @@ const markerTabItems: MarkerTabItem[] = [
 function HealthMarkers({categoryId, categoryLabel, inactiveColor}: HealthMarkersProps) {
     const markers = mockMarkersByCategory[categoryId] || [];
     const [openAccordion, setOpenAccordion] = useState<string | null>(null);
+    const [explicitClose, setExplicitClose] = useState<string | null>(null);
     const [selectedTabs, setSelectedTabs] = useState<Record<string, MarkerTab>>({});
     const [hoveredTab, setHoveredTab] = useState<string | null>(null);
+    const contentRefs = useRef<Record<string, HTMLDivElement | null>>({});
+    const [heights, setHeights] = useState<Record<string, number>>({});
+
+    useEffect(() => {
+        const newHeights: Record<string, number> = {};
+        Object.entries(contentRefs.current).forEach(([id, ref]) => {
+            if (ref) {
+                newHeights[id] = ref.scrollHeight;
+            }
+        });
+        setHeights(newHeights);
+    }, [openAccordion, selectedTabs]);
 
     const toggleAccordion = (markerId: string) => {
-        setOpenAccordion(openAccordion === markerId ? null : markerId);
+        if (openAccordion === markerId) {
+            setExplicitClose(markerId);
+            setOpenAccordion(null);
+        } else {
+            setExplicitClose(null);
+            setOpenAccordion(markerId);
+        }
     };
 
     const getSelectedTab = (markerId: string): MarkerTab => {
@@ -387,7 +406,14 @@ function HealthMarkers({categoryId, categoryLabel, inactiveColor}: HealthMarkers
                                     </div>
                                 )}
                             </div>
-                            <div className={`accordion-collapse collapse ${isOpen ? "show" : ""}`}>
+                            <div
+                                ref={(el) => { contentRefs.current[marker.id] = el; }}
+                                style={{
+                                    overflow: "hidden",
+                                    height: isOpen ? (heights[marker.id] || "auto") : 0,
+                                    transition: (!isOpen && explicitClose !== marker.id) ? "none" : "height 0.3s ease",
+                                }}
+                            >
                                 <div className="accordion-body" style={{padding: "16px", backgroundColor: "#fff", borderTop: "1px solid #dee2e6"}}>
                                     {getSelectedTab(marker.id) === "overview" && (
                                         <>
