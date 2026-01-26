@@ -11,6 +11,7 @@ interface OutletContext {
 }
 
 function Lifestyle() {
+
     const {inactiveColor, inactiveBackgroundColor, habits} = useOutletContext<OutletContext>();
     const location = useLocation();
     const navigate = useNavigate();
