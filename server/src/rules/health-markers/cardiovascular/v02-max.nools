@@ -1,0 +1,198 @@
+// Source: https://www.fitnescity.com/understanding-vo2-max
+
+define V02Max {
+    v02Max : null,
+    age : null,
+    sex : null,
+    constructor : function(data) {
+        this.v02Max = data.v02Max;
+        this.age = data.age;
+        this.sex = data.sex;
+    }
+}
+
+define ScoreResult {
+    score : null,
+    status : null,
+    data : null,
+    setScore : function(score) {
+        this.score = score;
+    },
+    setStatus : function(status) {
+        this.status = status;
+    },
+    setData : function(v02Max, age, sex) {
+        this.data = { v02Max, age, sex };
+    }
+}
+
+// VO2 Max thresholds by age group and sex
+// Each array contains: [veryPoorMax, poorMax, belowAvgMax, avgMax, aboveAvgMax, goodMax]
+// Values above goodMax are "excellent"
+function getVo2MaxThresholds(age, sex) {
+    if (sex === 'M') {
+        // Men's thresholds
+        if (age >= 18 && age <= 25) {
+            return [29, 36, 41, 46, 51, 60];  // excellent: >60
+        } else if (age >= 26 && age <= 35) {
+            return [29, 34, 39, 42, 48, 56];  // excellent: >56
+        } else if (age >= 36 && age <= 45) {
+            return [25, 30, 34, 38, 42, 51];  // excellent: >51
+        } else if (age >= 46 && age <= 55) {
+            return [24, 28, 31, 35, 38, 45];  // excellent: >45
+        } else if (age >= 56 && age <= 65) {
+            return [21, 25, 29, 31, 35, 41];  // excellent: >41
+        } else if (age >= 66) {
+            return [19, 21, 25, 28, 32, 37];  // excellent: >37
+        } else {
+            // For ages below 18, use 18-25 thresholds
+            return [29, 36, 41, 46, 51, 60];
+        }
+    } else {
+        // Women's thresholds
+        if (age >= 18 && age <= 25) {
+            return [27, 32, 37, 41, 46, 56];  // excellent: >56
+        } else if (age >= 26 && age <= 35) {
+            return [25, 30, 34, 38, 44, 52];  // excellent: >52
+        } else if (age >= 36 && age <= 45) {
+            return [21, 26, 30, 33, 37, 45];  // excellent: >45
+        } else if (age >= 46 && age <= 55) {
+            return [19, 24, 27, 30, 33, 40];  // excellent: >40
+        } else if (age >= 56 && age <= 65) {
+            return [17, 21, 24, 27, 31, 37];  // excellent: >37
+        } else if (age >= 66) {
+            return [16, 18, 21, 24, 27, 32];  // excellent: >32
+        } else {
+            // For ages below 18, use 18-25 thresholds
+            return [27, 32, 37, 41, 46, 56];
+        }
+    }
+}
+
+function evaluateScore(v02Max, age, sex) {
+
+    var thresholds = getVo2MaxThresholds(age, sex);
+    var veryPoorMax = thresholds[0];
+    var poorMax = thresholds[1];
+    var belowAvgMax = thresholds[2];
+    var avgMax = thresholds[3];
+    var aboveAvgMax = thresholds[4];
+    var goodMax = thresholds[5];
+
+    // Score ranges by status:
+    // excellent: 900-1000
+    // good: 800-899
+    // above.average: 650-799
+    // average: 450-649
+    // below.average: 300-449
+    // poor: 150-299
+    // very.poor: 0-149
+
+    if (v02Max <= veryPoorMax) {
+
+        // Very Poor: 0-149
+        // Scale from 0 at very low VO2 max to 149 at veryPoorMax
+        var progress = Math.max(0, v02Max / veryPoorMax);
+
+        return Math.round(progress * 149);
+
+    } else if (v02Max <= poorMax) {
+
+        // Poor: 150-299
+
+        var range = poorMax - veryPoorMax;
+        var progress = (v02Max - veryPoorMax) / range;
+
+        return Math.round(150 + (progress * 149));
+
+    } else if (v02Max <= belowAvgMax) {
+
+        // Below average: 300-449
+
+        var range = belowAvgMax - poorMax;
+        var progress = (v02Max - poorMax) / range;
+
+        return Math.round(300 + (progress * 149));
+
+    } else if (v02Max <= avgMax) {
+
+        // Average: 450-649
+
+        var range = avgMax - belowAvgMax;
+        var progress = (v02Max - belowAvgMax) / range;
+
+        return Math.round(450 + (progress * 199));
+
+    } else if (v02Max <= aboveAvgMax) {
+
+        // Above average: 650-799
+
+        var range = aboveAvgMax - avgMax;
+        var progress = (v02Max - avgMax) / range;
+
+        return Math.round(650 + (progress * 149));
+
+    } else if (v02Max <= goodMax) {
+
+        // Good: 800-899
+
+        var range = goodMax - aboveAvgMax;
+        var progress = (v02Max - aboveAvgMax) / range;
+
+        return Math.round(800 + (progress * 99));
+
+    } else {
+
+        // Excellent: 900-1000
+        // Cap the max VO2 contribution at 10 units above goodMax
+
+        var excess = v02Max - goodMax;
+        var progress = Math.min(excess / 10, 1);
+
+        return Math.round(900 + (progress * 100));
+    }
+}
+
+function evaluateStatus(v02Max, age, sex) {
+
+    var thresholds = getVo2MaxThresholds(age, sex);
+    var veryPoorMax = thresholds[0];
+    var poorMax = thresholds[1];
+    var belowAvgMax = thresholds[2];
+    var avgMax = thresholds[3];
+    var aboveAvgMax = thresholds[4];
+    var goodMax = thresholds[5];
+
+    if (v02Max <= veryPoorMax) {
+        return "very.poor";
+    } else if (v02Max <= poorMax) {
+        return "poor";
+    } else if (v02Max <= belowAvgMax) {
+        return "below.average";
+    } else if (v02Max <= avgMax) {
+        return "average";
+    } else if (v02Max <= aboveAvgMax) {
+        return "above.average";
+    } else if (v02Max <= goodMax) {
+        return "good";
+    } else {
+        return "excellent";
+    }
+}
+
+rule EvaluateV02Max {
+    when {
+        v : V02Max;
+        r : ScoreResult !r.status;
+    }
+    then {
+
+        var score  = evaluateScore(v.v02Max, v.age, v.sex);
+        r.setScore(score);
+
+        var status = evaluateStatus(v.v02Max, v.age, v.sex);
+        r.setStatus(status);
+
+        r.setData(v.v02Max, v.age, v.sex);
+    }
+}
