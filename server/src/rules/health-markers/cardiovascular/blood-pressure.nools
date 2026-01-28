@@ -5,47 +5,163 @@ define BloodPressure {
     systolic : 0,
     diastolic : 0,
     hasHypertensionSymptoms : false,
+    hasHypotensionSymptoms : false,
     constructor : function(data) {
         this.systolic = data.systolic;
         this.diastolic = data.diastolic;
         this.hasHypertensionSymptoms = data.hasHypertensionSymptoms;
+        this.hasHypotensionSymptoms = data.hasHypotensionSymptoms;
     }
 }
 
 define ScoreResult {
+
     bloodPressureStatus : null,
     diastolicStatus : null,
     score : 0,
-    systolicStatus : null
-}
+    systolicStatus : null,
+    data: null,
 
-function calculateBloodPressureScore(systolic, diastolic, hasHypertensionSymptoms) {
-    return 1;
-}
-
-function getBloodPressureRating(systolic, diastolic, hasHypertensionSymptoms) {
-    switch (true) {
-        case (systolic < 90 && diastolic < 60):
-            return "low";
-        case (systolic < 120 && diastolic < 80):
-            return "normal";
-        case (systolic >= 120 && systolic <= 129 && diastolic < 80):
-            return "elevated";
-        case (systolic >= 130 && systolic <= 139 && diastolic >= 80 && diastolic <= 89):
-            return "stage1.hypertension";
-        case (systolic >= 140 && systolic <= 180 && diastolic >= 90 && diastolic <= 120):
-            return "stage2.hypertension";
-        case (systolic > 180 || diastolic > 120):
-            if (hasHypertensionSymptoms) {
-                return "hypertensive.crisis";
-            }
-            return "severe.hypertension";
-        default:
-            return "unknown";
+    setData : function(systolic, diastolic) {
+        this.data = { systolic, diastolic };
+    },
+    setBloodPressureStatus : function(status) {
+        this.bloodPressureStatus = status;
+    },
+    setDiastolicStatus : function(status) {
+        this.diastolicStatus = status;
+    },
+    setScore : function(score) {
+        this.score = score;
+    },
+    setSystolicStatus : function(status) {
+        this.systolicStatus = status;
     }
 }
 
-function getDiastolicRating(diastolic) {
+function calculateBloodPressureScore(systolic, diastolic, hasHypertensionSymptoms, hasHypotensionSymptoms) {
+    // Check from most severe to least severe (same order as status evaluation)
+
+    // Severe Hypertension / Hypertensive Crisis: systolic > 180 OR diastolic > 120
+    // Without symptoms: starts at 399, approaches 0
+    // With symptoms (crisis): starts at 250, approaches 0
+    if (systolic > 180 || diastolic > 120) {
+        var maxScore = hasHypertensionSymptoms ? 250 : 399;
+        // Calculate how far above the threshold we are
+        var systolicExcess = systolic > 180 ? (systolic - 180) / 40 : 0;  // Normalize: 40 points above = ratio of 1
+        var diastolicExcess = diastolic > 120 ? (diastolic - 120) / 30 : 0;  // Normalize: 30 points above = ratio of 1
+        var maxExcess = Math.max(systolicExcess, diastolicExcess);
+        var score = maxScore * (1 - Math.min(maxExcess, 1));
+        return Math.max(0, Math.round(score));
+    }
+
+    // Stage 2 Hypertension: systolic >= 140 OR diastolic >= 90
+    // Score starts at 679, approaches 400
+    if (systolic >= 140 || diastolic >= 90) {
+        // Calculate progress through stage 2 range
+        var systolicProgress = systolic >= 140 ? Math.min((systolic - 140) / 40, 1) : 0;  // 0 to 1
+        var diastolicProgress = diastolic >= 90 ? Math.min((diastolic - 90) / 30, 1) : 0;  // 0 to 1
+        var maxProgress = Math.max(systolicProgress, diastolicProgress);
+        return Math.round(679 - (maxProgress * 279));  // 679 to 400
+    }
+
+    // Stage 1 Hypertension: systolic >= 130 OR diastolic >= 80
+    // Score starts at 749, approaches 680
+    if (systolic >= 130 || diastolic >= 80) {
+        // Calculate progress through stage 1 range for both values
+        var systolicProgress = systolic >= 130 ? Math.min((systolic - 130) / 9, 1) : 0;  // 0 to 1
+        var diastolicProgress = diastolic >= 80 ? Math.min((diastolic - 80) / 9, 1) : 0;  // 0 to 1
+        var maxProgress = Math.max(systolicProgress, diastolicProgress);
+        return Math.round(749 - (maxProgress * 69));  // 749 to 680
+    }
+
+    // Elevated: 120 <= systolic <= 129 AND diastolic < 80
+    // Score starts at 899 at lower bound, approaches 750 at upper bound
+    if (systolic >= 120 && systolic <= 129 && diastolic < 80) {
+        var systolicProgress = (systolic - 120) / 9;  // 0 to 1 as we go from 120 to 129
+        return Math.round(899 - (systolicProgress * 149));  // 899 to 750
+    }
+
+    // Hypotension: systolic < 90 AND diastolic < 60
+    // Score starts at 900 at upper bound (90, 60) and approaches 0 as values decrease
+    // With symptoms, score starts at 600 instead
+    if (systolic < 90 && diastolic < 60) {
+        var maxScore = hasHypotensionSymptoms ? 600 : 900;
+        // Calculate how far below the threshold we are (combined measure)
+        // Upper bound is 90 systolic and 60 diastolic
+        // Use weighted average: systolic contributes more to overall health impact
+        var systolicRatio = systolic / 90;  // 1.0 at threshold, approaches 0 as systolic drops
+        var diastolicRatio = diastolic / 60;  // 1.0 at threshold, approaches 0 as diastolic drops
+        // Weighted average (systolic weighted 60%, diastolic 40%)
+        var combinedRatio = (systolicRatio * 0.6) + (diastolicRatio * 0.4);
+        return Math.max(0, Math.round(maxScore * combinedRatio));
+    }
+
+    // Normal (lower optimal): 90 <= systolic < 105 AND 60 <= diastolic < 70
+    // Score starts at 899 at lower bound, reaches 1000 at upper bound
+    if (systolic >= 90 && systolic < 105 && diastolic >= 60 && diastolic < 70) {
+        var systolicProgress = (systolic - 90) / 15;  // 0 to 1 as we go from 90 to 105
+        var diastolicProgress = (diastolic - 60) / 10;  // 0 to 1 as we go from 60 to 70
+        var avgProgress = (systolicProgress + diastolicProgress) / 2;
+        return Math.round(899 + (avgProgress * 101));  // 899 to 1000
+    }
+
+    // Normal (upper optimal): 105 <= systolic < 120 AND 70 <= diastolic < 80
+    // Score starts at 1000 at lower bound, approaches 900 at upper bound
+    if (systolic >= 105 && systolic < 120 && diastolic >= 70 && diastolic < 80) {
+        var systolicProgress = (systolic - 105) / 15;  // 0 to 1 as we go from 105 to 120
+        var diastolicProgress = (diastolic - 70) / 10;  // 0 to 1 as we go from 70 to 80
+        var avgProgress = (systolicProgress + diastolicProgress) / 2;
+        return Math.round(1000 - (avgProgress * 100));  // 1000 to 900
+    }
+
+    // Handle mixed ranges within normal (e.g., systolic in lower optimal, diastolic in upper optimal)
+    if (systolic >= 90 && systolic < 120 && diastolic >= 60 && diastolic < 80) {
+        // This catches cases where one value is in lower-optimal and other in upper-optimal
+        // Score based on distance from ideal (105/70)
+        var systolicDist = Math.abs(systolic - 105) / 15;
+        var diastolicDist = Math.abs(diastolic - 70) / 10;
+        var avgDist = (systolicDist + diastolicDist) / 2;
+        return Math.round(1000 - (avgDist * 100));  // Closer to ideal = closer to 1000
+    }
+
+    // Default fallback (should not reach here with valid inputs)
+    return 500;
+}
+
+function evaluateBloodPressureStatus(systolic, diastolic, hasHypertensionSymptoms) {
+    // Check from most severe to least severe
+    // Severe Hypertension / Hypertensive Crisis: systolic > 180 OR diastolic > 120
+    if (systolic > 180 || diastolic > 120) {
+        if (hasHypertensionSymptoms) {
+            return "hypertensive.crisis";
+        }
+        return "severe.hypertension";
+    }
+    // Stage 2 Hypertension: systolic >= 140 OR diastolic >= 90
+    if (systolic >= 140 || diastolic >= 90) {
+        return "stage2.hypertension";
+    }
+    // Stage 1 Hypertension: systolic >= 130 OR diastolic >= 80
+    if (systolic >= 130 || diastolic >= 80) {
+        return "stage1.hypertension";
+    }
+    // Elevated: systolic 120-129 AND diastolic < 80
+    if (systolic >= 120 && systolic <= 129 && diastolic < 80) {
+        return "elevated";
+    }
+    // Hypotension: systolic < 90 AND diastolic < 60
+    if (systolic < 90 && diastolic < 60) {
+        return "hypotension";
+    }
+    // Normal: systolic < 120 AND diastolic < 80
+    if (systolic < 120 && diastolic < 80) {
+        return "normal";
+    }
+    return "unknown";
+}
+
+function evaluateDiastolicStatus(diastolic) {
     switch (true) {
         case (diastolic < 60):
             return "low";
@@ -62,7 +178,7 @@ function getDiastolicRating(diastolic) {
     }
 }
 
-function getSystolicRating(systolic) {
+function evaluateSystolicStatus(systolic) {
     switch (true) {
         case (systolic < 90):
             return "low";
@@ -87,9 +203,16 @@ rule EvaluateBloodPressure {
         r : ScoreResult !r.bloodPressureStatus;
     }
     then {
-        r.systolicStatus = getSystolicRating(bp.systolic);
-        r.diastolicStatus = getDiastolicRating(bp.diastolic);
-        r.bloodPressureStatus = getBloodPressureRating(bp.systolic, bp.diastolic, bp.hasHypertensionSymptoms);
-        r.score = calculateBloodPressureScore(bp.systolic, bp.diastolic, bp.hasHypertensionSymptoms);
+
+        var systolicStatus = evaluateSystolicStatus(bp.systolic);
+        var diastolicStatus = evaluateDiastolicStatus(bp.diastolic);
+        var bloodPressureStatus = evaluateBloodPressureStatus(bp.systolic, bp.diastolic, bp.hasHypertensionSymptoms);
+        var score = calculateBloodPressureScore(bp.systolic, bp.diastolic, bp.hasHypertensionSymptoms, bp.hasHypotensionSymptoms);
+
+        r.setData(bp.systolic, bp.diastolic);
+        r.setSystolicStatus(systolicStatus);
+        r.setDiastolicStatus(diastolicStatus);
+        r.setBloodPressureStatus(bloodPressureStatus);
+        r.setScore(score);
     }
 }

@@ -42,6 +42,7 @@ import sleepIcon from "../assets/sleep.svg";
 import skincareTabIcon from "../assets/skincare-tab.svg";
 import vitaminBottleIcon from "../assets/vitamin-bottle.svg";
 import cigaretteIcon from "../assets/cigarette.svg";
+import toxinTabIcon from "../assets/toxin-tab.svg";
 
 import dentalCareHeaderIcon from "../assets/dental-care-header.svg";
 import dietHeaderIcon from "../assets/category-header/diet.svg";
@@ -51,6 +52,7 @@ import sleepHeaderIcon from "../assets/category-header/sleep.svg";
 import skincareHeaderIcon from "../assets/skincare-header.svg";
 import supplementsHeaderIcon from "../assets/supplements.svg";
 import vicesHeaderIcon from "../assets/category-header/vices.svg";
+import toxinHeaderIcon from "../assets/toxin-header.svg";
 
 export interface HealthCategory {
     id: string;
@@ -124,6 +126,7 @@ export type Habit = {
     label: string;
     icon: string;
     headerIcon: string;
+    headerIconHeight?: number;
     status: string;
 };
 
@@ -133,6 +136,7 @@ export const habits: Habit[] = [
         label: "Dental Care",
         icon: dentalCareHeaderIcon,
         headerIcon: dentalCareTabIcon,
+        headerIconHeight: 26,
         status: "Good"
     },
     {
@@ -140,6 +144,7 @@ export const habits: Habit[] = [
         label: "Diet",
         icon: healthyFoodIcon,
         headerIcon: dietHeaderIcon,
+        headerIconHeight: 26,
         status: "Needs Improvement"
     },
     {
@@ -147,6 +152,7 @@ export const habits: Habit[] = [
         label: "Exercise",
         icon: exerciseIcon,
         headerIcon: exerciseHeaderIcon,
+        headerIconHeight: 26,
         status: "Excellent"
     },
     {
@@ -154,6 +160,7 @@ export const habits: Habit[] = [
         label: "Posture",
         icon: postureTabIcon,
         headerIcon: postureHeaderIcon,
+        headerIconHeight: 26,
         status: "Good"
     },
     {
@@ -161,6 +168,7 @@ export const habits: Habit[] = [
         label: "Sleep",
         icon: sleepIcon,
         headerIcon: sleepHeaderIcon,
+        headerIconHeight: 26,
         status: "Needs Improvement"
     },
     {
@@ -168,6 +176,7 @@ export const habits: Habit[] = [
         label: "Skin Care",
         icon: skincareTabIcon,
         headerIcon: skincareHeaderIcon,
+        headerIconHeight: 26,
         status: "Good"
     },
     {
@@ -175,6 +184,7 @@ export const habits: Habit[] = [
         label: "Supplementation",
         icon: vitaminBottleIcon,
         headerIcon: supplementsHeaderIcon,
+        headerIconHeight: 26,
         status: "Fair"
     },
     {
@@ -182,6 +192,15 @@ export const habits: Habit[] = [
         label: "Vices",
         icon: cigaretteIcon,
         headerIcon: vicesHeaderIcon,
+        headerIconHeight: 26,
+        status: "Good"
+    },
+    {
+        id: "toxins",
+        label: "Toxins",
+        icon: toxinTabIcon,
+        headerIcon: toxinHeaderIcon,
+        headerIconHeight: 26,
         status: "Good"
     }
 ];

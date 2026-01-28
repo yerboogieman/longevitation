@@ -130,8 +130,7 @@ function Lifestyle() {
                             <img
                                 src={selectedHabitData?.headerIcon}
                                 alt=""
-                                width="40"
-                                height="40"
+                                height={selectedHabitData?.headerIconHeight ?? 40}
                             />
                         </div>
                         <span style={{margin: 0, fontWeight: "bold", fontSize: "14px", lineHeight: "1.2", color: getStatusColor(selectedHabitData?.status ?? ""), textAlign: "center", width: "120px", marginRight: "7px", display: "inline-block"}}>

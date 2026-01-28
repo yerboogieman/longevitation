@@ -55,9 +55,9 @@ rule EvaluateA1C {
     then {
 
         var score  = evaluateScore(a1c.percentage);
-        var status = evaluateStatus(a1c.percentage);
-
         r.setScore(score);
+
+        var status = evaluateStatus(a1c.percentage);
         r.setStatus(status);
     }
 }

@@ -54,9 +54,9 @@ rule EvaluateHomaIR {
     then {
 
         var score  = evaluateScore(homaIR.score);
-        var status = evaluateStatus(homaIR.score);
-
         r.setScore(score);
+
+        var status = evaluateStatus(homaIR.score);
         r.setStatus(status);
     }
 }
