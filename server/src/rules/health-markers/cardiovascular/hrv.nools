@@ -1,0 +1,172 @@
+// Source: https://www.healthencyclo.com/en/calculator/hrv-by-age-chart
+
+define HRV {
+    milliseconds : null,
+    age : null,
+    sex : null,
+    constructor : function(data) {
+        this.milliseconds = data.milliseconds;
+        this.age = data.age;
+        this.sex = data.sex;
+    }
+}
+
+define ScoreResult {
+    score : null,
+    status : null,
+    data : null,
+    setScore : function(score) {
+        this.score = score;
+    },
+    setStatus : function(status) {
+        this.status = status;
+    },
+    setData : function(milliseconds, age, sex) {
+        this.data = { milliseconds, age, sex };
+    }
+}
+
+// HRV thresholds by age group
+// Each array contains: [lowMax, belowAvgMax, avgMax, aboveAvgMax, excellentMax]
+// Values above excellentMax are "elite"
+function getHrvThresholds(age) {
+    if (age >= 18 && age <= 24) {
+        return [30, 45, 65, 85, 100];  // elite: 101+
+    } else if (age >= 25 && age <= 29) {
+        return [28, 42, 60, 78, 95];   // elite: 96+
+    } else if (age >= 30 && age <= 34) {
+        return [26, 40, 58, 75, 90];   // elite: 91+
+    } else if (age >= 35 && age <= 39) {
+        return [25, 38, 55, 72, 88];   // elite: 89+
+    } else if (age >= 40 && age <= 44) {
+        return [24, 36, 52, 68, 85];   // elite: 86+
+    } else if (age >= 45 && age <= 49) {
+        return [22, 34, 50, 65, 82];   // elite: 83+
+    } else if (age >= 50 && age <= 54) {
+        return [20, 32, 48, 62, 78];   // elite: 79+
+    } else if (age >= 55 && age <= 59) {
+        return [19, 30, 45, 60, 75];   // elite: 76+
+    } else if (age >= 60 && age <= 64) {
+        return [18, 28, 42, 56, 72];   // elite: 73+
+    } else if (age >= 65) {
+        return [17, 26, 40, 54, 70];   // elite: 71+
+    } else {
+        // For ages below 18, use 18-24 thresholds
+        return [30, 45, 65, 85, 100];
+    }
+}
+
+function evaluateScore(milliseconds, age, sex) {
+
+    var thresholds = getHrvThresholds(age);
+    var lowMax = thresholds[0];
+    var belowAvgMax = thresholds[1];
+    var avgMax = thresholds[2];
+    var aboveAvgMax = thresholds[3];
+    var excellentMax = thresholds[4];
+
+    // Score ranges by status:
+    // elite: 900-1000
+    // excellent: 800-899
+    // above.average: 650-799
+    // average: 450-649
+    // below.average: 200-449
+    // low: 0-199
+
+    if (milliseconds <= lowMax) {
+
+        // Low: 0-199, scale based on how low the HRV is
+        // At 0 HRV = 0 score, at lowMax = 199
+
+        var progress = milliseconds / lowMax;
+
+        return Math.round(progress * 199);
+
+    } else if (milliseconds <= belowAvgMax) {
+
+        // Below average: 200-449
+
+        var range = belowAvgMax - lowMax;
+        var progress = (milliseconds - lowMax) / range;
+
+        return Math.round(200 + (progress * 249));
+
+    } else if (milliseconds <= avgMax) {
+
+        // Average: 450-649
+
+        var range = avgMax - belowAvgMax;
+        var progress = (milliseconds - belowAvgMax) / range;
+
+        return Math.round(450 + (progress * 199));
+
+    } else if (milliseconds <= aboveAvgMax) {
+
+        // Above average: 650-799
+
+        var range = aboveAvgMax - avgMax;
+        var progress = (milliseconds - avgMax) / range;
+
+        return Math.round(650 + (progress * 149));
+
+    } else if (milliseconds <= excellentMax) {
+
+        // Excellent: 800-899
+
+        var range = excellentMax - aboveAvgMax;
+        var progress = (milliseconds - aboveAvgMax) / range;
+
+        return Math.round(800 + (progress * 99));
+
+    } else {
+
+        // Elite: 900-1000
+        // Cap the max HRV contribution at 50ms above excellentMax
+
+        var excess = milliseconds - excellentMax;
+        var progress = Math.min(excess / 50, 1);
+
+        return Math.round(900 + (progress * 100));
+    }
+}
+
+function evaluateStatus(milliseconds, age, sex) {
+
+    var thresholds = getHrvThresholds(age);
+    var lowMax = thresholds[0];
+    var belowAvgMax = thresholds[1];
+    var avgMax = thresholds[2];
+    var aboveAvgMax = thresholds[3];
+    var excellentMax = thresholds[4];
+
+    if (milliseconds <= lowMax) {
+        return "low";
+    } else if (milliseconds <= belowAvgMax) {
+        return "below.average";
+    } else if (milliseconds <= avgMax) {
+        return "average";
+    } else if (milliseconds <= aboveAvgMax) {
+        return "above.average";
+    } else if (milliseconds <= excellentMax) {
+        return "excellent";
+    } else {
+        return "elite";
+    }
+}
+
+rule EvaluateHRV {
+    when {
+        hrv : HRV;
+        r : ScoreResult !r.status;
+    }
+    then {
+
+        var score  = evaluateScore(hrv.milliseconds, hrv.age, hrv.sex);
+        r.setScore(score);
+
+        var status = evaluateStatus(hrv.milliseconds, hrv.age, hrv.sex);
+        r.setStatus(status);
+
+        r.setData(hrv.milliseconds, hrv.age, hrv.sex);
+    }
+}
