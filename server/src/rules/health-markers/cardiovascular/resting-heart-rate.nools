@@ -1,36 +1,241 @@
+// Source: https://www.medicinenet.com/what_is_a_good_resting_heart_rate_by_age/article.htm
+// Data tables from: https://www.topendsports.com/testing/heart-rate-resting-chart.htm
+
 define RestingHeartRate {
-    value : 0,
-    hasLowRHRSymptoms : false,
+    value : null,
+    age : null,
+    sex : null,
+    hasBradycardiaSymptoms : false,
+    hasTachycardiaSymptoms : false,
     constructor : function(data) {
         this.value = data.value;
-        this.hasLowRHRSymptoms = data.hasLowRHRSymptoms;
+        this.age = data.age;
+        this.sex = data.sex;
+        this.hasBradycardiaSymptoms = data.hasBradycardiaSymptoms || false;
+        this.hasTachycardiaSymptoms = data.hasTachycardiaSymptoms || false;
     }
 }
 
 define ScoreResult {
+    data : null,
+    score : null,
     status : null,
+    setData : function(rhr){
+        this.data = { rhr };
+    },
+    setScore : function(score){
+        this.score = score;
+    },
     setStatus : function(status){
         this.status = status;
     }
 }
 
-function evaluateScore(value, hasLowRHRSymptoms) {
-    if (value < 40 || (value < 45 && hasLowRHRSymptoms)) {
-        return "low.rhr";
-    } else if (value >= 40 && value <= 50) {
-        return "excellent.athletic";
-    } else if (value > 50 && value <= 60) {
-        return "very.good";
-    } else if (value > 60 && value <= 70) {
-        return "normal.healthy";
-    } else if (value > 70 && value <= 80) {
-        return "fair";
-    } else if (value > 80 && value <= 90) {
-        return "elevated";
-    } else if (value > 90) {
-        return "high.concerning.if.persistent";
+// RHR thresholds by age and sex
+// Returns: [athleteMax, excellentMax, goodMax, aboveAvgMax, avgMax, belowAvgMax]
+// Values above belowAvgMax are "poor"
+function getRhrThresholds(age, sex) {
+
+    if (sex === 'M' || sex === 'male') {
+        if (age >= 18 && age <= 25) {
+            // Athlete 49-55, Excellent 56-61, Good 62-65, Above Avg 66-69, Avg 70-73, Below Avg 74-81, Poor 82+
+            return [55, 61, 65, 69, 73, 81];
+        } else if (age >= 26 && age <= 35) {
+            // Athlete 49-54, Excellent 55-61, Good 62-65, Above Avg 66-70, Avg 71-74, Below Avg 75-81, Poor 82+
+            return [54, 61, 65, 70, 74, 81];
+        } else if (age >= 36 && age <= 45) {
+            // Athlete 50-56, Excellent 57-62, Good 63-66, Above Avg 67-70, Avg 71-75, Below Avg 76-82, Poor 83+
+            return [56, 62, 66, 70, 75, 82];
+        } else if (age >= 46 && age <= 55) {
+            // Athlete 50-57, Excellent 58-63, Good 64-67, Above Avg 68-71, Avg 72-76, Below Avg 77-83, Poor 84+
+            return [57, 63, 67, 71, 76, 83];
+        } else if (age >= 56 && age <= 65) {
+            // Athlete 51-56, Excellent 57-61, Good 62-67, Above Avg 68-71, Avg 72-75, Below Avg 76-81, Poor 82+
+            return [56, 61, 67, 71, 75, 81];
+        } else if (age >= 65) {
+            // Athlete 50-55, Excellent 56-61, Good 62-65, Above Avg 66-69, Avg 70-73, Below Avg 74-79, Poor 80+
+            return [55, 61, 65, 69, 73, 79];
+        } else {
+            // For ages below 18, return null (not supported)
+            return null;
+        }
     } else {
-        return "unknown";
+        // Female
+        if (age >= 18 && age <= 25) {
+            // Athlete 54-60, Excellent 61-65, Good 66-69, Above Avg 70-73, Avg 74-78, Below Avg 79-84, Poor 85+
+            return [60, 65, 69, 73, 78, 84];
+        } else if (age >= 26 && age <= 35) {
+            // Athlete 54-59, Excellent 60-64, Good 65-68, Above Avg 69-72, Avg 73-76, Below Avg 77-82, Poor 83+
+            return [59, 64, 68, 72, 76, 82];
+        } else if (age >= 36 && age <= 45) {
+            // Athlete 54-59, Excellent 60-64, Good 65-69, Above Avg 70-73, Avg 74-78, Below Avg 79-84, Poor 85+
+            return [59, 64, 69, 73, 78, 84];
+        } else if (age >= 46 && age <= 55) {
+            // Athlete 54-60, Excellent 61-65, Good 66-69, Above Avg 70-73, Avg 74-77, Below Avg 78-83, Poor 84+
+            return [60, 65, 69, 73, 77, 83];
+        } else if (age >= 56 && age <= 65) {
+            // Athlete 54-59, Excellent 60-64, Good 65-68, Above Avg 69-73, Avg 74-77, Below Avg 78-83, Poor 84+
+            return [59, 64, 68, 73, 77, 83];
+        } else if (age >= 65) {
+            // Athlete 54-59, Excellent 60-64, Good 65-68, Above Avg 69-72, Avg 73-76, Below Avg 77-84, Poor 84+
+            return [59, 64, 68, 72, 76, 84];
+        } else {
+            // For ages below 18, return null (not supported)
+            return null;
+        }
+    }
+}
+
+function evaluateStatus(rhr, age, sex, hasBradycardiaSymptoms, hasTachycardiaSymptoms) {
+
+    // Return null for ages below 18 (not supported)
+    if (age < 18) {
+        return null;
+    }
+
+    // Check for tachycardia (RHR > 100 with symptoms)
+    if (rhr > 100 && hasTachycardiaSymptoms) {
+        return "tachycardia";
+    }
+
+    // Check for bradycardia (RHR < 60 with symptoms)
+    // Note: Athletes naturally have lower RHR, but if they have symptoms, it's concerning
+    if (rhr < 60 && hasBradycardiaSymptoms) {
+        return "bradycardia";
+    }
+
+    var thresholds = getRhrThresholds(age, sex);
+    if (!thresholds) {
+        return null;
+    }
+
+    var athleteMax = thresholds[0];
+    var excellentMax = thresholds[1];
+    var goodMax = thresholds[2];
+    var aboveAvgMax = thresholds[3];
+    var avgMax = thresholds[4];
+    var belowAvgMax = thresholds[5];
+
+    // For RHR, lower is better
+    if (rhr <= athleteMax) {
+        return "athlete";
+    } else if (rhr <= excellentMax) {
+        return "excellent";
+    } else if (rhr <= goodMax) {
+        return "good";
+    } else if (rhr <= aboveAvgMax) {
+        return "above.average";
+    } else if (rhr <= avgMax) {
+        return "average";
+    } else if (rhr <= belowAvgMax) {
+        return "below.average";
+    } else {
+        return "poor";
+    }
+}
+
+function evaluateScore(rhr, age, sex, hasBradycardiaSymptoms, hasTachycardiaSymptoms) {
+
+    // Return null for ages below 18 (not supported)
+    if (age < 18) {
+        return null;
+    }
+
+    // Score ranges by status (lower RHR = better score):
+    // athlete: 900-1000
+    // excellent: 800-899
+    // good: 650-799
+    // above.average: 500-649
+    // average: 350-499
+    // below.average: 200-349
+    // poor: 0-199
+    // tachycardia: 0-100 (medical concern)
+    // bradycardia: 0-100 (medical concern)
+
+    // Handle tachycardia (RHR > 100 with symptoms)
+    if (rhr > 100 && hasTachycardiaSymptoms) {
+        // Score decreases as RHR increases beyond 100
+        // At RHR = 101, score = 100; at RHR = 150+, score = 0
+        var excess = rhr - 100;
+        var progress = Math.min(excess / 50, 1);
+        return Math.round(100 * (1 - progress));
+    }
+
+    // Handle bradycardia (RHR < 60 with symptoms)
+    if (rhr < 60 && hasBradycardiaSymptoms) {
+        // Score decreases as RHR decreases below 60
+        // At RHR = 59, score = 100; at RHR = 30 or below, score = 0
+        var deficit = 60 - rhr;
+        var progress = Math.min(deficit / 30, 1);
+        return Math.round(100 * (1 - progress));
+    }
+
+    var thresholds = getRhrThresholds(age, sex);
+    if (!thresholds) {
+        return null;
+    }
+
+    var athleteMax = thresholds[0];
+    var excellentMax = thresholds[1];
+    var goodMax = thresholds[2];
+    var aboveAvgMax = thresholds[3];
+    var avgMax = thresholds[4];
+    var belowAvgMax = thresholds[5];
+
+    // For RHR, lower is better
+    if (rhr <= athleteMax) {
+        // Athlete: 900-1000
+        // Score increases as RHR decreases within athlete range
+        // At athleteMax, score = 900; as RHR approaches 40 (elite athlete), score approaches 1000
+        var athleteMin = 40; // Elite athletes can have RHR as low as 40
+        if (rhr <= athleteMin) {
+            return 1000;
+        }
+        var range = athleteMax - athleteMin;
+        var progress = (athleteMax - rhr) / range;
+        return Math.round(900 + (progress * 100));
+
+    } else if (rhr <= excellentMax) {
+        // Excellent: 800-899
+        var range = excellentMax - athleteMax;
+        var progress = (excellentMax - rhr) / range;
+        return Math.round(800 + (progress * 99));
+
+    } else if (rhr <= goodMax) {
+        // Good: 650-799
+        var range = goodMax - excellentMax;
+        var progress = (goodMax - rhr) / range;
+        return Math.round(650 + (progress * 149));
+
+    } else if (rhr <= aboveAvgMax) {
+        // Above Average: 500-649
+        var range = aboveAvgMax - goodMax;
+        var progress = (aboveAvgMax - rhr) / range;
+        return Math.round(500 + (progress * 149));
+
+    } else if (rhr <= avgMax) {
+        // Average: 350-499
+        var range = avgMax - aboveAvgMax;
+        var progress = (avgMax - rhr) / range;
+        return Math.round(350 + (progress * 149));
+
+    } else if (rhr <= belowAvgMax) {
+        // Below Average: 200-349
+        var range = belowAvgMax - avgMax;
+        var progress = (belowAvgMax - rhr) / range;
+        return Math.round(200 + (progress * 149));
+
+    } else {
+        // Poor: 0-199
+        // Score decreases as RHR increases beyond belowAvgMax
+        // Cap at RHR = 120 (anything above gets 0)
+        var poorMax = 120;
+        if (rhr >= poorMax) {
+            return 0;
+        }
+        var range = poorMax - belowAvgMax;
+        var progress = (poorMax - rhr) / range;
+        return Math.round(progress * 199);
     }
 }
 
@@ -40,7 +245,13 @@ rule EvaluateRestingHeartRate {
         r : ScoreResult !r.status;
     }
     then {
-        var status = evaluateScore(rhr.value, rhr.hasLowRHRSymptoms);
+
+        r.setData(rhr.value);
+
+        var score = evaluateScore(rhr.value, rhr.age, rhr.sex, rhr.hasBradycardiaSymptoms, rhr.hasTachycardiaSymptoms);
+        r.setScore(score);
+
+        var status = evaluateStatus(rhr.value, rhr.age, rhr.sex, rhr.hasBradycardiaSymptoms, rhr.hasTachycardiaSymptoms);
         r.setStatus(status);
     }
 }
