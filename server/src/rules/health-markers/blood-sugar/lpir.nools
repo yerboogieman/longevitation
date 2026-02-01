@@ -1,0 +1,81 @@
+// Source: https://thehealthymd.com/lp-ir-score-lipoprotein-insulin-resistance-assessment/
+// Source: https://www.youtube.com/watch?v=F4skJoZ9OaM&t=181s
+
+define LPIR {
+    score : null,
+    constructor : function(data) {
+        this.score = data.score;
+    }
+}
+
+define ScoreResult {
+    score : null,
+    status : null,
+    data : null,
+    setData : function(lpir) {
+        this.data = { lpir };
+    },
+    setScore : function(score) {
+        this.score = score;
+    },
+    setStatus : function(status) {
+        this.status = status;
+    }
+}
+
+function evaluateScore(lpir) {
+    // LP-IR Score to Health Score mapping:
+    // Lower LP-IR is better (less insulin resistance), so lower LP-IR = higher health score
+    // LP-IR 0-45 (Low risk): Health score 1000-640
+    // LP-IR 46-64 (Moderate risk): Health score 639-350
+    // LP-IR 65-100 (High risk): Health score 349-0
+
+    if (lpir >= 0 && lpir <= 45) {
+        // Low risk range: score from 1000 (at 0) to 640 (at 45)
+        // Formula: score = 1000 - (lpir * 8)
+        return Math.round(1000 - (lpir * 8));
+    } else if (lpir >= 46 && lpir <= 64) {
+        // Moderate risk range: score from 639 (at 46) to 350 (at 64)
+        // Formula: score = 639 - ((lpir - 46) / 18 * 289)
+        return Math.round(639 - ((lpir - 46) / 18 * 289));
+    } else if (lpir >= 65 && lpir <= 100) {
+        // High risk range: score from 349 (at 65) to 0 (at 100)
+        // Formula: score = 349 - ((lpir - 65) / 35 * 349)
+        return Math.round(349 - ((lpir - 65) / 35 * 349));
+    } else if (lpir > 100) {
+        // Above maximum, return minimum score
+        return 0;
+    }
+}
+
+function evaluateStatus(lpir) {
+    // LP-IR Score Interpretation (from TheHealthyMD):
+    // 0-45: Low risk
+    // 46-64: Moderate risk
+    // 65-100: High risk
+
+    if (lpir >= 0 && lpir <= 45) {
+        return "low.risk";
+    } else if (lpir >= 46 && lpir <= 64) {
+        return "moderate.risk";
+    } else if (lpir >= 65) {
+        return "high.risk";
+    }
+}
+
+rule EvaluateLPIR {
+    when {
+        lpir : LPIR;
+        r : ScoreResult !r.status;
+    }
+    then {
+
+        r.setData(lpir.score);
+
+        var score  = evaluateScore(lpir.score);
+        r.setScore(score);
+
+        var status = evaluateStatus(lpir.score);
+        r.setStatus(status);
+    }
+}
