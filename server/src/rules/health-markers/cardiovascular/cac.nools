@@ -1,0 +1,105 @@
+// Source: https://www.docsopinion.com/coronary-calcium-score/
+
+define CAC {
+    score : null,
+    age : null,
+    sex : null,
+    constructor : function(data) {
+        this.score = data.score;
+        this.age = data.age;
+        this.sex = data.sex;
+    }
+}
+
+define ScoreResult {
+    score : null,
+    status : null,
+    data : null,
+    setScore : function(score) {
+        this.score = score;
+    },
+    setStatus : function(status) {
+        this.status = status;
+    },
+    setData : function(score, age, sex) {
+        this.data = { score, age, sex };
+    }
+}
+
+function evaluateScore(cac, age, sex) {
+    // CAC Score to Health Score mapping:
+    // Lower CAC is better (no plaque), so lower CAC = higher health score
+    // CAC 0 = perfect score (1000)
+    // CAC 1-99 = mild plaque (700-999)
+    // CAC 100-399 = moderate plaque (300-699)
+    // CAC 400+ = extensive plaque (0-299)
+
+    if (cac === 0) {
+        // No detectable plaque - perfect score
+        return 1000;
+    }
+
+    if (cac >= 1 && cac <= 99) {
+        // Mild plaque: score 700-999
+        // CAC 1 = 999, CAC 99 = 700
+        // Linear interpolation: higher CAC = lower score
+        var progress = (cac - 1) / 98;  // 0 to 1 as CAC goes from 1 to 99
+        return Math.round(999 - (progress * 299));  // 999 to 700
+    }
+
+    if (cac >= 100 && cac <= 399) {
+        // Moderate plaque: score 300-699
+        // CAC 100 = 699, CAC 399 = 300
+        var progress = (cac - 100) / 299;  // 0 to 1 as CAC goes from 100 to 399
+        return Math.round(699 - (progress * 399));  // 699 to 300
+    }
+
+    // Extensive plaque (CAC >= 400): score 0-299
+    // CAC 400 = 299, CAC 1000+ = approaches 0
+    // Use exponential decay to approach 0 as CAC increases beyond 400
+    var excess = cac - 400;
+    // At CAC 400 = 299, at CAC 1000 ≈ 50, at CAC 2000+ ≈ 0
+    var decayFactor = Math.exp(-excess / 500);  // Exponential decay
+    return Math.max(0, Math.round(299 * decayFactor));
+}
+
+function evaluateStatus(cac, age, sex) {
+
+    // CAC Score Interpretation (from docsopinion.com):
+    // 0: No detectable calcified plaque
+    // 1-99: Mild plaque burden
+    // 100-399: Moderate plaque burden
+    // 400+: Extensive plaque burden
+
+    if (cac === 0) {
+        return "no.detectable.plaque";
+    }
+
+    if (cac >= 1 && cac <= 99) {
+        return "mild.plaque";
+    }
+
+    if (cac >= 100 && cac <= 399) {
+        return "moderate.plaque";
+    }
+
+    // cac >= 400
+    return "extensive.plaque";
+}
+
+rule EvaluateCAC {
+    when {
+        cac : CAC;
+        r : ScoreResult !r.status;
+    }
+    then {
+
+        var score  = evaluateScore(cac.score, cac.age, cac.sex);
+        r.setScore(score);
+
+        var status = evaluateStatus(cac.score, cac.age, cac.sex);
+        r.setStatus(status);
+
+        r.setData(cac.score, cac.age, cac.sex);
+    }
+}

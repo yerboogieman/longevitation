@@ -1,0 +1,10 @@
+
+Longevitation - "Getting Started" workflow
+
+(name and email are gotten when registering)
+
+- Age
+- Height
+- Weight (here initially, and then from Apple Health, Garmin, etc.)
+- Sex (figure a way around the woke gender BS)
+- Preferred units (imperial|metric)
