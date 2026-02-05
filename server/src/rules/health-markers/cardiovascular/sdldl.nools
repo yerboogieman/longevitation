@@ -1,0 +1,114 @@
+// Source: https://www.clevelandheartlab.com/tests/sd-ldl/
+// Goal: < 50.0 mg/dL for Adults > 20 years
+// Reference intervals:
+//   Males 21-44 yrs and females 21-54 yrs: 12.7-48.3 mg/dL
+//   Males 45-75 yrs and females 55-75 yrs: 12.6-51.7 mg/dL
+
+define SDLDL {
+    value : null,
+    age : null,
+    sex : null,
+    constructor : function(data) {
+        this.value = data.value;
+        this.age = data.age;
+        this.sex = data.sex;
+    }
+}
+
+define ScoreResult {
+    score : null,
+    status : null,
+    data : null,
+    setData : function(sdldl) {
+        this.data = { sdldl };
+    },
+    setScore : function(score) {
+        this.score = score;
+    },
+    setStatus : function(status) {
+        this.status = status;
+    }
+}
+
+// sdLDL Status Thresholds (based on Cleveland HeartLab goal of < 50 mg/dL):
+// < 30 mg/dL: Optimal (well below goal)
+// 30-49.9 mg/dL: Normal (at goal)
+// 50-59.9 mg/dL: Above Goal (slightly elevated)
+// 60-79.9 mg/dL: Elevated (moderately elevated)
+// >= 80 mg/dL: High (significantly elevated)
+
+function evaluateStatus(sdldl) {
+    if (sdldl < 30) {
+        return "optimal";
+    } else if (sdldl < 50) {
+        return "normal";
+    } else if (sdldl < 60) {
+        return "above.goal";
+    } else if (sdldl < 80) {
+        return "elevated";
+    } else {
+        return "high";
+    }
+}
+
+function evaluateScore(sdldl) {
+    // Score ranges by status (lower sdLDL = higher score):
+    // optimal (< 30 mg/dL): 900-1000
+    // normal (30-49.9 mg/dL): 700-899
+    // above.goal (50-59.9 mg/dL): 400-699
+    // elevated (60-79.9 mg/dL): 150-399
+    // high (>= 80 mg/dL): 0-149
+
+    if (sdldl <= 0) {
+        // Invalid/impossible value, treat as perfect
+        return 1000;
+    } else if (sdldl < 30) {
+        // Optimal: 900-1000
+        // At 0: score = 1000; at 30: score = 900
+        var progress = (30 - sdldl) / 30;
+        return Math.round(900 + (progress * 100));
+    } else if (sdldl < 50) {
+        // Normal: 700-899
+        // At 30: score = 899; at 50: score = 700
+        var range = 50 - 30; // 20
+        var progress = (50 - sdldl) / range;
+        return Math.round(700 + (progress * 199));
+    } else if (sdldl < 60) {
+        // Above Goal: 400-699
+        // At 50: score = 699; at 60: score = 400
+        var range = 60 - 50; // 10
+        var progress = (60 - sdldl) / range;
+        return Math.round(400 + (progress * 299));
+    } else if (sdldl < 80) {
+        // Elevated: 150-399
+        // At 60: score = 399; at 80: score = 150
+        var range = 80 - 60; // 20
+        var progress = (80 - sdldl) / range;
+        return Math.round(150 + (progress * 249));
+    } else {
+        // High: 0-149
+        // At 80: score = 149; at 120 or above: score = 0
+        if (sdldl >= 120) {
+            return 0;
+        }
+        var range = 120 - 80; // 40
+        var progress = (120 - sdldl) / range;
+        return Math.round(progress * 149);
+    }
+}
+
+rule EvaluateSDLDL {
+    when {
+        sdldl : SDLDL;
+        r : ScoreResult !r.status;
+    }
+    then {
+        r.setData(sdldl.value);
+
+        var score = evaluateScore(sdldl.value);
+        r.setScore(score);
+
+        var status = evaluateStatus(sdldl.value);
+        r.setStatus(status);
+    }
+}
