@@ -1,0 +1,111 @@
+// Source: https://www.emedicinehealth.com/low_normal_blood_oxygen_levels_pulse_oximeter/article_em.htm
+
+define SPO2 {
+    value : null,
+    age : null,
+    sex : null,
+    constructor : function(data) {
+        this.value = data.value;
+        this.age = data.age;
+        this.sex = data.sex;
+    }
+}
+
+define ScoreResult {
+    score : null,
+    status : null,
+    data : null,
+    setData : function(spo2) {
+        this.data = { spo2 };
+    },
+    setScore : function(score) {
+        this.score = score;
+    },
+    setStatus : function(status) {
+        this.status = status;
+    }
+}
+
+// SpO2 Status Thresholds (based on pulse oximeter chart):
+// 95-100%: Normal Blood Oxygen Levels
+// 91-94%: Concerning Blood Oxygen Levels
+// 86-90%: Low Blood Oxygen Levels
+// 80-85%: Brain effects begin (hypoxemia)
+// <80% (down to ~67%): Cyanosis (severe hypoxemia)
+
+function evaluateStatus(spo2) {
+    if (spo2 >= 95) {
+        return "normal";
+    } else if (spo2 >= 91) {
+        return "concerning";
+    } else if (spo2 >= 86) {
+        return "low";
+    } else if (spo2 >= 80) {
+        return "possible.brain.effects";
+    } else {
+        return "cyanosis";
+    }
+}
+
+function evaluateScore(spo2) {
+    // Score ranges by status (higher SpO2 = higher score):
+    // normal (95-100%): 900-1000
+    // concerning (91-94%): 600-899
+    // low (86-90%): 300-599
+    // possible.brain.effects (80-85%): 100-299
+    // cyanosis (<80%): 0-99
+
+    if (spo2 >= 100) {
+        // Perfect saturation
+        return 1000;
+    } else if (spo2 >= 95) {
+        // Normal: 900-1000
+        // At 100%: score = 1000; at 95%: score = 900
+        var range = 100 - 95; // 5
+        var progress = (spo2 - 95) / range;
+        return Math.round(900 + (progress * 100));
+    } else if (spo2 >= 91) {
+        // Concerning: 600-899
+        // At 94%: score = 899; at 91%: score = 600
+        var range = 94 - 91; // 3
+        var progress = (spo2 - 91) / range;
+        return Math.round(600 + (progress * 299));
+    } else if (spo2 >= 86) {
+        // Low: 300-599
+        // At 90%: score = 599; at 86%: score = 300
+        var range = 90 - 86; // 4
+        var progress = (spo2 - 86) / range;
+        return Math.round(300 + (progress * 299));
+    } else if (spo2 >= 80) {
+        // Possible brain effects: 100-299
+        // At 85%: score = 299; at 80%: score = 100
+        var range = 85 - 80; // 5
+        var progress = (spo2 - 80) / range;
+        return Math.round(100 + (progress * 199));
+    } else {
+        // Cyanosis: 0-99
+        // At 79%: score = 99; at 67% or below: score = 0
+        if (spo2 <= 67) {
+            return 0;
+        }
+        var range = 79 - 67; // 12
+        var progress = (spo2 - 67) / range;
+        return Math.round(progress * 99);
+    }
+}
+
+rule EvaluateSPO2 {
+    when {
+        spo2 : SPO2;
+        r : ScoreResult !r.status;
+    }
+    then {
+        r.setData(spo2.value);
+
+        var score = evaluateScore(spo2.value);
+        r.setScore(score);
+
+        var status = evaluateStatus(spo2.value);
+        r.setStatus(status);
+    }
+}
