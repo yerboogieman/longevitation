@@ -52,6 +52,7 @@ function evaluateStatus(sdldl) {
 }
 
 function evaluateScore(sdldl) {
+
     // Score ranges by status (lower sdLDL = higher score):
     // optimal (< 30 mg/dL): 900-1000
     // normal (30-49.9 mg/dL): 700-899
