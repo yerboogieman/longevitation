@@ -1,13 +1,16 @@
 import "./App.css";
-import CaseList from "./components/CaseList.tsx";
-import Clients from "./components/Clients.tsx";
-import Users from "./components/Users.tsx";
 import ScoreInfo from "./components/ScoreInfo.tsx";
 import Overview from "./components/Overview.tsx";
 import Routine from "./components/Routine.tsx";
 import Lifestyle from "./components/Lifestyle.tsx";
+import LifestyleCategories from "./components/lifestyle/Categories.tsx";
+import Tracker from "./components/lifestyle/Tracker.tsx";
 import Stats from "./components/Stats.tsx";
 import Shop from "./components/Shop.tsx";
+import Diet from "./components/diet/Diet.tsx";
+import Menu from "./components/diet/Menu.tsx";
+import Recipes from "./components/diet/Recipes.tsx";
+import ShoppingList from "./components/diet/ShoppingList.tsx";
 import HealthyFood from "./components/shop/HealthyFood.tsx";
 import Devices from "./components/shop/Devices.tsx";
 import Services from "./components/shop/Services.tsx";
@@ -17,10 +20,10 @@ import HealthCategoryViews from "./components/HealthCategoryViews.tsx";
 import HealthCategoriesListView from "./components/HealthCategoriesListView.tsx";
 import HealthCategoriesTabbedView from "./components/HealthCategoriesTabbedView.tsx";
 import GettingStarted from "./components/GettingStarted.tsx";
-import {AppContainer} from '@customation/ui';
+import {AppContainer, AuthProvider, LanguageProvider, LoginPage, ProtectedRoute} from '@customation/ui';
 import '@customation/ui/dist/ui.css';
 import {accountMenuItems} from "./menu-data/account-menu-items.ts";
-import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import {leftNavMenuItems} from "./menu-data/left-nav-menu-items.ts";
 
 function App() {
@@ -28,14 +31,14 @@ function App() {
     const data = {
         gender: "female",
         score: 88,
-        setupComplete: true,
+        setupComplete: false,
     };
 
     const styles = {
         backgroundColor: "#f8f9fa",
         leftNav: {
             collapsed: true,
-            verticalOffset: "-84px"
+            verticalOffset: "-74px"
         },
         maxWidth: '1200px',
         topNav: {
@@ -47,7 +50,8 @@ function App() {
             menu: {
                 offset: "-80px",
                 selectedItemColor: "#d3d3d3"
-            }
+            },
+            showLanguageSelector: true,
         },
         footer: {
             backgroundColor: "#f8f9fa"
@@ -56,104 +60,73 @@ function App() {
 
     return (
         <BrowserRouter>
-            <div className="App">
-                <AppContainer accountMenuItems={accountMenuItems}
-                              leftNavMenuItems={leftNavMenuItems}
-                              styles={styles}>
-                    <div style={{paddingLeft: '10px', width: '100%'}}>
-                    <Routes>
-                        <Route path="/" element={<Navigate to={data.setupComplete ? "/overview" : "/getting-started"} replace/>}/>
-                        <Route path="/overview" element={data.setupComplete ? (
-                            <ScoreInfo score={data.score}
-                                gender={data.gender}
-                                styles={{
-                                    inactiveColor: "#6c757d",
-                                    inactiveBackgroundColor: "#f8f9fa"
-                                }}/>
-                        ) : (
-                            <Navigate to="/getting-started" replace/>
-                        )}>
-                            <Route index element={<Overview/>}/>
-                        </Route>
-                        <Route path="/routine" element={data.setupComplete ? (
-                            <ScoreInfo score={data.score}
-                                gender={data.gender}
-                                styles={{
-                                    inactiveColor: "#6c757d",
-                                    inactiveBackgroundColor: "#f8f9fa"
-                                }}/>
-                        ) : (
-                            <Navigate to="/getting-started" replace/>
-                        )}>
-                            <Route index element={<Routine/>}/>
-                        </Route>
-                        <Route path="/stats" element={data.setupComplete ? (
-                            <ScoreInfo score={data.score}
-                                gender={data.gender}
-                                styles={{
-                                    inactiveColor: "#6c757d",
-                                    inactiveBackgroundColor: "#f8f9fa"
-                                }}/>
-                        ) : (
-                            <Navigate to="/getting-started" replace/>
-                        )}>
-                            <Route index element={<Stats/>}/>
-                        </Route>
-                        <Route path="/shop" element={data.setupComplete ? (
-                            <ScoreInfo score={data.score}
-                                gender={data.gender}
-                                styles={{
-                                    inactiveColor: "#6c757d",
-                                    inactiveBackgroundColor: "#f8f9fa"
-                                }}/>
-                        ) : (
-                            <Navigate to="/getting-started" replace/>
-                        )}>
-                            <Route element={<Shop/>}>
-                                <Route index element={<Navigate to="devices" replace/>}/>
-                                <Route path="healthy-food" element={<HealthyFood/>}/>
-                                <Route path="devices" element={<Devices/>}/>
-                                <Route path="services" element={<Services/>}/>
-                                <Route path="supplements" element={<Supplements/>}/>
-                                <Route path="tests" element={<Tests/>}/>
-                            </Route>
-                        </Route>
-                        <Route path="/lifestyle" element={data.setupComplete ? (
-                            <ScoreInfo score={data.score}
-                                gender={data.gender}
-                                styles={{
-                                    inactiveColor: "#6c757d",
-                                    inactiveBackgroundColor: "#f8f9fa"
-                                }}/>
-                        ) : (
-                            <Navigate to="/getting-started" replace/>
-                        )}>
-                            <Route index element={<Lifestyle/>}/>
-                        </Route>
-                        <Route path="/categories/*" element={data.setupComplete ? (
-                            <ScoreInfo score={data.score}
-                                gender={data.gender}
-                                styles={{
-                                    inactiveColor: "#6c757d",
-                                    inactiveBackgroundColor: "#f8f9fa"
-                                }}/>
-                        ) : (
-                            <Navigate to="/getting-started" replace/>
-                        )}>
-                            <Route element={<HealthCategoryViews/>}>
-                                <Route index element={<Navigate to="tabbed-view" replace/>}/>
-                                <Route path="list-view" element={<HealthCategoriesListView/>}/>
-                                <Route path="tabbed-view" element={<HealthCategoriesTabbedView/>}/>
-                            </Route>
-                        </Route>
-                        <Route path="/getting-started" element={<GettingStarted/>}/>
-                        <Route path="/case-list" element={<CaseList/>}/>
-                        <Route path="/clients" element={<Clients/>}/>
-                        <Route path="/users" element={<Users/>}/>
-                    </Routes>
+            <LanguageProvider>
+                <AuthProvider>
+                    <div className="App">
+                        <AppContainer accountMenuItems={accountMenuItems}
+                                      leftNavMenuItems={leftNavMenuItems}
+                                      styles={styles}>
+                            <div style={{paddingLeft: '10px', width: '100%'}}>
+                                <Routes>
+                                    <Route path="/login" element={<LoginPage/>}/>
+                                    <Route element={<ProtectedRoute/>}>
+                                        <Route path="/"
+                                               element={<Navigate to={data.setupComplete ? "/overview" : "/getting-started"}
+                                                                  replace/>}/>
+                                        <Route element={
+                                            <ScoreInfo score={data.score}
+                                                       gender={data.gender}
+                                                       styles={{
+                                                           inactiveColor: "#6c757d",
+                                                           inactiveBackgroundColor: "#f8f9fa"
+                                                       }}/>
+                                        }>
+                                            <Route path="/overview" element={<Overview/>}/>
+                                            <Route path="/routine" element={<Routine/>}/>
+                                            <Route path="/stats" element={<Stats/>}/>
+                                            <Route path="/lifestyle" element={<Lifestyle/>}>
+                                                <Route index element={<Navigate to="categories" replace/>}/>
+                                                <Route path="categories" element={<LifestyleCategories/>}/>
+                                                <Route path="tracker" element={<Tracker/>}/>
+                                            </Route>
+                                            <Route path="/shop" element={<Shop/>}>
+                                                <Route index element={<Navigate to="devices" replace/>}/>
+                                                <Route path="healthy-food" element={<HealthyFood/>}/>
+                                                <Route path="devices" element={<Devices/>}/>
+                                                <Route path="services" element={<Services/>}/>
+                                                <Route path="supplements" element={<Supplements/>}/>
+                                                <Route path="tests" element={<Tests/>}/>
+                                            </Route>
+                                            <Route path="/diet" element={<Diet/>}>
+                                                <Route index element={<Navigate to="menu" replace/>}/>
+                                                <Route path="menu" element={<Menu/>}/>
+                                                <Route path="recipes" element={<Recipes/>}/>
+                                                <Route path="shopping-list" element={<ShoppingList/>}/>
+                                            </Route>
+                                            <Route path="/categories" element={<HealthCategoryViews/>}>
+                                                <Route index element={<Navigate to="tabbed-view" replace/>}/>
+                                                <Route path="list-view" element={<HealthCategoriesListView/>}/>
+                                                <Route path="tabbed-view" element={<HealthCategoriesTabbedView/>}/>
+                                            </Route>
+                                        </Route>
+                                        <Route element={
+                                            <ScoreInfo score={data.score}
+                                                       gender={data.gender}
+                                                       setupComplete={false}
+                                                       styles={{
+                                                           inactiveColor: "#6c757d",
+                                                           inactiveBackgroundColor: "#f8f9fa"
+                                                       }}/>
+                                        }>
+                                            <Route path="/getting-started" element={<GettingStarted/>}/>
+                                        </Route>
+                                    </Route>
+                                </Routes>
+                            </div>
+                        </AppContainer>
                     </div>
-                </AppContainer>
-            </div>
+                </AuthProvider>
+            </LanguageProvider>
         </BrowserRouter>
     );
 }

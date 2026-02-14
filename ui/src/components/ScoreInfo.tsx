@@ -53,6 +53,7 @@ import skincareHeaderIcon from "../assets/skincare-header.svg";
 import supplementsHeaderIcon from "../assets/supplements.svg";
 import vicesHeaderIcon from "../assets/category-header/vices.svg";
 import toxinHeaderIcon from "../assets/toxin-header.svg";
+import {useTranslation} from "@customation/ui";
 
 export interface HealthCategory {
     id: string;
@@ -212,6 +213,7 @@ interface ScoreInfoProps {
     };
     score: number;
     gender?: string;
+    setupComplete?: boolean;
 }
 
 interface HeaderMenuItem {
@@ -230,7 +232,9 @@ const headerMenuItems: HeaderMenuItem[] = [
     {id: "shop", label: "Shop", icon: "M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.49 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z", path: "/shop"},
 ];
 
-function ScoreInfo({styles, score, gender}: ScoreInfoProps) {
+function ScoreInfo({styles, score, gender, setupComplete = true}: ScoreInfoProps) {
+
+    const {t} = useTranslation();
 
     const [hoveredHeaderTab, setHoveredHeaderTab] = useState<string | null>(null);
     const {inactiveColor, inactiveBackgroundColor} = styles;
@@ -304,75 +308,86 @@ function ScoreInfo({styles, score, gender}: ScoreInfoProps) {
             overflow: "hidden",
             marginTop: "-11px"
         }}>
-            <div style={{
-                backgroundColor: inactiveBackgroundColor,
-                padding: "16px 24px 0 13px",
-                display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "space-between",
-                position: "relative"
-            }}>
-                <div style={{display: "flex", alignItems: "flex-end", gap: "8px", paddingBottom: "16px"}}>
-                    <h4 className="fw-bold m-0">My Health</h4>
-                    <img src={genderIcon} alt="" width="32" height="32" style={{marginBottom: "2px"}} />
-                </div>
-                <ul style={{
+            {setupComplete ? (
+                <div style={{
+                    backgroundColor: inactiveBackgroundColor,
+                    padding: "16px 24px 0 13px",
                     display: "flex",
-                    listStyle: "none",
-                    margin: 0,
-                    padding: 0,
-                    gap: 0,
-                    position: "absolute",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    bottom: "-1px"
+                    alignItems: "flex-end",
+                    justifyContent: "space-between",
+                    position: "relative"
                 }}>
-                    {headerMenuItems.map((item) => {
-                        const isHovered = hoveredHeaderTab === item.id;
-                        return (
-                            <li key={item.id}>
-                                <NavLink
-                                    to={item.path}
-                                    end={item.path === "/score-info"}
-                                    onMouseEnter={() => setHoveredHeaderTab(item.id)}
-                                    onMouseLeave={() => setHoveredHeaderTab(null)}
-                                    style={({isActive}) => ({
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "4px",
-                                        padding: "6px 10px",
-                                        border: "none",
-                                        background: "none",
-                                        cursor: "pointer",
-                                        color: inactiveColor,
-                                        textDecoration: "none",
-                                        borderBottom: isActive ? "2px solid #0d6efd" : "2px solid transparent",
-                                        opacity: isActive ? 1 : (isHovered ? 0.8 : 0.7),
-                                        transition: "all 0.15s ease"
-                                    })}
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                        width="14"
-                                        height="14"
-                                    >
-                                        <path d={item.icon}/>
-                                    </svg>
-                                    <span style={{fontSize: "13px"}}>{item.label}</span>
-                                </NavLink>
-                            </li>
-                        );
-                    })}
-                </ul>
-                <div style={{textAlign: "center", alignSelf: "flex-end", marginBottom: "-50px", marginTop: "-10px"}}>
-                    <div style={{fontSize: "11px", color: inactiveColor, marginBottom: "2px", opacity: 0.8}}>
-                        Overall
+                    <div style={{display: "flex", alignItems: "flex-end", gap: "8px", paddingBottom: "16px"}}>
+                        <h4 className="fw-bold m-0">{t("myHealth")}</h4>
+                        <img src={genderIcon} alt="" width="32" height="32" style={{marginBottom: "2px"}} />
                     </div>
-                    <HighchartsReact highcharts={Highcharts} options={gaugeOptions} />
+                    <ul style={{
+                        display: "flex",
+                        listStyle: "none",
+                        margin: 0,
+                        padding: 0,
+                        gap: 0,
+                        position: "absolute",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        bottom: "-1px"
+                    }}>
+                        {headerMenuItems.map((item) => {
+                            const isHovered = hoveredHeaderTab === item.id;
+                            return (
+                                <li key={item.id}>
+                                    <NavLink
+                                        to={item.path}
+                                        end={item.path === "/score-info"}
+                                        onMouseEnter={() => setHoveredHeaderTab(item.id)}
+                                        onMouseLeave={() => setHoveredHeaderTab(null)}
+                                        style={({isActive}) => ({
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: "4px",
+                                            padding: "6px 10px",
+                                            border: "none",
+                                            background: "none",
+                                            cursor: "pointer",
+                                            color: inactiveColor,
+                                            textDecoration: "none",
+                                            borderBottom: isActive ? "2px solid #0d6efd" : "2px solid transparent",
+                                            opacity: isActive ? 1 : (isHovered ? 0.8 : 0.7),
+                                            transition: "all 0.15s ease"
+                                        })}
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="currentColor"
+                                            width="14"
+                                            height="14"
+                                        >
+                                            <path d={item.icon}/>
+                                        </svg>
+                                        <span style={{fontSize: "13px"}}>{item.label}</span>
+                                    </NavLink>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <div style={{textAlign: "center", alignSelf: "flex-end", marginBottom: "-50px"}}>
+                        <div style={{fontSize: "11px", color: inactiveColor, marginBottom: "2px", opacity: 0.8}}>
+                            Overall
+                        </div>
+                        <HighchartsReact highcharts={Highcharts} options={gaugeOptions} />
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <div style={{
+                    backgroundColor: inactiveBackgroundColor,
+                    padding: "40px 24px 16px 13px",
+                    display: "flex",
+                    alignItems: "flex-end"
+                }}>
+                    <h4 className="fw-bold m-0">{t("gettingStarted")}</h4>
+                </div>
+            )}
             <Outlet context={{...styles, headerMenuItems, healthCategories, habits}}/>
         </div>
     );

@@ -270,7 +270,7 @@ function HealthMarkers({categoryId, categoryLabel, inactiveColor}: HealthMarkers
                 {markers.map((marker) => {
                     const isOpen = openAccordion === marker.id;
                     return (
-                        <div className="accordion-item" key={marker.id} style={{border: "1px solid #dee2e6", borderRadius: "8px", marginBottom: "12px", overflow: "visible"}}>
+                        <div className="accordion-item" key={marker.id} style={{border: "1px solid #dee2e6", borderRadius: "8px", marginBottom: "12px", overflow: "hidden"}}>
                             <div className="accordion-header" style={{position: "relative", backgroundColor: "#f8f9fa", borderRadius: isOpen ? "8px 8px 0 0" : "8px"}}>
                                 <button
                                     type="button"

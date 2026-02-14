@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {Outlet, useOutletContext, useLocation, useNavigate} from "react-router-dom";
-import lifestyleHeaderIcon from "../assets/running-man.svg";
+import dietIcon from "../../assets/category-header/diet.svg";
 
 interface HeaderMenuItem {
     id: string;
@@ -16,21 +16,21 @@ interface StylesContext {
 
 interface OutletContext extends StylesContext {
     headerMenuItems: HeaderMenuItem[];
-    habits: any[];
 }
 
-interface LifestyleMenuItem {
+interface DietMenuItem {
     id: string;
     label: string;
     path: string;
 }
 
-const lifestyleMenuItems: LifestyleMenuItem[] = [
-    {id: "categories", label: "Categories", path: "categories"},
-    {id: "tracker", label: "Tracker", path: "tracker"},
+const dietMenuItems: DietMenuItem[] = [
+    {id: "menu", label: "Menu", path: "menu"},
+    {id: "recipes", label: "Recipes", path: "recipes"},
+    {id: "shopping-list", label: "Shopping List", path: "shopping-list"},
 ];
 
-function Lifestyle() {
+function Diet() {
 
     const context = useOutletContext<OutletContext>();
     const {inactiveColor} = context;
@@ -38,7 +38,7 @@ function Lifestyle() {
     const navigate = useNavigate();
 
     const currentPath = location.pathname.split("/").pop();
-    const selectedItem = lifestyleMenuItems.some(item => item.path === currentPath) ? currentPath : "categories";
+    const selectedItem = dietMenuItems.some(item => item.path === currentPath) ? currentPath : "menu";
 
     const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
@@ -47,9 +47,9 @@ function Lifestyle() {
             <div style={{padding: "16px 16px 12px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", position: "relative"}}>
                 <div style={{display: "flex", alignItems: "center", gap: "8px"}}>
                     <h5 style={{margin: 0, fontWeight: "bold"}}>
-                        Lifestyle
+                        Diet
                     </h5>
-                    <img src={lifestyleHeaderIcon} alt="" width="24" height="24"/>
+                    <img src={dietIcon} alt="" width="24" height="24"/>
                 </div>
                 <ul style={{
                     display: "flex",
@@ -62,7 +62,7 @@ function Lifestyle() {
                     transform: "translateX(-50%)",
                     bottom: "-1px"
                 }}>
-                    {lifestyleMenuItems.map((item) => {
+                    {dietMenuItems.map((item) => {
                         const isSelected = selectedItem === item.path;
                         const isHovered = hoveredItem === item.id;
                         return (
@@ -99,4 +99,4 @@ function Lifestyle() {
     );
 }
 
-export default Lifestyle;
+export default Diet;

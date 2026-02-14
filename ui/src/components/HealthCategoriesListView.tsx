@@ -100,7 +100,7 @@ function HealthCategoriesListView() {
     const [selectedTabs, setSelectedTabs] = useState<Record<string, CategoryTab>>({});
     const [hoveredTab, setHoveredTab] = useState<string | null>(null);
     const contentRefs = useRef<Record<string, HTMLDivElement | null>>({});
-    const [heights, setHeights] = useState<Record<string, number>>({});
+    const [_heights, setHeights] = useState<Record<string, number>>({});
 
     useEffect(() => {
         // Measure all content heights
