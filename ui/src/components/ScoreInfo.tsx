@@ -244,8 +244,8 @@ function ScoreInfo({styles, score, gender, setupComplete = true}: ScoreInfoProps
     const gaugeOptions: Highcharts.Options = useMemo(() => ({
         chart: {
             type: "solidgauge",
-            height: 120,
-            width: 120,
+            height: 80,
+            width: 80,
             backgroundColor: "transparent",
             margin: [0, 0, 0, 0],
             spacing: [0, 0, 0, 0]
@@ -285,9 +285,9 @@ function ScoreInfo({styles, score, gender, setupComplete = true}: ScoreInfoProps
             solidgauge: {
                 dataLabels: {
                     enabled: true,
-                    y: -15,
+                    y: -10,
                     borderWidth: 0,
-                    format: `<span style="font-size:18px;font-weight:bold;color:${inactiveColor}">{y}</span>`
+                    format: `<span style="font-size:14px;font-weight:bold;color:${inactiveColor}">{y}</span>`
                 }
             }
         },
@@ -371,7 +371,7 @@ function ScoreInfo({styles, score, gender, setupComplete = true}: ScoreInfoProps
                             );
                         })}
                     </ul>
-                    <div style={{textAlign: "center", alignSelf: "flex-end", marginBottom: "-50px"}}>
+                    <div style={{textAlign: "center", alignSelf: "flex-end", marginBottom: "-30px"}}>
                         <div style={{fontSize: "11px", color: inactiveColor, marginBottom: "2px", opacity: 0.8}}>
                             Overall
                         </div>

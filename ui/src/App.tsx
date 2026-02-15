@@ -20,6 +20,7 @@ import HealthCategoryViews from "./components/HealthCategoryViews.tsx";
 import HealthCategoriesListView from "./components/HealthCategoriesListView.tsx";
 import HealthCategoriesTabbedView from "./components/HealthCategoriesTabbedView.tsx";
 import GettingStarted from "./components/GettingStarted.tsx";
+import Methodology from "./components/Methodology.tsx";
 import {AppContainer, AuthProvider, LanguageProvider, LoginPage, ProtectedRoute} from '@customation/ui';
 import '@customation/ui/dist/ui.css';
 import {accountMenuItems} from "./menu-data/account-menu-items.ts";
@@ -69,6 +70,7 @@ function App() {
                             <div style={{paddingLeft: '10px', width: '100%'}}>
                                 <Routes>
                                     <Route path="/login" element={<LoginPage/>}/>
+                                    <Route path="/methodology" element={<Methodology/>}/>
                                     <Route element={<ProtectedRoute/>}>
                                         <Route path="/"
                                                element={<Navigate to={data.setupComplete ? "/overview" : "/getting-started"}
