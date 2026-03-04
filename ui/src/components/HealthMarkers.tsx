@@ -15,6 +15,7 @@ interface HealthMarkersProps {
     categoryId: string;
     categoryLabel: string;
     inactiveColor: string;
+    scrollbarWidth?: number;
 }
 
 interface MarkerData {
@@ -108,8 +109,8 @@ function MarkerGauge({score, inactiveColor}: MarkerGaugeProps) {
     const gaugeOptions: Highcharts.Options = useMemo(() => ({
         chart: {
             type: "solidgauge",
-            height: 56,
-            width: 56,
+            height: 50,
+            width: 50,
             backgroundColor: "transparent",
             margin: [0, 0, 0, 0],
             spacing: [0, 0, 0, 0]
@@ -149,9 +150,9 @@ function MarkerGauge({score, inactiveColor}: MarkerGaugeProps) {
             solidgauge: {
                 dataLabels: {
                     enabled: true,
-                    y: -8,
+                    y: -7,
                     borderWidth: 0,
-                    format: `<span style="font-size:11px;font-weight:bold;color:${inactiveColor}">{y}</span>`
+                    format: `<span style="font-size:10px;font-weight:bold;color:${inactiveColor}">{y}</span>`
                 }
             }
         },
@@ -211,7 +212,7 @@ const markerTabItems: MarkerTabItem[] = [
     {id: "stats", label: "Stats", icon: "M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"},
 ];
 
-function HealthMarkers({categoryId, categoryLabel, inactiveColor}: HealthMarkersProps) {
+function HealthMarkers({categoryId, categoryLabel, inactiveColor, scrollbarWidth = 0}: HealthMarkersProps) {
     const markers = mockMarkersByCategory[categoryId] || [];
     const [openAccordion, setOpenAccordion] = useState<string | null>(null);
     const [explicitClose, setExplicitClose] = useState<string | null>(null);
@@ -266,7 +267,7 @@ function HealthMarkers({categoryId, categoryLabel, inactiveColor}: HealthMarkers
                     These metrics are used to calculate your {categoryLabel.toLowerCase()} score.
                 </p>
             </div>
-            <div className="accordion" style={{marginRight: "16px"}}>
+            <div className="accordion" style={{marginRight: `${16 - scrollbarWidth}px`}}>
                 {markers.map((marker) => {
                     const isOpen = openAccordion === marker.id;
                     return (
@@ -279,7 +280,7 @@ function HealthMarkers({categoryId, categoryLabel, inactiveColor}: HealthMarkers
                                         backgroundColor: "transparent",
                                         padding: "12px 16px",
                                         paddingRight: "16px",
-                                        paddingBottom: isOpen ? "0" : "12px",
+                                        paddingBottom: "0",
                                         display: "flex",
                                         alignItems: "center",
                                         gap: "16px",
@@ -319,10 +320,10 @@ function HealthMarkers({categoryId, categoryLabel, inactiveColor}: HealthMarkers
                                     </div>
                                     <div style={{
                                         marginLeft: "auto",
-                                        marginRight: "24px",
+                                        marginRight: "6px",
                                         display: "flex",
                                         alignItems: "center",
-                                        marginBottom: "-20px",
+                                        marginBottom: "-12px",
                                     }}>
                                         <MarkerGauge score={marker.score} inactiveColor={inactiveColor} />
                                     </div>
@@ -335,8 +336,8 @@ function HealthMarkers({categoryId, categoryLabel, inactiveColor}: HealthMarkers
                                     height="16"
                                     style={{
                                         position: "absolute",
-                                        right: "12px",
-                                        top: "12px",
+                                        right: "6px",
+                                        top: "6px",
                                         transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
                                         transition: "transform 0.2s ease",
                                         pointerEvents: "none",

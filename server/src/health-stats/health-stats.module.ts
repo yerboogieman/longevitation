@@ -8,6 +8,7 @@ import {HealthStat, HealthStatSchema} from './entities/health-stat.entity';
     imports: [MongooseModule.forFeature([{name: HealthStat.name, schema: HealthStatSchema}])],
     controllers: [HealthStatsController],
     providers: [HealthStatsService],
+    exports: [HealthStatsService],
 })
 export class HealthStatsModule {
 }

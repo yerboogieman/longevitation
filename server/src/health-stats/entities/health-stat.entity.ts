@@ -11,7 +11,7 @@ import {BaseDocument} from '@customation/model/document';
 })
 export class HealthStat extends BaseDocument {
 
-    @Prop({required: true})
+    @Prop({type: Date, required: true})
     timestamp: Date;
 
     @Prop({type: Object, required: true})
@@ -25,3 +25,4 @@ export class HealthStat extends BaseDocument {
 }
 
 export const HealthStatSchema = SchemaFactory.createForClass(HealthStat);
+HealthStatSchema.index({ 'metadata.healthMarkerId': 1, timestamp: 1, 'metadata.userId': 1 }, { unique: true });

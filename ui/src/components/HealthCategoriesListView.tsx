@@ -35,8 +35,8 @@ function CategoryGauge({score, inactiveColor}: {score: number; inactiveColor: st
     const gaugeOptions: Highcharts.Options = useMemo(() => ({
         chart: {
             type: "solidgauge",
-            height: 80,
-            width: 80,
+            height: 60,
+            width: 60,
             backgroundColor: "transparent",
             margin: [0, 0, 0, 0],
             spacing: [0, 0, 0, 0]
@@ -76,9 +76,9 @@ function CategoryGauge({score, inactiveColor}: {score: number; inactiveColor: st
             solidgauge: {
                 dataLabels: {
                     enabled: true,
-                    y: -10,
+                    y: -8,
                     borderWidth: 0,
-                    format: `<span style="font-size:14px;font-weight:bold;color:${inactiveColor}">{y}</span>`
+                    format: `<span style="font-size:12px;font-weight:bold;color:${inactiveColor}">{y}</span>`
                 }
             }
         },
@@ -101,7 +101,6 @@ function HealthCategoriesListView() {
     const [hoveredTab, setHoveredTab] = useState<string | null>(null);
     const contentRefs = useRef<Record<string, HTMLDivElement | null>>({});
     const [_heights, setHeights] = useState<Record<string, number>>({});
-
     useEffect(() => {
         // Measure all content heights
         const newHeights: Record<string, number> = {};
@@ -134,7 +133,7 @@ function HealthCategoriesListView() {
     };
 
     return (
-        <div className="thin-scrollbar" style={{flex: 1, minHeight: 0, backgroundColor: "#ffffff", borderLeft: "1px solid #dee2e6", borderRight: "1px solid #dee2e6", overflow: "auto", padding: "8px 6px 8px 8px"}}>
+        <div className="thin-scrollbar" style={{flex: 1, minHeight: 0, backgroundColor: "#ffffff", borderLeft: "1px solid #dee2e6", borderRight: "1px solid #dee2e6", overflowY: "scroll", padding: "8px 5px 8px 8px"}}>
             <div className="accordion">
                 {healthCategories.map((category: HealthCategory) => {
                     const isOpen = openAccordion === category.id;
@@ -171,10 +170,10 @@ function HealthCategoriesListView() {
                                         {category.label}
                                     </h6>
                                     <div style={{
-                                        marginRight: "16px",
+                                        marginRight: "6px",
                                         display: "flex",
                                         alignItems: "center",
-                                        marginBottom: "-20px",
+                                        marginBottom: "-12px",
                                     }}>
                                         <CategoryGauge score={category.score} inactiveColor={inactiveColor} />
                                     </div>
@@ -187,8 +186,8 @@ function HealthCategoriesListView() {
                                     height="16"
                                     style={{
                                         position: "absolute",
-                                        right: "12px",
-                                        top: "12px",
+                                        right: "6px",
+                                        top: "6px",
                                         transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
                                         transition: "transform 0.2s ease",
                                         pointerEvents: "none",
@@ -259,13 +258,13 @@ function HealthCategoriesListView() {
                                 )}
                             </div>
                             <div
-                                ref={(el) => { contentRefs.current[category.id] = el; }}
                                 style={{
-                                    overflow: isOpen ? "visible" : "hidden",
-                                    height: isOpen ? "auto" : 0,
-                                    transition: (!isOpen && explicitClose !== category.id) ? "none" : "height 0.3s ease",
+                                    display: "grid",
+                                    gridTemplateRows: isOpen ? "1fr" : "0fr",
+                                    transition: (!isOpen && explicitClose !== category.id) ? "none" : "grid-template-rows 0.3s ease",
                                 }}
                             >
+                                <div ref={(el) => { contentRefs.current[category.id] = el; }} style={{overflow: "hidden", borderRadius: "0 0 8px 8px"}}>
                                 <div className="accordion-body" style={{padding: "16px", backgroundColor: "#fff", borderTop: "1px solid #dee2e6"}}>
                                     {getSelectedTab(category.id) === "overview" && (
                                         <div style={{color: inactiveColor, fontSize: "13px"}}>
@@ -274,11 +273,14 @@ function HealthCategoriesListView() {
                                         </div>
                                     )}
                                     {getSelectedTab(category.id) === "markers" && (
-                                        <HealthMarkers
-                                            categoryId={category.id}
-                                            categoryLabel={category.label}
-                                            inactiveColor={inactiveColor}
-                                        />
+                                        <div style={{marginRight: "-12px"}}>
+                                            <HealthMarkers
+                                                categoryId={category.id}
+                                                categoryLabel={category.label}
+                                                inactiveColor={inactiveColor}
+                                                scrollbarWidth={16}
+                                            />
+                                        </div>
                                     )}
                                     {getSelectedTab(category.id) === "factors" && (
                                         <div style={{color: inactiveColor, fontSize: "13px", padding: "24px", textAlign: "center"}}>
@@ -295,6 +297,7 @@ function HealthCategoriesListView() {
                                             TODO: create troubleshoot component for this category.
                                         </div>
                                     )}
+                                </div>
                                 </div>
                             </div>
                         </div>

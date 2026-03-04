@@ -38,7 +38,7 @@ function HealthCategoryViews() {
                 borderTopRightRadius: "8px"
             }}>
                 <h5 style={{margin: 0, fontWeight: "bold"}}>Health Categories</h5>
-                <div style={{display: "flex", borderRadius: "4px", overflow: "hidden", border: "1px solid #dee2e6", marginRight: "33px"}}>
+                <div style={{display: "flex", borderRadius: "4px", overflow: "hidden", border: "1px solid #dee2e6", marginRight: "15px"}}>
                     <button
                         onClick={() => navigate("/categories/tabbed-view")}
                         title="Tabbed View"

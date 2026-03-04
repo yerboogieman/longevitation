@@ -1,4 +1,4 @@
-import {useState, useMemo, useEffect, useRef} from "react";
+import {useState, useMemo, useEffect, useRef, useCallback} from "react";
 import {useOutletContext, useLocation, useNavigate} from "react-router-dom";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
@@ -45,6 +45,15 @@ function HealthCategoriesTabbedView() {
     const [selectedSubMenu, setSelectedSubMenu] = useState<string>("overview");
     const [hoveredSubMenu, setHoveredSubMenu] = useState<string | null>(null);
     const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const [scrollbarWidth, setScrollbarWidth] = useState(0);
+    const scrollContainerRef = useCallback((node: HTMLDivElement | null) => {
+        if (!node) return;
+        const check = () => setScrollbarWidth(node.offsetWidth - node.clientWidth);
+        check();
+        const observer = new ResizeObserver(check);
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
         if (hoveredSubMenu) {
@@ -72,8 +81,8 @@ function HealthCategoriesTabbedView() {
     const gaugeOptions: Highcharts.Options = useMemo(() => ({
         chart: {
             type: "solidgauge",
-            height: 80,
-            width: 80,
+            height: 60,
+            width: 60,
             backgroundColor: "transparent",
             margin: [0, 0, 0, 0],
             spacing: [0, 0, 0, 0]
@@ -113,9 +122,9 @@ function HealthCategoriesTabbedView() {
             solidgauge: {
                 dataLabels: {
                     enabled: true,
-                    y: -10,
+                    y: -8,
                     borderWidth: 0,
-                    format: `<span style="font-size:14px;font-weight:bold;color:${inactiveColor}">{y}</span>`
+                    format: `<span style="font-size:12px;font-weight:bold;color:${inactiveColor}">{y}</span>`
                 }
             }
         },
@@ -258,17 +267,18 @@ function HealthCategoriesTabbedView() {
                             })}
                         </ul>
                     </div>
-                    <div style={{textAlign: "center", marginTop: "0px", marginBottom: "-30px", marginRight: "28px"}}>
+                    <div style={{textAlign: "center", marginTop: "-10px", marginBottom: "-30px", marginRight: "17px"}}>
                         <HighchartsReact highcharts={Highcharts} options={gaugeOptions} />
                     </div>
                 </div>
                 <div style={{margin: "0 8px", borderBottom: "1px solid #dee2e6"}}/>
-                <div style={{flex: 1, padding: "16px", paddingRight: "0", overflowY: "auto"}}>
+                <div ref={scrollContainerRef} style={{flex: 1, padding: "16px", paddingRight: "0", overflowY: "auto"}}>
                     {selectedSubMenu === "markers" && selectedCategoryData && (
                         <HealthMarkers
                             categoryId={selectedCategoryData.id}
                             categoryLabel={selectedCategoryData.label}
                             inactiveColor={inactiveColor}
+                            scrollbarWidth={scrollbarWidth}
                         />
                     )}
                 </div>

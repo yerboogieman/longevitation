@@ -41,6 +41,10 @@ export class HealthStatsService {
         return this.healthStatModel.findByIdAndUpdate(id, updateHealthStatDto, {new: true}).exec();
     }
 
+    async insertMany(healthStats: Partial<HealthStat>[]) {
+        return this.healthStatModel.insertMany(healthStats);
+    }
+
     async updateField(updateSingleFieldDto: UpdateSingleFieldDto) {
         const {id, fieldName, value} = updateSingleFieldDto;
         return this.healthStatModel.findByIdAndUpdate(
