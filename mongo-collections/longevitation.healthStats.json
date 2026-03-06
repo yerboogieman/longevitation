@@ -1,0 +1,2555 @@
+[{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56bc"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-19T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bloodPressure",
+    "userId": "greenie"
+  },
+  "data": {
+    "diastolic": 70,
+    "systolic": 104
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56bd"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-21T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bloodPressure",
+    "userId": "greenie"
+  },
+  "data": {
+    "diastolic": 66,
+    "systolic": 109
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56be"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-24T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bloodPressure",
+    "userId": "greenie"
+  },
+  "data": {
+    "systolic": 113,
+    "diastolic": 77
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56bf"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-28T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bloodPressure",
+    "userId": "greenie"
+  },
+  "data": {
+    "systolic": 103,
+    "diastolic": 71
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56c0"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-01-30T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 17.7
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56c1"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-01-31T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 17.1
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56c2"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-01T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 17.4
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56c3"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-02T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 17.4
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56c4"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-03T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 17.6
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56c5"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-04T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 17.4
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56c6"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-07T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 17.4
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56c7"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-08T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 16.6
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56c8"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-09T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 16.8
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56c9"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-10T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 16.7
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56ca"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-11T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 16.75
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56cb"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-12T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 16.8
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56cc"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-13T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 16.1
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56cd"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-14T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 16.18
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56ce"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-15T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 16.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56cf"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-16T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 16.1
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56d0"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-17T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 15.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56d1"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-18T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 16
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56d2"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-19T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 15.2
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56d3"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-20T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 15.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56d4"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-21T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 15.7
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56d5"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-22T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 14.899999999999999
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56d6"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-23T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 15.6
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56d7"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-24T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 16
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56d8"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-25T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 15.9
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56d9"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-26T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 15.6
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56da"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-27T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 15.6
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56db"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-28T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 15.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56dc"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-03-01T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyFatPercentage",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 14.800000000000002
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56dd"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-01-30T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 26
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56de"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-01-31T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.9
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56df"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-01T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.9
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56e0"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-02T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.8
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56e1"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-03T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 26
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56e2"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-04T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 26
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56e3"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-07T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.9
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56e4"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-08T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.7
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56e5"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-09T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56e6"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-10T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56e7"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-11T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.45
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56e8"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-12T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.6
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56e9"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-13T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56ea"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-14T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.220000000000002
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56eb"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-15T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.3
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56ec"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-16T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.4
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56ed"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-17T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.3
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56ee"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-18T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.6
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56ef"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-19T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.1
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56f0"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-20T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56f1"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-21T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56f2"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-22T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.2
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56f3"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-23T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56f4"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-24T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56f5"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-25T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56f6"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-26T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56f7"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-27T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56f8"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-28T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25.5
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56f9"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-03-01T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "bodyMassIndex",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 25
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56fa"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-01T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "waistCircumference",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 35.51574803149606
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56fb"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-15T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "waistCircumference",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 35.25590551181102
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56fc"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-13T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 184.30456
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56fd"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-14T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 180.33628
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56fe"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-15T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 180.77720000000002
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc56ff"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-16T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 181.43858
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5700"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-17T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 180.44651
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5701"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-18T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 182.98180000000002
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5702"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-19T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 179.34421
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5703"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-20T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 182.21019
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5704"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-21T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 181.98973
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5705"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-22T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 180.33628000000002
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5706"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-23T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 181.98973
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5707"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-24T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 182.32042
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5708"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-25T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 182.32042
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5709"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-26T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 181.98973
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc570a"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-27T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 182.21019
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc570b"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-28T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 182.09996
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc570c"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-03-01T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "weightBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 178.90329000000003
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc570d"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-13T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 92
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc570e"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-14T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 64
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc570f"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-15T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 82
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5710"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-16T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 65
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5711"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-17T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 62
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5712"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-18T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 59
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5713"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-19T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 59
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5714"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-20T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 61
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5715"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-21T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 69
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5716"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-22T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 58
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5717"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-23T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 59
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5718"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-24T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 59
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5719"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-25T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 59
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc571a"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-26T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 56
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc571b"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-27T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 61
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc571c"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-28T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 58
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc571d"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-03-01T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "restingHeartRate",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 60
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc571e"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-14T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "totalSleep": 7.483055555555555,
+    "core": 4.4497222222222215,
+    "source": "Connect",
+    "inBed": 7.683333333333334,
+    "inBedStart": "2026-02-14 03:29:14 -0500",
+    "deep": 1.3166666666666667,
+    "awake": 0.2,
+    "inBedEnd": "2026-02-14 11:10:14 -0500",
+    "sleepEnd": "2026-02-14 11:10:14 -0500",
+    "rem": 1.7166666666666666,
+    "sleepStart": "2026-02-14 03:29:15 -0500",
+    "asleep": 0
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc571f"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-16T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "rem": 1.4833333333333334,
+    "inBed": 7.6,
+    "inBedStart": "2026-02-16 03:26:35 -0500",
+    "sleepStart": "2026-02-16 03:26:36 -0500",
+    "asleep": 0,
+    "totalSleep": 6.699722222222222,
+    "inBedEnd": "2026-02-16 11:02:35 -0500",
+    "sleepEnd": "2026-02-16 11:02:35 -0500",
+    "source": "Connect",
+    "deep": 0.9666666666666667,
+    "awake": 0.9,
+    "core": 4.249722222222222
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5720"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-17T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "sleepStart": "2026-02-17 02:31:51 -0500",
+    "inBedEnd": "2026-02-17 09:43:50 -0500",
+    "asleep": 0,
+    "totalSleep": 6.833055555555556,
+    "source": "Connect",
+    "rem": 1.4666666666666668,
+    "inBedStart": "2026-02-17 02:31:50 -0500",
+    "awake": 0.36666666666666664,
+    "inBed": 7.2,
+    "sleepEnd": "2026-02-17 09:43:50 -0500",
+    "core": 3.7663888888888892,
+    "deep": 1.5999999999999999
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5721"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-18T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "deep": 1.4666666666666666,
+    "rem": 1.85,
+    "sleepEnd": "2026-02-18 12:08:04 -0500",
+    "inBedStart": "2026-02-18 04:30:04 -0500",
+    "asleep": 0,
+    "inBedEnd": "2026-02-18 12:08:04 -0500",
+    "sleepStart": "2026-02-18 04:30:05 -0500",
+    "core": 3.666388888888889,
+    "inBed": 7.633333333333334,
+    "totalSleep": 6.983055555555556,
+    "awake": 0.6499999999999999,
+    "source": "Connect"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5722"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-19T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "asleep": 0.38333333333333336,
+    "inBed": 7.816666666666667,
+    "rem": 0.35,
+    "sleepStart": "2026-02-19 03:24:41 -0500",
+    "totalSleep": 6.71638888888889,
+    "inBedStart": "2026-02-19 03:24:40 -0500",
+    "core": 4.583055555555556,
+    "sleepEnd": "2026-02-19 15:48:18 -0500",
+    "inBedEnd": "2026-02-19 15:48:18 -0500",
+    "source": "Connect",
+    "deep": 1.4,
+    "awake": 1.0999999999999999
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5723"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-20T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "deep": 1.7499999999999998,
+    "sleepEnd": "2026-02-20 11:37:18 -0500",
+    "source": "Connect",
+    "core": 3.716388888888889,
+    "rem": 1.4166666666666667,
+    "inBedStart": "2026-02-20 04:02:18 -0500",
+    "inBedEnd": "2026-02-20 11:37:18 -0500",
+    "asleep": 0,
+    "sleepStart": "2026-02-20 04:02:19 -0500",
+    "awake": 0.7000000000000001,
+    "totalSleep": 6.883055555555556,
+    "inBed": 7.583333333333333
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5724"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-22T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "sleepStart": "2026-02-22 02:23:44 -0500",
+    "inBedEnd": "2026-02-22 10:30:43 -0500",
+    "inBed": 8.116666666666667,
+    "deep": 1.6,
+    "rem": 1.3833333333333335,
+    "inBedStart": "2026-02-22 02:23:43 -0500",
+    "sleepEnd": "2026-02-22 10:30:43 -0500",
+    "asleep": 0,
+    "awake": 1.4833333333333334,
+    "core": 3.6497222222222225,
+    "totalSleep": 6.633055555555557,
+    "source": "Connect"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5725"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-23T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "inBedStart": "2026-02-23 02:43:12 -0500",
+    "rem": 1.5833333333333335,
+    "awake": 0.7166666666666666,
+    "sleepStart": "2026-02-23 02:43:13 -0500",
+    "source": "Connect",
+    "inBed": 7.283333333333333,
+    "core": 3.7330555555555556,
+    "totalSleep": 6.5663888888888895,
+    "deep": 1.25,
+    "inBedEnd": "2026-02-23 10:00:12 -0500",
+    "asleep": 0,
+    "sleepEnd": "2026-02-23 10:00:12 -0500"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5726"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-24T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "inBed": 3.9322222222222223,
+    "source": "Connect",
+    "awake": 0.08333333333333333,
+    "asleep": 0,
+    "rem": 0.85,
+    "core": 2.1819444444444445,
+    "inBedStart": "2026-02-24 03:57:59 -0500",
+    "totalSleep": 3.8486111111111114,
+    "sleepStart": "2026-02-24 03:58:00 -0500",
+    "inBedEnd": "2026-02-24 07:53:55 -0500",
+    "sleepEnd": "2026-02-24 07:53:55 -0500",
+    "deep": 0.8166666666666668
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5727"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-25T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "sleepStart": "2026-02-25 03:01:40 -0500",
+    "sleepEnd": "2026-02-25 09:02:39 -0500",
+    "rem": 0.6666666666666667,
+    "inBedStart": "2026-02-25 03:01:39 -0500",
+    "awake": 0.11666666666666667,
+    "asleep": 0,
+    "totalSleep": 5.8997222222222225,
+    "inBedEnd": "2026-02-25 09:02:39 -0500",
+    "deep": 1.6166666666666667,
+    "source": "Connect",
+    "core": 3.6163888888888893,
+    "inBed": 6.016666666666667
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5728"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-26T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "inBedStart": "2026-02-26 02:26:36 -0500",
+    "deep": 1.25,
+    "source": "Connect",
+    "asleep": 0,
+    "core": 4.733055555555555,
+    "inBed": 8.116666666666667,
+    "rem": 1.5833333333333333,
+    "inBedEnd": "2026-02-26 10:33:36 -0500",
+    "sleepStart": "2026-02-26 02:26:37 -0500",
+    "totalSleep": 7.566388888888888,
+    "sleepEnd": "2026-02-26 10:33:36 -0500",
+    "awake": 0.55
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5729"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-27T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "inBed": 7.466666666666667,
+    "core": 3.9163888888888883,
+    "source": "Connect",
+    "rem": 1.2,
+    "sleepEnd": "2026-02-27 11:40:49 -0500",
+    "inBedEnd": "2026-02-27 11:40:49 -0500",
+    "asleep": 0,
+    "sleepStart": "2026-02-27 04:12:50 -0500",
+    "inBedStart": "2026-02-27 04:12:49 -0500",
+    "totalSleep": 6.083055555555555,
+    "deep": 0.9666666666666667,
+    "awake": 1.3833333333333333
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc572a"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-28T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "inBed": 8.083333333333334,
+    "inBedEnd": "2026-02-28 09:44:44 -0500",
+    "sleepStart": "2026-02-28 01:39:45 -0500",
+    "awake": 2.1333333333333333,
+    "core": 3.899722222222222,
+    "rem": 0.8333333333333333,
+    "deep": 1.2166666666666666,
+    "inBedStart": "2026-02-28 01:39:44 -0500",
+    "totalSleep": 5.9497222222222215,
+    "asleep": 0,
+    "sleepEnd": "2026-02-28 09:44:44 -0500",
+    "source": "Connect"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc572b"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-03-01T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "sleepAnalysis",
+    "userId": "greenie"
+  },
+  "data": {
+    "inBedEnd": "2026-03-01 10:18:51 -0500",
+    "sleepEnd": "2026-03-01 10:18:51 -0500",
+    "core": 2.8830555555555555,
+    "awake": 0.35,
+    "sleepStart": "2026-03-01 04:14:52 -0500",
+    "inBedStart": "2026-03-01 04:14:51 -0500",
+    "inBed": 6.066666666666666,
+    "source": "Connect",
+    "deep": 1.85,
+    "rem": 0.9833333333333334,
+    "totalSleep": 5.716388888888889,
+    "asleep": 0
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc572c"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-01-30T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 152.86200365000002
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc572d"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-01-31T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.15400291999998
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc572e"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-01T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 152.87291642000002
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc572f"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-02T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 152.32661654000003
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5730"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-03T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.22940024
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5731"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-04T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.32816632
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5732"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-07T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 152.9639664
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5733"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-08T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.25034394
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5734"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-09T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 151.59887808000002
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5735"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-10T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 151.59744509
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5736"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-11T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 151.41457352
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5737"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-12T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 152.2408576
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5738"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-13T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 152.76643424
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5739"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-14T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 151.15806831
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc573a"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-15T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 150.948962
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc573b"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-16T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 152.22696862
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc573c"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-17T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 152.47730095
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc573d"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-18T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.704712
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc573e"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-19T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 152.08389008
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc573f"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-20T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.96761055000002
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5740"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-21T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.41734239000002
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5741"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-22T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.46617428000002
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5742"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-23T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.59933212
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5743"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-24T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.14915280000002
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5744"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-25T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.33147322000002
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5745"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-26T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.59933212
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5746"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-27T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.78540036
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5747"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-02-28T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 153.8744662
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69aaeea5a12b7156b0bc5748"
+  },
+  "deletedAt": null,
+  "timestamp": {
+    "$date": "2026-03-01T05:00:00.000Z"
+  },
+  "metadata": {
+    "healthMarkerId": "leanBodyMass",
+    "userId": "greenie"
+  },
+  "data": {
+    "qty": 152.42560308000003
+  },
+  "__v": 0
+}]
