@@ -42,7 +42,14 @@ export class HealthStatsService {
     }
 
     async insertMany(healthStats: Partial<HealthStat>[]) {
-        return this.healthStatModel.insertMany(healthStats);
+        try {
+            return await this.healthStatModel.insertMany(healthStats, { ordered: false });
+        } catch (error) {
+            if (error.code === 11000) {
+                return error.insertedDocs ?? [];
+            }
+            throw error;
+        }
     }
 
     async updateField(updateSingleFieldDto: UpdateSingleFieldDto) {

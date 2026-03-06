@@ -40,6 +40,6 @@ import { Model } from 'mongoose';
       inject: ['IUserRepository', AuthService, EventEmitter2],
     },
   ],
-  exports: [UserService],
+  exports: [UserService, SecurityModule],
 })
 export class AuthModule {}

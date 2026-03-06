@@ -1,4 +1,5 @@
 import {Module} from '@nestjs/common';
+import {APP_GUARD} from '@nestjs/core';
 import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {HealthCategoriesModule} from './health-categories/health-categories.module';
@@ -8,6 +9,8 @@ import {ConfigModule, ConfigService} from '@nestjs/config';
 import {HealthStatsModule} from './health-stats/health-stats.module';
 import {UsersModule} from './users/users.module';
 import {AuthModule} from './auth/auth.module';
+import {AuthGuard, USER_PROVIDER_TOKEN} from '@customation/security';
+import {UserService} from '@customation/service';
 
 @Module({
     controllers: [
@@ -30,7 +33,17 @@ import {AuthModule} from './auth/auth.module';
             inject: [ConfigService],
         }),
     ],
-    providers: [AppService],
+    providers: [
+        AppService,
+        {
+            provide: APP_GUARD,
+            useClass: AuthGuard,
+        },
+        {
+            provide: USER_PROVIDER_TOKEN,
+            useExisting: UserService,
+        },
+    ],
 })
 export class AppModule {
 }

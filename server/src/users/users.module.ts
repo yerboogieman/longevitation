@@ -4,7 +4,7 @@ import { EventEmitter2, EventEmitterModule } from '@nestjs/event-emitter';
 import { User, UserSchema } from '@customation/model/document';
 import { UserController } from '@customation/web';
 import { UserService, StatusService, AvatarService, LabelService, LABELS_CONFIG_TOKEN, FileSystemStorageService, STORAGE_CONFIG_TOKEN } from '@customation/service';
-import { AuthGuard } from './auth.guard';
+
 import { UserMongooseRepository, RoleMongooseRepository } from '@customation/data';
 import { SecurityModule, AuthService } from '@customation/security';
 import { Model } from 'mongoose';
@@ -63,7 +63,6 @@ import * as path from 'path';
       useClass: FileSystemStorageService,
     },
     AvatarService,
-    AuthGuard,
   ],
   exports: [UserService],
 })
