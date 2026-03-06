@@ -1,11 +1,12 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, UseGuards} from '@nestjs/common';
 import {HealthStatsService} from './health-stats.service';
 import {CreateHealthStatDto} from './dto/create-health-stat.dto';
 import {UpdateHealthStatDto} from './dto/update-health-stat.dto';
 import {UpdateSingleFieldDto} from '../dto/update-single-field.dto';
 import {User} from "@customation/model/document";
-import {CurrentUser} from '@customation/security'
+import {CurrentUser, Public} from '@customation/security'
 import {snakeToCamel} from "@customation/core";
+import {ApiKeyGuard} from "../common/guards/api-key.guard";
 
 @Controller('health-stats')
 export class HealthStatsController {
@@ -43,8 +44,10 @@ export class HealthStatsController {
         return this.healthStatsService.remove(id);
     }
 
+    @Public()
+    @UseGuards(ApiKeyGuard)
     @Post('apple-health-data')
-    loadAppleHealthData(@CurrentUser() user: User, @Body() appleHealthData: any) {
+    async loadAppleHealthData(@CurrentUser() user: User, @Body() appleHealthData: any) {
 
         const userId = user.id;
         const stats = appleHealthData.data.metrics;
@@ -60,6 +63,8 @@ export class HealthStatsController {
             }))
         );
 
-        return this.healthStatsService.insertMany(healthStats);
+        const inserted = await this.healthStatsService.insertMany(healthStats);
+
+        return { insertedCount: inserted.length };
     }
 }
