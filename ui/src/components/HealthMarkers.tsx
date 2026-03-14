@@ -213,6 +213,7 @@ const markerTabItems: MarkerTabItem[] = [
 ];
 
 function HealthMarkers({categoryId, categoryLabel, inactiveColor, scrollbarWidth = 0}: HealthMarkersProps) {
+
     const markers = mockMarkersByCategory[categoryId] || [];
     const [openAccordion, setOpenAccordion] = useState<string | null>(null);
     const [explicitClose, setExplicitClose] = useState<string | null>(null);

@@ -32,7 +32,7 @@ function App() {
     const data = {
         gender: "female",
         score: 88,
-        setupComplete: false,
+        setupComplete: true,
     };
 
     const styles = {

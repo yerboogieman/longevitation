@@ -5,8 +5,8 @@ import {UpdateHealthStatDto} from './dto/update-health-stat.dto';
 import {UpdateSingleFieldDto} from '../dto/update-single-field.dto';
 import {User} from "@customation/model/document";
 import {CurrentUser, Public} from '@customation/security'
-import {snakeToCamel} from "@customation/core";
 import {ApiKeyGuard} from "../common/guards/api-key.guard";
+import { paramCase } from 'change-case'
 
 @Controller('health-stats')
 export class HealthStatsController {
@@ -56,7 +56,7 @@ export class HealthStatsController {
             stat.data.map(({ date, ...rest }: any) => ({
                 timestamp: new Date(date),
                 metadata: {
-                    healthMarkerId: snakeToCamel(stat.name),
+                    healthMarkerId: paramCase(stat.name),
                     userId
                 },
                 data: rest
